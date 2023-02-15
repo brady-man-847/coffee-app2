@@ -1,0 +1,35 @@
+import { Accordion, AccordionDetails, AccordionSummary, CircularProgress, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useId } from 'react';
+import { COFFEE_CATEGORIES } from '@/constants/coffeeCategory';
+import useMenuList from '@/components/menu/useMenuList';
+import MenuCategoryDetail from '@/components/menu/MenuCategoryDetail';
+import { MenuRs } from '@/dto';
+
+export default function MenuCategory() {
+  const id = useId();
+  const { data, isLoading, isLoadingError } = useMenuList();
+
+  console.log(data, isLoading, isLoadingError);
+
+  const renderData = (menu: MenuRs[]) => {
+    const getMenusByType = (idx: number) => menu.filter((i) => i.type === idx);
+
+    return COFFEE_CATEGORIES.map((item, index) => (
+      <Accordion key={id + index} defaultExpanded>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <Typography>{item}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <MenuCategoryDetail data={getMenusByType(index)} />
+        </AccordionDetails>
+      </Accordion>
+    ));
+  };
+
+  if (isLoading) {
+    return <CircularProgress />;
+  }
+
+  return <>{data ? renderData(data) : <CircularProgress />}</>;
+}

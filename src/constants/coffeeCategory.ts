@@ -1,0 +1,1 @@
+export const COFFEE_CATEGORIES = ['COFFEE', 'NON-COFFEE', 'TEA', 'ADE & JUICE', 'FLATCCINO', 'BOTTLE', 'SNACK', 'S / W'];
