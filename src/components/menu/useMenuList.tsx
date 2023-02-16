@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/config/queryClient';
 import axios from 'axios';
-import { MenuRs } from '@/dto';
+import { MenuRs } from '@/dto/menuDto';
 
 export default function useMenuList() {
   return useQuery<Array<MenuRs>>(queryKeys.menu.all, async () => {

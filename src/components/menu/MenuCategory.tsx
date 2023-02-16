@@ -4,7 +4,8 @@ import { useId } from 'react';
 import { COFFEE_CATEGORIES } from '@/constants/coffeeCategory';
 import useMenuList from '@/components/menu/useMenuList';
 import MenuCategoryDetail from '@/components/menu/MenuCategoryDetail';
-import { MenuRs } from '@/dto';
+import MenuOrderModal from '@/components/menu/MenuOrderModal';
+import { MenuRs } from '@/dto/menuDto';
 
 export default function MenuCategory() {
   const id = useId();
@@ -21,7 +22,7 @@ export default function MenuCategory() {
           <Typography>{item}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <MenuCategoryDetail data={getMenusByType(index)} />
+          <MenuCategoryDetail data={getMenusByType(index)} key={`${id + index}d`} />
         </AccordionDetails>
       </Accordion>
     ));
@@ -31,5 +32,10 @@ export default function MenuCategory() {
     return <CircularProgress />;
   }
 
-  return <>{data ? renderData(data) : <CircularProgress />}</>;
+  return (
+    <>
+      {data ? renderData(data) : <CircularProgress />}
+      <MenuOrderModal />
+    </>
+  );
 }
