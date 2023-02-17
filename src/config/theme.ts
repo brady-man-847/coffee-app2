@@ -78,6 +78,9 @@ const theme: Theme = createTheme({
       contrastText: c.blue[100],
     },
   },
+  typography: {
+    fontFamily: 'IBM Plex Sans KR',
+  },
 });
 
 export default responsiveFontSizes(theme, {

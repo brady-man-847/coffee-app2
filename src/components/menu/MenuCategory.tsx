@@ -4,7 +4,6 @@ import { useId } from 'react';
 import { COFFEE_CATEGORIES } from '@/constants/coffeeCategory';
 import useMenuList from '@/hooks/menu/useMenuList';
 import MenuCategoryDetail from '@/components/menu/MenuCategoryDetail';
-import MenuOrderModal from '@/components/menu/MenuOrderModal';
 import { MenuRs } from '@/dto/menuDto';
 import { Loading } from '@/components/common';
 
@@ -31,10 +30,5 @@ export default function MenuCategory() {
     return <Loading />;
   }
 
-  return (
-    <>
-      {data ? renderData(data) : <Loading />}
-      <MenuOrderModal />
-    </>
-  );
+  return <>{data ? renderData(data) : <Loading />}</>;
 }

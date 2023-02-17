@@ -1,20 +1,18 @@
 import { Box, Paper, Typography } from '@mui/material';
-import { useSetRecoilState } from 'recoil';
-import { modalAtom } from '@/atoms/modalAtom';
-import { menuAtom } from '@/atoms/menuAtom';
 import { MenuRs } from '@/dto/menuDto';
+import { useContextSelector } from 'use-context-selector';
+import { MenuContext } from '@/context/menu/MenuContext';
 
 interface Props {
   data?: MenuRs[];
 }
 
 export default function MenuCategoryDetail({ data }: Props) {
-  const setMounted = useSetRecoilState(modalAtom);
-  const setMenu = useSetRecoilState(menuAtom);
+  const dispatch = useContextSelector(MenuContext, (v) => v[1]);
 
   const onClick = (item: MenuRs) => {
-    setMounted(true);
-    setMenu(item);
+    dispatch({ type: 'SET_DRAWER_OPEN', isDrawerOpen: true });
+    dispatch({ type: 'SET_MENU', menu: item });
   };
 
   return (

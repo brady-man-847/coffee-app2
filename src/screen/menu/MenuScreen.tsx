@@ -1,7 +1,11 @@
 import MenuCategory from '@/components/menu/MenuCategory';
-import styled from '@emotion/styled';
-import { BottomBlock } from '@/components/layout/BottomBlock';
+import MenuOptionDrawer from '@/components/menu/MenuOptionDrawer';
 
 export default function MenuScreen() {
-  return <MenuCategory />;
+  return (
+    <>
+      <MenuCategory />
+      <MenuOptionDrawer />
+    </>
+  );
 }
