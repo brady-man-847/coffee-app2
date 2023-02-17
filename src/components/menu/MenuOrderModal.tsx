@@ -1,15 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  CircularProgress,
-  IconButton,
-  Modal,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, IconButton, Modal, TextField, Typography } from '@mui/material';
 import { modalAtom } from '@/atoms/modalAtom';
 import { useRecoilState } from 'recoil';
 import CloseIcon from '@mui/icons-material/Close';
@@ -20,6 +9,7 @@ import MenuOptionValue from '@/components/menu/MenuOptionValue';
 import { orderAtom } from '@/atoms/orderAtom';
 import axios from 'axios';
 import _ from 'lodash';
+import { Loading } from '@/components/common';
 
 export default function MenuOrderModal() {
   const [mounted, setMounted] = useRecoilState(modalAtom);
@@ -50,7 +40,7 @@ export default function MenuOrderModal() {
   };
 
   if (isLoading) {
-    return <CircularProgress />;
+    return <Loading />;
   }
 
   return (

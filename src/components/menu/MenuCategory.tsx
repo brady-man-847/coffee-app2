@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, CircularProgress, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useId } from 'react';
 import { COFFEE_CATEGORIES } from '@/constants/coffeeCategory';
@@ -6,12 +6,11 @@ import useMenuList from '@/hooks/menu/useMenuList';
 import MenuCategoryDetail from '@/components/menu/MenuCategoryDetail';
 import MenuOrderModal from '@/components/menu/MenuOrderModal';
 import { MenuRs } from '@/dto/menuDto';
+import { Loading } from '@/components/common';
 
 export default function MenuCategory() {
   const id = useId();
   const { data, isLoading } = useMenuList();
-
-  console.log(data, isLoading);
 
   const renderData = (menu: MenuRs[]) => {
     const getMenusByType = (idx: number) => menu.filter((i) => i.type === idx);
@@ -29,12 +28,12 @@ export default function MenuCategory() {
   };
 
   if (isLoading) {
-    return <CircularProgress />;
+    return <Loading />;
   }
 
   return (
     <>
-      {data ? renderData(data) : <CircularProgress />}
+      {data ? renderData(data) : <Loading />}
       <MenuOrderModal />
     </>
   );

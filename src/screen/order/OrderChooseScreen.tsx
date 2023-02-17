@@ -1,8 +1,9 @@
 import useOrderList from '@/hooks/order/useOrderList';
 import { useContextSelector } from 'use-context-selector';
 import { OrderContext } from '@/context/order/OrderContext';
-import { Box, CircularProgress, Divider, Paper, Typography } from '@mui/material';
+import { Box, Divider, Paper, Typography } from '@mui/material';
 import { OrderRs } from '@/dto/orderDto';
+import { Loading } from '@/components/common';
 
 export default function OrderChooseScreen() {
   const { phone } = useContextSelector(OrderContext, (v) => v[0]);
@@ -27,7 +28,7 @@ export default function OrderChooseScreen() {
   };
   return (
     <Paper elevation={3} sx={{ p: 1, m: 1 }}>
-      {isLoading ? <CircularProgress /> : renderItems(data)}
+      {isLoading ? <Loading /> : renderItems(data)}
     </Paper>
   );
 }
