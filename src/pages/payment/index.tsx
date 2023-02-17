@@ -1,3 +1,3 @@
 export default function PaymentPage() {
-  return <p>it is a payment page</p>;
+  return <div>HELLO WORLD</div>;
 }

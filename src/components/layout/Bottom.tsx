@@ -11,6 +11,7 @@ enum BottomMenu {
   GAME = '/game',
   PAYMENT = '/payment',
   SETTING = '/setting',
+  ORDER = '/order',
 }
 
 export default function Bottom() {
@@ -27,7 +28,7 @@ export default function Bottom() {
         >
           <BottomNavigationAction value={BottomMenu.MENU} label="메뉴" icon={<CoffeeIcon />} />
           <BottomNavigationAction value={BottomMenu.GAME} label="게임" icon={<SmartToyIcon />} />
-          <BottomNavigationAction value={BottomMenu.PAYMENT} label="주문" icon={<LocalAtmIcon />} />
+          <BottomNavigationAction value={BottomMenu.ORDER} label="주문" icon={<LocalAtmIcon />} />
           <BottomNavigationAction value={BottomMenu.SETTING} label="설정" icon={<SettingsIcon />} />
         </BottomNavigation>
       </BottomBox>

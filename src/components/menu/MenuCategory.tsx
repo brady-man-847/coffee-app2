@@ -2,16 +2,16 @@ import { Accordion, AccordionDetails, AccordionSummary, CircularProgress, Typogr
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useId } from 'react';
 import { COFFEE_CATEGORIES } from '@/constants/coffeeCategory';
-import useMenuList from '@/components/menu/useMenuList';
+import useMenuList from '@/hooks/menu/useMenuList';
 import MenuCategoryDetail from '@/components/menu/MenuCategoryDetail';
 import MenuOrderModal from '@/components/menu/MenuOrderModal';
 import { MenuRs } from '@/dto/menuDto';
 
 export default function MenuCategory() {
   const id = useId();
-  const { data, isLoading, isLoadingError } = useMenuList();
+  const { data, isLoading } = useMenuList();
 
-  console.log(data, isLoading, isLoadingError);
+  console.log(data, isLoading);
 
   const renderData = (menu: MenuRs[]) => {
     const getMenusByType = (idx: number) => menu.filter((i) => i.type === idx);

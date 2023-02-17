@@ -9,4 +9,8 @@ export const queryKeys = {
     all: ['menu '] as const,
     option: (menuCode: string) => [...queryKeys.menu.all, menuCode],
   },
+  order: {
+    all: ['order'] as const,
+    byPhone: (phone: string) => [...queryKeys.order.all, phone],
+  },
 };

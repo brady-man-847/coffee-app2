@@ -14,7 +14,7 @@ import { modalAtom } from '@/atoms/modalAtom';
 import { useRecoilState } from 'recoil';
 import CloseIcon from '@mui/icons-material/Close';
 import { menuAtom } from '@/atoms/menuAtom';
-import useMenuOption from '@/components/menu/useMenuOption';
+import useMenuOption from '@/hooks/menu/useMenuOption';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MenuOptionValue from '@/components/menu/MenuOptionValue';
 import { orderAtom } from '@/atoms/orderAtom';
