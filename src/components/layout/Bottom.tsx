@@ -14,11 +14,13 @@ enum BottomMenu {
   ORDER = '/order',
 }
 
-export default function Bottom() {
+export const BOTTOM_HEIGHT = 65;
+
+export default function () {
   const router = useRouter();
   return (
     <>
-      <BottomBox>
+      <Bottom height={BOTTOM_HEIGHT}>
         <BottomNavigation
           showLabels
           value={router.pathname}
@@ -31,13 +33,14 @@ export default function Bottom() {
           <BottomNavigationAction value={BottomMenu.ORDER} label="주문" icon={<LocalAtmIcon />} />
           <BottomNavigationAction value={BottomMenu.SETTING} label="설정" icon={<SettingsIcon />} />
         </BottomNavigation>
-      </BottomBox>
+      </Bottom>
     </>
   );
 }
 
-const BottomBox = styled(Paper)`
+const Bottom = styled(Paper)<{ height: number }>`
   position: absolute;
   bottom: 0;
   width: inherit;
+  height: ${(props) => props.height}px;
 `;
