@@ -3,6 +3,7 @@ import { useContextSelector } from 'use-context-selector';
 import { OrderContext, OrderView } from '@/context/order/OrderContext';
 import { ChangeEvent } from 'react';
 import axios from 'axios';
+import PhoneInput from '@/components/common/PhoneInput';
 
 export default function OrderPhoneScreen() {
   const { phone } = useContextSelector(OrderContext, (v) => v[0]);
@@ -23,8 +24,8 @@ export default function OrderPhoneScreen() {
         console.error(e);
       });
   };
-  const handlePhoneAuthInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_PHONE', phone: e.target.value });
+  const handlePhoneAuthInputChange = (formattedValue: string) => {
+    dispatch({ type: 'SET_PHONE', phone: formattedValue });
   };
   return (
     <Box
@@ -39,7 +40,7 @@ export default function OrderPhoneScreen() {
         당신은 누구십니까?
       </Typography>
       <Box sx={{ mt: 1 }}>
-        <TextField margin="normal" required fullWidth label="핸드폰 번호" autoFocus onChange={handlePhoneAuthInputChange} />
+        <PhoneInput margin="normal" required fullWidth label="핸드폰 번호" autoFocus handleValueChange={handlePhoneAuthInputChange} />
         <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={handleSubmit}>
           인증하기
         </Button>

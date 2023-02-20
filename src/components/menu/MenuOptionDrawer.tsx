@@ -9,6 +9,7 @@ import { useContextSelector } from 'use-context-selector';
 import { MenuContext } from '@/context/menu/MenuContext';
 import { Loading } from '@/components/common';
 import { ChangeEvent, useState } from 'react';
+import PhoneInput from '@/components/common/PhoneInput';
 
 export default function MenuOptionDrawer() {
   const { menu, order, isDrawerOpen } = useContextSelector(MenuContext, (v) => v[0]);
@@ -43,8 +44,8 @@ export default function MenuOptionDrawer() {
     return null;
   };
 
-  const handlePhoneInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: 'SET_ORDER', order: { ...order, phone: e.target.value } });
+  const handlePhoneInputChange = (formattedValue: string) => {
+    dispatch({ type: 'SET_ORDER', order: { ...order, phone: formattedValue } });
   };
 
   const handleDrawerClose = () => {
@@ -96,7 +97,7 @@ export default function MenuOptionDrawer() {
               </Accordion>
             ))}
           <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-            <TextField label="핸드폰 번호" variant="outlined" onChange={handlePhoneInputChange} />
+            <PhoneInput label="핸드폰 번호" variant="outlined" handleValueChange={handlePhoneInputChange} />
             <Button variant={'contained'} onClick={handleSaveOrder} disabled={isRequestApi}>
               장바구니
             </Button>
