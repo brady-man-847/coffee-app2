@@ -39,7 +39,7 @@ export default function () {
 }
 
 const Bottom = styled(Paper)<{ height: number }>`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: inherit;
   height: ${(props) => props.height}px;

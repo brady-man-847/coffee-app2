@@ -8,16 +8,18 @@ import _ from 'lodash';
 import { useContextSelector } from 'use-context-selector';
 import { MenuContext } from '@/context/menu/MenuContext';
 import { Loading } from '@/components/common';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 export default function MenuOptionDrawer() {
   const { menu, order, isDrawerOpen } = useContextSelector(MenuContext, (v) => v[0]);
   const dispatch = useContextSelector(MenuContext, (v) => v[1]);
-
   const { data, isLoading } = useMenuOption(menu.code, menu.code !== undefined);
+
+  const [isRequestApi, setIsRequestApi] = useState(false);
 
   const handleSaveOrder = async () => {
     console.log({ ...order, menuCode: menu.code, optionValueList: _.values(order.optionValueList) });
+    setIsRequestApi(true);
     const result = await axios
       .post('https://mcafe-api.onrender.com/order', {
         ...order,
@@ -31,6 +33,9 @@ export default function MenuOptionDrawer() {
       })
       .catch((e) => {
         alert(e.message);
+      })
+      .finally(() => {
+        setIsRequestApi(false);
       });
 
     console.log(result);
@@ -62,7 +67,7 @@ export default function MenuOptionDrawer() {
       SlideProps={{}}
       PaperProps={{
         sx: {
-          width: 500,
+          width: '100%',
           alignContent: 'center',
           m: 'auto',
           p: 2,
@@ -92,7 +97,7 @@ export default function MenuOptionDrawer() {
             ))}
           <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
             <TextField label="핸드폰 번호" variant="outlined" onChange={handlePhoneInputChange} />
-            <Button variant={'contained'} onClick={handleSaveOrder}>
+            <Button variant={'contained'} onClick={handleSaveOrder} disabled={isRequestApi}>
               장바구니
             </Button>
           </Box>

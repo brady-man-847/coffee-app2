@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
 }
 
 const Body = styled.div`
-  width: 500px;
+  width: 100%;
   margin: 0 auto;
   height: 100vh;
   overflow-y: hidden;

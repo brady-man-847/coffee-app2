@@ -6,10 +6,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
-    "export": "next export",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "gh-pages -d out"
+    "deploy": "gh-pages -d out --dotfiles"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
