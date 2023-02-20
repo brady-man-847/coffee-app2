@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <AppBar position={'static'} color={'primary'}>
       <Toolbar>
-        <Typography>안녕하세요</Typography>
+        <Typography>COFFEE WORLD</Typography>
       </Toolbar>
     </AppBar>
   );

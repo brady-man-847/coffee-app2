@@ -18,12 +18,20 @@ export default function MenuOptionDrawer() {
 
   const handleSaveOrder = async () => {
     console.log({ ...order, menuCode: menu.code, optionValueList: _.values(order.optionValueList) });
-    const result = await axios.post('https://mcafe-api.onrender.com/order', {
-      ...order,
-      menuCode: menu.code,
-      optionValueList: _.compact(_.values(order.optionValueList)),
-      setDefault: false,
-    });
+    const result = await axios
+      .post('https://mcafe-api.onrender.com/order', {
+        ...order,
+        menuCode: menu.code,
+        optionValueList: _.compact(_.values(order.optionValueList)),
+        setDefault: false,
+      })
+      .then((r) => {
+        const { data: rData } = r;
+        alert(rData);
+      })
+      .catch((e) => {
+        alert(e.message);
+      });
 
     console.log(result);
 

@@ -4,7 +4,7 @@ import { useReducer } from 'react';
 export enum OrderView {
   TYPE_PHONE,
   CHOOSE_ORDER,
-  PAYMENT,
+  FINISH_ORDER,
 }
 
 const initialState = {

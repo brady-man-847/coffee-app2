@@ -1,17 +1,26 @@
 import useOrderList from '@/hooks/order/useOrderList';
 import { useContextSelector } from 'use-context-selector';
-import { OrderContext } from '@/context/order/OrderContext';
+import { OrderContext, OrderView } from '@/context/order/OrderContext';
 import { Box, Divider, Paper, Typography } from '@mui/material';
 import { OrderRs } from '@/dto/orderDto';
 import { Loading } from '@/components/common';
+import axios from 'axios';
 
 export default function OrderChooseScreen() {
   const { phone } = useContextSelector(OrderContext, (v) => v[0]);
+  const dispatch = useContextSelector(OrderContext, (v) => v[1]);
   const { data, isLoading } = useOrderList(phone, phone !== '');
-  console.log(data, isLoading);
 
   const handleOrder = () => {
-    alert('주문하시겠습니까?');
+    if (window.confirm(`주문하시겠습니까?? ${phone}님?`)) {
+      axios.post('https://mcafe-api.onrender.com/pay', { phone }).then((r) => {
+        const { data: rData } = r;
+        console.log(rData);
+        dispatch({ type: 'SET_VIEW', view: OrderView.FINISH_ORDER });
+      });
+    } else {
+      window.alert('네');
+    }
   };
 
   const renderItems = (list: OrderRs[] | undefined) => {
