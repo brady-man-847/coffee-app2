@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Drawer, IconButton, TextField, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Drawer, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MenuOptionList from '@/components/menu/MenuOptionList';
@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { useContextSelector } from 'use-context-selector';
 import { MenuContext } from '@/context/menu/MenuContext';
 import { Loading } from '@/components/common';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import PhoneInput from '@/components/common/PhoneInput';
 
 export default function MenuOptionDrawer() {
@@ -37,6 +37,7 @@ export default function MenuOptionDrawer() {
       })
       .finally(() => {
         setIsRequestApi(false);
+        dispatch({ type: 'INIT_MENU' });
       });
 
     console.log(result);
@@ -49,7 +50,7 @@ export default function MenuOptionDrawer() {
   };
 
   const handleDrawerClose = () => {
-    dispatch({ type: 'SET_DRAWER_OPEN', isDrawerOpen: false });
+    dispatch({ type: 'INIT_MENU' });
   };
 
   return (

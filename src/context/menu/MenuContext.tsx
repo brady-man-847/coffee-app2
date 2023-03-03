@@ -13,7 +13,8 @@ type State = typeof initialState;
 type Action =
   | { type: 'SET_DRAWER_OPEN'; isDrawerOpen: boolean }
   | { type: 'SET_MENU'; menu: MenuRs }
-  | { type: 'SET_ORDER'; order: OrderRq };
+  | { type: 'SET_ORDER'; order: OrderRq }
+  | { type: 'INIT_MENU' };
 
 type Dispatch = (action: Action) => void;
 
@@ -33,6 +34,10 @@ const reducer = (state: State, action: Action) => {
       return {
         ...state,
         order: action.order,
+      };
+    case 'INIT_MENU':
+      return {
+        ...initialState,
       };
     default:
       throw new Error('unknown action type');
