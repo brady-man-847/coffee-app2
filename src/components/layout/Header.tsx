@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Typography } from '@mui/material';
 
-export default function Header() {
+export default function () {
   return (
     <AppBar position={'static'} color={'primary'}>
       <Toolbar>

@@ -20,7 +20,7 @@ export default function MenuCategory() {
           <Typography>{item}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <MenuCategoryDetail data={getMenusByType(index)} key={`${id + index}d`} />
+          <MenuCategoryDetail data={getMenusByType(index)} key={`${id + index}`} />
         </AccordionDetails>
       </Accordion>
     ));

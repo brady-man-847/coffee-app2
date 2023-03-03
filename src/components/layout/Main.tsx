@@ -6,10 +6,10 @@ interface Props {
 }
 
 export default function ({ children }: Props) {
-  return <Main bottomHeight={BOTTOM_HEIGHT}>{children}</Main>;
+  return <Div bottomHeight={BOTTOM_HEIGHT}>{children}</Div>;
 }
 
-const Main = styled.div<{ bottomHeight: number }>`
+const Div = styled.div<{ bottomHeight: number }>`
   height: 100vh;
   overflow: auto;
   padding-bottom: ${(props) => props.bottomHeight * 2}px;

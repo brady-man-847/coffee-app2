@@ -3,6 +3,7 @@ export interface MenuRs {
   code: string;
   unitPrice: number;
   type: number;
+  stock: 0 | -1;
 }
 
 export interface MenuOptionRs {

@@ -11,8 +11,10 @@ export default function MenuCategoryDetail({ data }: Props) {
   const dispatch = useContextSelector(MenuContext, (v) => v[1]);
 
   const onClick = (item: MenuRs) => {
-    dispatch({ type: 'SET_DRAWER_OPEN', isDrawerOpen: true });
-    dispatch({ type: 'SET_MENU', menu: item });
+    if (item.stock !== 0) {
+      dispatch({ type: 'SET_DRAWER_OPEN', isDrawerOpen: true });
+      dispatch({ type: 'SET_MENU', menu: item });
+    }
   };
 
   return (
@@ -26,15 +28,28 @@ export default function MenuCategoryDetail({ data }: Props) {
               p: 1,
             },
             (theme) => ({
+              backgroundColor: item.stock === 0 ? theme.palette.grey[100] : '',
+              color: item.stock === 0 ? theme.palette.grey[300] : '',
+
               '&:hover': {
-                color: theme.palette.primary.main,
-                backgroundColor: theme.palette.primary.contrastText,
-                cursor: 'pointer',
+                backgroundColor: item.stock === 0 ? theme.palette.grey[300] : theme.palette.primary.contrastText,
+                cursor: item.stock === 0 ? 'not-allowed' : 'pointer',
+                color: item.stock === 0 ? theme.palette.grey[300] : theme.palette.primary.main,
               },
             }),
           ]}
         >
-          <Typography>{item.name}</Typography>
+          {
+            <Typography>
+              {item.stock === 0 ? (
+                <>
+                  `SOLD OUT`<del>{item.name}</del>
+                </>
+              ) : (
+                item.name
+              )}
+            </Typography>
+          }
         </Paper>
       ))}
     </Box>
