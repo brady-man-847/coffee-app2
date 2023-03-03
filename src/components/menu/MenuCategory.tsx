@@ -15,7 +15,7 @@ export default function MenuCategory() {
     const getMenusByType = (idx: number) => menu.filter((i) => i.type === idx);
 
     return COFFEE_CATEGORIES.map((item, index) => (
-      <Accordion key={id + index} defaultExpanded>
+      <Accordion key={id + index}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{item}</Typography>
         </AccordionSummary>
