@@ -12,5 +12,7 @@ export const queryKeys = {
   order: {
     all: ['order'] as const,
     byPhone: (phone: string) => [...queryKeys.order.all, phone],
+    pay: () => [...queryKeys.order.all, 'pay'],
+    add: () => [...queryKeys.order.all, 'add'],
   },
 };

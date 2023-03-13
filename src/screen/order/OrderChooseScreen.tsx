@@ -5,18 +5,17 @@ import { Box, Button, Divider, Paper, Typography } from '@mui/material';
 import { OrderRs } from '@/dto/orderDto';
 import { Loading } from '@/components/common';
 import axios from 'axios';
+import useCallPay from '@/hooks/order/useCallPay';
 
 export default function OrderChooseScreen() {
   const { phone } = useContextSelector(OrderContext, (v) => v[0]);
   const dispatch = useContextSelector(OrderContext, (v) => v[1]);
   const { data, isLoading } = useOrderList(phone, phone !== '');
+  const { mutate, isLoading: isPayLoading } = useCallPay();
 
   const handleOrder = () => {
     if (window.confirm(`주문하시겠습니까?? ${phone}님?`)) {
-      axios.post('https://mcafe-api.onrender.com/pay', { phone }).then((r) => {
-        const { data: rData } = r;
-        dispatch({ type: 'SET_VIEW', view: OrderView.FINISH_ORDER });
-      });
+      mutate(phone, { onSuccess: () => dispatch({ type: 'SET_VIEW', view: OrderView.FINISH_ORDER }) });
     } else {
       window.alert('네');
     }
@@ -49,6 +48,7 @@ export default function OrderChooseScreen() {
   return (
     <Paper elevation={3} sx={{ p: 1, m: 1 }}>
       {isLoading ? <Loading /> : renderItems(data)}
+      {isPayLoading && <Loading />}
     </Paper>
   );
 }

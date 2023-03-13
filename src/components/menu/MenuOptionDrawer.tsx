@@ -3,47 +3,37 @@ import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MenuOptionList from '@/components/menu/MenuOptionList';
 import useMenuOption from '@/hooks/menu/useMenuOption';
-import axios from 'axios';
-import _ from 'lodash';
 import { useContextSelector } from 'use-context-selector';
 import { MenuContext } from '@/context/menu/MenuContext';
 import { Loading } from '@/components/common';
 import { useState } from 'react';
 import PhoneInput from '@/components/common/PhoneInput';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import useCallOrder from '@/hooks/menu/useCallOrder';
 
 export default function MenuOptionDrawer() {
   const { menu, order, isDrawerOpen } = useContextSelector(MenuContext, (v) => v[0]);
   const dispatch = useContextSelector(MenuContext, (v) => v[1]);
   const { data, isLoading } = useMenuOption(menu.code, menu.code !== undefined);
-
+  const { mutate, isLoading: isCallWaiting } = useCallOrder();
   const [isRequestApi, setIsRequestApi] = useState(false);
 
   const handleSaveOrder = async () => {
-    console.log({ ...order, menuCode: menu.code, optionValueList: _.values(order.optionValueList) });
     setIsRequestApi(true);
-    const result = await axios
-      .post('https://mcafe-api.onrender.com/order', {
-        ...order,
-        menuCode: menu.code,
-        optionValueList: _.compact(_.values(order.optionValueList)),
-        setDefault: false,
-      })
-      .then((r) => {
-        const { data: rData } = r;
-        alert(rData);
-      })
-      .catch((e) => {
-        alert(e.message);
-      })
-      .finally(() => {
-        setIsRequestApi(false);
-        dispatch({ type: 'INIT_MENU' });
-      });
-
-    console.log(result);
-
-    return null;
+    mutate(
+      { order, menuCode: menu.code },
+      {
+        onSuccess: (rtnData) => window.alert(rtnData),
+        onError: (e) => {
+          const err = e as Error;
+          window.alert(err.message);
+        },
+        onSettled: () => {
+          setIsRequestApi(false);
+          dispatch({ type: 'INIT_MENU' });
+        },
+      },
+    );
   };
 
   const handlePhoneInputChange = (formattedValue: string) => {
@@ -79,7 +69,7 @@ export default function MenuOptionDrawer() {
         },
       }}
     >
-      {isLoading ? (
+      {isLoading || isCallWaiting ? (
         <Loading />
       ) : (
         <Box>
