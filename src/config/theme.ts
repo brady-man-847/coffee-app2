@@ -90,6 +90,12 @@ const theme: Theme = createTheme({
       contrastText: c.blue[100],
     },
     grey: { ...c.grey },
+    warning: {
+      main: c.red[800],
+      light: c.red[800],
+      dark: c.red[800],
+      contrastText: c.red[100],
+    },
   },
   typography: {
     fontFamily: 'IBM Plex Sans KR',
