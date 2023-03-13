@@ -30,18 +30,6 @@ export default function OrderChooseScreen() {
         <Typography>{itm.name}</Typography>
         <Typography>{itm.optionNameList.join(' ')}</Typography>
         <Divider sx={{ m: 2 }} />
-        <Button
-          variant="contained"
-          onClick={handleOrder}
-          sx={[
-            (theme) => ({
-              backgroundColor: theme.palette.secondary.main,
-              color: theme.palette.secondary.contrastText,
-            }),
-          ]}
-        >
-          결제하기
-        </Button>
       </Box>
     ));
   };
@@ -49,6 +37,18 @@ export default function OrderChooseScreen() {
     <Paper elevation={3} sx={{ p: 1, m: 1 }}>
       {isLoading ? <Loading /> : renderItems(data)}
       {isPayLoading && <Loading />}
+      <Button
+        variant="contained"
+        onClick={handleOrder}
+        sx={[
+          (theme) => ({
+            backgroundColor: theme.palette.secondary.main,
+            color: theme.palette.secondary.contrastText,
+          }),
+        ]}
+      >
+        결제하기
+      </Button>
     </Paper>
   );
 }
