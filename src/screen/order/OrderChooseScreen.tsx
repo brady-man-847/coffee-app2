@@ -1,7 +1,7 @@
 import useOrderList from '@/hooks/order/useOrderList';
 import { useContextSelector } from 'use-context-selector';
 import { OrderContext, OrderView } from '@/context/order/OrderContext';
-import { Box, Divider, Paper, Typography } from '@mui/material';
+import { Box, Button, Divider, Paper, Typography } from '@mui/material';
 import { OrderRs } from '@/dto/orderDto';
 import { Loading } from '@/components/common';
 import axios from 'axios';
@@ -15,7 +15,6 @@ export default function OrderChooseScreen() {
     if (window.confirm(`주문하시겠습니까?? ${phone}님?`)) {
       axios.post('https://mcafe-api.onrender.com/pay', { phone }).then((r) => {
         const { data: rData } = r;
-        console.log(rData);
         dispatch({ type: 'SET_VIEW', view: OrderView.FINISH_ORDER });
       });
     } else {
@@ -27,11 +26,23 @@ export default function OrderChooseScreen() {
     if (list === undefined) return;
 
     return list.map((itm, idx) => (
-      <Box onClick={handleOrder}>
+      <Box>
         <Typography>{itm.menuName}</Typography>
         <Typography>{itm.name}</Typography>
         <Typography>{itm.optionNameList.join(' ')}</Typography>
         <Divider sx={{ m: 2 }} />
+        <Button
+          variant="contained"
+          onClick={handleOrder}
+          sx={[
+            (theme) => ({
+              backgroundColor: theme.palette.secondary.main,
+              color: theme.palette.secondary.contrastText,
+            }),
+          ]}
+        >
+          결제하기
+        </Button>
       </Box>
     ));
   };
