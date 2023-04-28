@@ -24,6 +24,6 @@ export interface OptionGroup {
 export interface OptionValue {
   code: number;
   name: string;
-  optionDefault: boolean;
+  isOptionDefault: boolean;
   price: number;
 }

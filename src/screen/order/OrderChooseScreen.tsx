@@ -4,7 +4,6 @@ import { OrderContext, OrderView } from '@/context/order/OrderContext';
 import { Box, Button, Divider, Paper, Typography } from '@mui/material';
 import { OrderRs } from '@/dto/orderDto';
 import { Loading } from '@/components/common';
-import axios from 'axios';
 import useCallPay from '@/hooks/order/useCallPay';
 import useCallOrderCancel from '@/hooks/order/useCallOrderCancel';
 
