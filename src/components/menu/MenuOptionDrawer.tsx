@@ -1,15 +1,15 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Drawer, IconButton, Typography } from '@mui/material';
+import { Loading } from '@/components/common';
+import PhoneInput from '@/components/common/PhoneInput';
+import MenuOptionList from '@/components/menu/MenuOptionList';
+import { MenuContext } from '@/context/menu/MenuContext';
+import useCallOrder from '@/hooks/menu/useCallOrder';
+import useMenuOption from '@/hooks/menu/useMenuOption';
 import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MenuOptionList from '@/components/menu/MenuOptionList';
-import useMenuOption from '@/hooks/menu/useMenuOption';
-import { useContextSelector } from 'use-context-selector';
-import { MenuContext } from '@/context/menu/MenuContext';
-import { Loading } from '@/components/common';
-import { useState } from 'react';
-import PhoneInput from '@/components/common/PhoneInput';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import useCallOrder from '@/hooks/menu/useCallOrder';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Drawer, IconButton, Typography } from '@mui/material';
+import { useState } from 'react';
+import { useContextSelector } from 'use-context-selector';
 
 export default function MenuOptionDrawer() {
   const { menu, order, isDrawerOpen } = useContextSelector(MenuContext, (v) => v[0]);
@@ -66,6 +66,7 @@ export default function MenuOptionDrawer() {
           p: 2,
           borderTopLeftRadius: 16,
           borderTopRightRadius: 16,
+          height: '80vh',
         },
       }}
     >
@@ -88,9 +89,16 @@ export default function MenuOptionDrawer() {
                 </AccordionDetails>
               </Accordion>
             ))}
-          <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: '8px' }}>
             <PhoneInput label="핸드폰 번호" variant="outlined" handleValueChange={handlePhoneInputChange} />
-            <Button variant={'contained'} onClick={handleSaveOrder} disabled={isRequestApi}>
+            <Button
+              variant={'contained'}
+              onClick={handleSaveOrder}
+              disabled={isRequestApi}
+              sx={{
+                margin: '4px',
+              }}
+            >
               <ShoppingBasketIcon />
             </Button>
           </Box>

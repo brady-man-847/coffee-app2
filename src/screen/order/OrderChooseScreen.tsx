@@ -1,11 +1,13 @@
-import useOrderList from '@/hooks/order/useOrderList';
-import { useContextSelector } from 'use-context-selector';
-import { OrderContext, OrderView } from '@/context/order/OrderContext';
-import { Box, Button, Divider, Paper, Typography } from '@mui/material';
-import { OrderRs } from '@/dto/orderDto';
 import { Loading } from '@/components/common';
-import useCallPay from '@/hooks/order/useCallPay';
+import { OrderContext, OrderView } from '@/context/order/OrderContext';
+import { OrderRs } from '@/dto/orderDto';
 import useCallOrderCancel from '@/hooks/order/useCallOrderCancel';
+import useCallPay from '@/hooks/order/useCallPay';
+import useOrderList from '@/hooks/order/useOrderList';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import { Box, Button, Divider, Paper, Typography } from '@mui/material';
+import { useContextSelector } from 'use-context-selector';
 
 export default function OrderChooseScreen() {
   const { phone } = useContextSelector(OrderContext, (v) => v[0]);
@@ -29,6 +31,10 @@ export default function OrderChooseScreen() {
   //     window.alert('네');
   //   }
   // };
+
+  const handleClickRefresh = () => {
+    reloadOrderList();
+  };
 
   const render = (list: OrderRs[] | undefined) => {
     if (list === undefined) return;
@@ -55,11 +61,18 @@ export default function OrderChooseScreen() {
     ));
 
     return (
-      <>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 1,
+        }}
+      >
         {renderItems}
         <Button
           variant="contained"
           onClick={handleOrder}
+          startIcon={<CurrencyExchangeIcon />}
           sx={[
             (theme) => ({
               backgroundColor: theme.palette.secondary.main,
@@ -69,7 +82,20 @@ export default function OrderChooseScreen() {
         >
           결제하기
         </Button>
-      </>
+        <Button
+          variant="contained"
+          onClick={handleClickRefresh}
+          startIcon={<RefreshIcon />}
+          sx={[
+            (theme) => ({
+              backgroundColor: theme.palette.warning.main,
+              color: theme.palette.warning.contrastText,
+            }),
+          ]}
+        >
+          새로고침
+        </Button>
+      </Box>
     );
   };
   return (

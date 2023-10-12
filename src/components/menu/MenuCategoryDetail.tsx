@@ -1,7 +1,7 @@
-import { Box, Paper, Typography } from '@mui/material';
-import { MenuRs } from '@/dto/menuDto';
-import { useContextSelector } from 'use-context-selector';
 import { MenuContext } from '@/context/menu/MenuContext';
+import { MenuRs } from '@/dto/menuDto';
+import { Box, Paper, Typography } from '@mui/material';
+import { useContextSelector } from 'use-context-selector';
 
 interface Props {
   data?: MenuRs[];
@@ -18,7 +18,13 @@ export default function MenuCategoryDetail({ data }: Props) {
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1px',
+      }}
+    >
       {data?.map((item) => (
         <Paper
           elevation={3}

@@ -1,11 +1,11 @@
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useId } from 'react';
-import { COFFEE_CATEGORIES } from '@/constants/coffeeCategory';
-import useMenuList from '@/hooks/menu/useMenuList';
-import MenuCategoryDetail from '@/components/menu/MenuCategoryDetail';
-import { MenuRs } from '@/dto/menuDto';
 import { Loading } from '@/components/common';
+import MenuCategoryDetail from '@/components/menu/MenuCategoryDetail';
+import { COFFEE_CATEGORIES } from '@/constants/coffeeCategory';
+import { MenuRs } from '@/dto/menuDto';
+import useMenuList from '@/hooks/menu/useMenuList';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
+import { useId } from 'react';
 
 export default function MenuCategory() {
   const id = useId();

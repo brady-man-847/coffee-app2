@@ -18,5 +18,16 @@ export default function PhoneInput({ handleValueChange, ...props }: Props) {
     handleValueChange(formattedValue);
   };
 
-  return <TextField type="text" id="phone-number-input" value={phoneNumber} onChange={handlePhoneNumberChange} {...props} />;
+  return (
+    <TextField
+      type="text"
+      id="phone-number-input"
+      value={phoneNumber}
+      onChange={handlePhoneNumberChange}
+      {...props}
+      sx={{
+        width: '100%',
+      }}
+    />
+  );
 }

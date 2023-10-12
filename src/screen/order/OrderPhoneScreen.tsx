@@ -37,7 +37,7 @@ export default function OrderPhoneScreen() {
       }}
     >
       <Typography component="h1" variant="h5">
-        당신은 누구십니까?
+        걸리셨나요 ?
       </Typography>
       <Box sx={{ mt: 1 }}>
         <PhoneInput margin="normal" required fullWidth label="핸드폰 번호" autoFocus handleValueChange={handlePhoneAuthInputChange} />
