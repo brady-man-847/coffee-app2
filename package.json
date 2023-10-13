@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "next dev -p 7777",
     "build": "next build && next export",
+    "export": "next export",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "gh-pages -d out --dotfiles"
+    "predeploy": "npm run build",
+    "deploy": "npx touch out/.nojekyll && gh-pages -d out --dotfiles"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

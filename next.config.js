@@ -2,9 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   distDir: 'build',
-  // basePath: '/coffee-app2',
-  // assetPrefix: 'https://brady-man-847.github.io/coffee-app2/',
-  assetPrefix: '.',
+  basePath: '/coffee-app2',
   exportPathMap: function () {
     return {
       '/': { page: '/' },
