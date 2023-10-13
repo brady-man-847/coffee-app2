@@ -10,8 +10,9 @@ interface Props {
   type?: CoffeeCategory;
 }
 
+/* eslint-disable */
 function findLocalItems(query: string) {
-  var i,
+  let i,
     results = [];
   for (i in localStorage) {
     if (localStorage.hasOwnProperty(i)) {
