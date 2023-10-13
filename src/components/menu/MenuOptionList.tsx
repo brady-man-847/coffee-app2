@@ -44,7 +44,7 @@ export default function MenuOptionList({ idx, data }: Props) {
             {data?.map((item) => {
               return (
                 <FormControlLabel
-                  key={item.name + '_key'}
+                  key={`${item.name}_key`}
                   value={item.code}
                   control={<Radio />}
                   label={item.name}
