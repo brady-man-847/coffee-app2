@@ -1,9 +1,9 @@
-import { Box, Checkbox, FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { MenuContext } from '@/context/menu/MenuContext';
 import { OptionValue } from '@/dto/menuDto';
+import { Box, Checkbox, FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import _ from 'lodash';
 import { ChangeEvent } from 'react';
 import { useContextSelector } from 'use-context-selector';
-import { MenuContext } from '@/context/menu/MenuContext';
 
 interface Props {
   idx: number;
@@ -38,12 +38,12 @@ export default function MenuOptionList({ idx, data }: Props) {
             value={data[0].code}
             control={<Checkbox onChange={handleCheckOptionChange} />}
             label={data[0].name}
-            checked={data[0].isOptionDefault}
+            defaultChecked={data[0].isOptionDefault}
           />
         ) : (
           <RadioGroup onChange={handleRadioOptionChange}>
             {data?.map((item) => (
-              <FormControlLabel value={item.code} control={<Radio />} label={item.name} checked={item.isOptionDefault} />
+              <FormControlLabel value={item.code} control={<Radio />} label={item.name} defaultChecked={item.isOptionDefault} />
             ))}
           </RadioGroup>
         )}

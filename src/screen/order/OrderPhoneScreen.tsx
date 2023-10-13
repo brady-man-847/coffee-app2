@@ -20,7 +20,7 @@ export default function OrderPhoneScreen() {
         const { data } = r;
         if (data?.length !== 0) {
           dispatch({ type: 'SET_VIEW', view: OrderView.CHOOSE_ORDER });
-          if (confirm(`${phone} 번호를 저장하시겠습까?`)) {
+          if (window.confirm(`${phone} 번호를 저장하시겠습까?`)) {
             localStorage.setItem('phone', phone);
           }
         } else {
