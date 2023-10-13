@@ -36,15 +36,22 @@ export default function MenuOptionList({ idx, data }: Props) {
         {data?.length === 1 ? (
           <FormControlLabel
             value={data[0].code}
-            control={<Checkbox onChange={handleCheckOptionChange} />}
+            control={<Checkbox onChange={handleCheckOptionChange} defaultChecked={data[0].isOptionDefault} />}
             label={data[0].name}
-            defaultChecked={data[0].isOptionDefault}
           />
         ) : (
-          <RadioGroup onChange={handleRadioOptionChange}>
-            {data?.map((item) => (
-              <FormControlLabel value={item.code} control={<Radio />} label={item.name} defaultChecked={item.isOptionDefault} />
-            ))}
+          <RadioGroup onChange={handleRadioOptionChange} defaultValue={data?.find((i) => i.isOptionDefault)?.code}>
+            {data?.map((item) => {
+              return (
+                <FormControlLabel
+                  key={item.name + '_key'}
+                  value={item.code}
+                  control={<Radio />}
+                  label={item.name}
+                  defaultChecked={item.isOptionDefault}
+                />
+              );
+            })}
           </RadioGroup>
         )}
       </FormControl>
