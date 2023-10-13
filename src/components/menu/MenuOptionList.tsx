@@ -8,16 +8,17 @@ import { useContextSelector } from 'use-context-selector';
 interface Props {
   idx: number;
   data?: OptionValue[];
+  menuName?: string;
 }
 
-export default function MenuOptionList({ idx, data }: Props) {
+export default function MenuOptionList({ idx, data, menuName }: Props) {
   const { order } = useContextSelector(MenuContext, (v) => v[0]);
   const dispatch = useContextSelector(MenuContext, (v) => v[1]);
 
   const handleRadioOptionChange = (_e: ChangeEvent<HTMLInputElement>, value: string): void => {
     dispatch({
       type: 'SET_ORDER',
-      order: { ...order, optionValueList: _.defaults({ [idx]: value }, { ...order.optionValueList }) },
+      order: { ...order, optionValueList: _.defaults({ [menuName!]: value }, { ...order.optionValueList }) },
     });
   };
 
@@ -26,7 +27,7 @@ export default function MenuOptionList({ idx, data }: Props) {
 
     dispatch({
       type: 'SET_ORDER',
-      order: { ...order, optionValueList: _.defaults({ [idx]: checked ? value : null }, { ...order.optionValueList }) },
+      order: { ...order, optionValueList: _.defaults({ [menuName!]: checked ? value : null }, { ...order.optionValueList }) },
     });
   };
 
@@ -38,6 +39,7 @@ export default function MenuOptionList({ idx, data }: Props) {
             value={data[0].code}
             control={<Checkbox onChange={handleCheckOptionChange} defaultChecked={data[0].isOptionDefault} />}
             label={data[0].name}
+            name={data[0].name}
           />
         ) : (
           <RadioGroup onChange={handleRadioOptionChange} defaultValue={data?.find((i) => i.isOptionDefault)?.code}>
@@ -49,6 +51,7 @@ export default function MenuOptionList({ idx, data }: Props) {
                   control={<Radio />}
                   label={item.name}
                   defaultChecked={item.isOptionDefault}
+                  name={item.name}
                 />
               );
             })}

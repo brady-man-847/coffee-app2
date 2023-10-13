@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/config/queryClient';
-import axios from 'axios';
 import { OrderRs } from '@/dto/orderDto';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 export default function useOrderList(phone: string, isReady: boolean) {
   return useQuery<OrderRs[]>(
@@ -12,6 +12,7 @@ export default function useOrderList(phone: string, isReady: boolean) {
     },
     {
       enabled: isReady,
+      cacheTime: 0,
     },
   );
 }

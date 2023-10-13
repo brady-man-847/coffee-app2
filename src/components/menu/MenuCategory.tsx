@@ -12,15 +12,16 @@ export default function MenuCategory() {
   const { data, isLoading } = useMenuList();
 
   const renderData = (menu: MenuRs[]) => {
-    const getMenusByType = (idx: number) => menu.filter((i) => i.type === idx);
+    // @brady type(0,coffee)(1,nonCoffee)...
+    const getMenusByType = (idx: number) => menu.filter((i) => i.type === idx - 1);
 
-    return COFFEE_CATEGORIES.map((item, index) => (
+    return COFFEE_CATEGORIES.map((coffeeCategory, index) => (
       <Accordion key={id + index}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>{item}</Typography>
+          <Typography>{coffeeCategory}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <MenuCategoryDetail data={getMenusByType(index)} key={`${id + index}`} />
+          <MenuCategoryDetail type={coffeeCategory} data={getMenusByType(index)} key={`${id + index}`} />
         </AccordionDetails>
       </Accordion>
     ));

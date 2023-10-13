@@ -25,6 +25,11 @@ export default function MenuOptionDrawer() {
         localStorage.setItem('phone', order.phone);
       }
     }
+
+    localStorage.setItem(
+      `coffee_order_${new Date().toLocaleString()}`,
+      JSON.stringify({ order, menuCode: menu.code, menuName: menu.name }),
+    );
     mutate(
       { order, menuCode: menu.code },
       {
@@ -90,7 +95,7 @@ export default function MenuOptionDrawer() {
               <Accordion sx={{ mt: 2 }} defaultExpanded>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>{i.name}</AccordionSummary>
                 <AccordionDetails>
-                  <MenuOptionList idx={idx} data={i.optionValueList} />
+                  <MenuOptionList idx={idx} data={i.optionValueList} menuName={i.name} />
                 </AccordionDetails>
               </Accordion>
             ))}

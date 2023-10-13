@@ -1,4 +1,5 @@
 import { Loading } from '@/components/common';
+import { queryKeys } from '@/config/queryClient';
 import { OrderContext, OrderView } from '@/context/order/OrderContext';
 import { OrderRs } from '@/dto/orderDto';
 import useCallOrderCancel from '@/hooks/order/useCallOrderCancel';
@@ -7,11 +8,13 @@ import useOrderList from '@/hooks/order/useOrderList';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Box, Button, Divider, Paper, Typography } from '@mui/material';
+import { useQueryClient } from '@tanstack/react-query';
 import { useContextSelector } from 'use-context-selector';
 
 export default function OrderChooseScreen() {
   const { phone } = useContextSelector(OrderContext, (v) => v[0]);
   const dispatch = useContextSelector(OrderContext, (v) => v[1]);
+  const queryClient = useQueryClient();
   const { data, isLoading, refetch: reloadOrderList } = useOrderList(phone, phone !== '');
   const { mutate: callPay, isLoading: isPayLoading } = useCallPay();
   const { mutate: callOrderCancel, isLoading: isCancelLoading } = useCallOrderCancel();
@@ -33,7 +36,7 @@ export default function OrderChooseScreen() {
   // };
 
   const handleClickRefresh = () => {
-    reloadOrderList();
+    queryClient.invalidateQueries(queryKeys.order.byPhone(phone));
   };
 
   const render = (list: OrderRs[] | undefined) => {

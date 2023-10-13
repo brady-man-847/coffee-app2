@@ -3,6 +3,7 @@ export interface OrderRq {
   optionValueList: number[];
   phone: string;
   setDefault: boolean;
+  menuName?: string;
 }
 
 export interface OrderRs {
