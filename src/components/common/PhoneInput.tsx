@@ -1,11 +1,19 @@
 import { BaseTextFieldProps, TextField } from '@mui/material';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 interface Props extends BaseTextFieldProps {
   handleValueChange: (arg0: string) => void;
 }
 export default function PhoneInput({ handleValueChange, ...props }: Props) {
   const [phoneNumber, setPhoneNumber] = useState('');
+
+  useEffect(() => {
+    const phone = localStorage.getItem('phone');
+    if (phone) {
+      setPhoneNumber(phone);
+      handleValueChange(phone);
+    }
+  }, []);
 
   const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;

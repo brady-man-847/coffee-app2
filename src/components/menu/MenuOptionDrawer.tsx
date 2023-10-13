@@ -20,6 +20,11 @@ export default function MenuOptionDrawer() {
 
   const handleSaveOrder = async () => {
     setIsRequestApi(true);
+    if (!localStorage.getItem('phone')) {
+      if (window.confirm(`${order.phone} 번호를 저장하시겠습까?`)) {
+        localStorage.setItem('phone', order.phone);
+      }
+    }
     mutate(
       { order, menuCode: menu.code },
       {
