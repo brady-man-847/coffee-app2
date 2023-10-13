@@ -1,5 +1,5 @@
-import { createContext } from 'use-context-selector';
 import { useReducer } from 'react';
+import { createContext } from 'use-context-selector';
 
 export enum OrderView {
   TYPE_PHONE,
