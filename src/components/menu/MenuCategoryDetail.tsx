@@ -47,16 +47,7 @@ export default function MenuCategoryDetail({ type, data }: Props) {
     if (window.confirm('최근 주문 메뉴를 선택하시겠습니까?')) {
       const { order, menuCode } = JSON.parse(localStorage.getItem(key)!);
 
-      callOrder(
-        { order, menuCode },
-        {
-          onSuccess: (rtnData) => window.alert(rtnData),
-          onError: (e) => {
-            const err = e as Error;
-            window.alert(err.message);
-          },
-        },
-      );
+      callOrder({ order, menuCode }, {});
     }
   };
 

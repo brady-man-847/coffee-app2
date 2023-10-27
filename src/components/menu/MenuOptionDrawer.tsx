@@ -33,11 +33,6 @@ export default function MenuOptionDrawer() {
     callOrder(
       { order, menuCode: menu.code },
       {
-        onSuccess: (rtnData) => window.alert(rtnData),
-        onError: (e) => {
-          const err = e as Error;
-          window.alert(err.message);
-        },
         onSettled: () => {
           setIsRequestApi(false);
           dispatch({ type: 'INIT_MENU' });
