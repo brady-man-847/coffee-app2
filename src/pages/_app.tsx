@@ -22,7 +22,7 @@ export default function ({ Component, pageProps }: AppProps) {
             overflowY: 'hidden',
             maxWidth: '500px',
           },
-          (theme) => ({ boxShadow: `2px -2px 83px 60px ${theme.palette.grey[100]}` }),
+          () => ({ boxShadow: `2px -2px 83px 60px ${theme.palette.grey[100]}` }),
         ]}
       >
         <CssBaseline />
