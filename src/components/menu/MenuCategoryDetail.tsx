@@ -95,11 +95,7 @@ export default function MenuCategoryDetail({ type, data }: Props) {
               >
                 <div>{date}</div>
                 <div>{val.menuName}</div>
-                <div>
-                  {Object.entries(val.order?.optionNameList).map(([, v]) => (
-                    <li>{`${v}`}</li>
-                  ))}
-                </div>
+                <div>{val.order?.optionNameList && Object.entries(val.order?.optionNameList).map(([, v]) => <li>{`${v}`}</li>)}</div>
                 <div>{val.order.phone}</div>
               </Card>
             </Box>
