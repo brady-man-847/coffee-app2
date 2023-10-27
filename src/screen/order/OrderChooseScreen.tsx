@@ -47,18 +47,6 @@ export default function OrderChooseScreen() {
         <Typography>{itm.menuName}</Typography>
         <Typography>{itm.name}</Typography>
         <Typography>{itm.optionNameList.join(' ')}</Typography>
-        {/* <Button */}
-        {/*  variant="contained" */}
-        {/*  onClick={() => handleCancelOrder(itm)} */}
-        {/*  sx={[ */}
-        {/*    (theme) => ({ */}
-        {/*      backgroundColor: theme.palette.warning.main, */}
-        {/*      color: theme.palette.warning.contrastText, */}
-        {/*    }), */}
-        {/*  ]} */}
-        {/* > */}
-        {/*  취소하기 */}
-        {/* </Button> */}
         <Divider sx={{ m: 2 }} />
       </Box>
     ));

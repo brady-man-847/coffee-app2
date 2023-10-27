@@ -15,7 +15,7 @@ export default function MenuOptionDrawer() {
   const { menu, order, isDrawerOpen } = useContextSelector(MenuContext, (v) => v[0]);
   const dispatch = useContextSelector(MenuContext, (v) => v[1]);
   const { data, isLoading } = useMenuOption(menu.code, menu.code !== undefined);
-  const { mutate, isLoading: isCallWaiting } = useCallOrder();
+  const { mutate: callOrder, isLoading: isCallWaiting } = useCallOrder();
   const [isRequestApi, setIsRequestApi] = useState(false);
 
   const handleSaveOrder = async () => {
@@ -30,7 +30,7 @@ export default function MenuOptionDrawer() {
       `coffee_order_${new Date().toLocaleString()}`,
       JSON.stringify({ order, menuCode: menu.code, menuName: menu.name }),
     );
-    mutate(
+    callOrder(
       { order, menuCode: menu.code },
       {
         onSuccess: (rtnData) => window.alert(rtnData),

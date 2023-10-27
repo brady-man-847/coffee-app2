@@ -1,10 +1,10 @@
-import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
-import LocalAtmIcon from '@mui/icons-material/LocalAtm';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
-import CoffeeIcon from '@mui/icons-material/Coffee';
-import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
+import CoffeeIcon from '@mui/icons-material/Coffee';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
+import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
+import { useRouter } from 'next/router';
 
 enum BottomMenu {
   MENU = '/menu',
@@ -42,5 +42,6 @@ const Bottom = styled(Paper)<{ height: number }>`
   position: fixed;
   bottom: 0;
   width: inherit;
+  max-width: 500px;
   height: ${(props) => props.height}px;
 `;

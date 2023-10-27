@@ -1,10 +1,10 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { Bottom, Header, Main } from '@/components/layout';
+import { queryClient, theme } from '@/config';
 import styled from '@emotion/styled';
+import { Box, CssBaseline, ThemeProvider } from '@mui/material';
+import { QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { Bottom, Header, Main } from '@/components/layout';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient, theme } from '@/config';
 import '../styles/App.css';
 
 export default function ({ Component, pageProps }: AppProps) {
@@ -13,7 +13,18 @@ export default function ({ Component, pageProps }: AppProps) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <Body>
+      <Box
+        sx={[
+          {
+            width: '100%',
+            margin: '0 auto',
+            height: '100vh',
+            overflowY: 'hidden',
+            maxWidth: '500px',
+          },
+          (theme) => ({ boxShadow: `2px -2px 83px 60px ${theme.palette.grey[100]}` }),
+        ]}
+      >
         <CssBaseline />
         <ThemeProvider theme={theme}>
           <Header />
@@ -24,14 +35,9 @@ export default function ({ Component, pageProps }: AppProps) {
           </Main>
           <Bottom />
         </ThemeProvider>
-      </Body>
+      </Box>
     </>
   );
 }
 
-const Body = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  height: 100vh;
-  overflow-y: hidden;
-`;
+const Body = styled.div``;

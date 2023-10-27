@@ -2,9 +2,10 @@ import { CoffeeCategory } from '@/constants/coffeeCategory';
 import { MenuContext } from '@/context/menu/MenuContext';
 import { MenuRs } from '@/dto/menuDto';
 import useCallOrder from '@/hooks/menu/useCallOrder';
-import { Box, Card, Paper, Typography } from '@mui/material';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { Box, Button, Card, Paper, Typography } from '@mui/material';
+import { useCallback, useState } from 'react';
 import { useContextSelector } from 'use-context-selector';
-
 interface Props {
   data?: MenuRs[];
   type?: CoffeeCategory;
@@ -26,10 +27,11 @@ function findLocalItems(query: string) {
 }
 
 export default function MenuCategoryDetail({ type, data }: Props) {
+  const [tempState, setTempState] = useState(false);
   const dispatch = useContextSelector(MenuContext, (v) => v[1]);
-  const { mutate, isLoading: isCallWaiting } = useCallOrder();
+  const { mutate: callOrder, isLoading: isCallWaiting } = useCallOrder();
 
-  const onClick = (item: MenuRs) => {
+  const handleClickOpenMenu = (item: MenuRs) => {
     if (item.stock !== 0) {
       dispatch({ type: 'SET_DRAWER_OPEN', isDrawerOpen: true });
       dispatch({ type: 'SET_MENU', menu: item });
@@ -42,9 +44,9 @@ export default function MenuCategoryDetail({ type, data }: Props) {
 
   const handleOrderRecentMenu = (key: string) => () => {
     if (window.confirm('최근 주문 메뉴를 선택하시겠습니까?')) {
-      const { order, menuCode, menuName } = JSON.parse(localStorage.getItem(key)!);
+      const { order, menuCode } = JSON.parse(localStorage.getItem(key)!);
 
-      mutate(
+      callOrder(
         { order, menuCode },
         {
           onSuccess: (rtnData) => window.alert(rtnData),
@@ -57,49 +59,54 @@ export default function MenuCategoryDetail({ type, data }: Props) {
     }
   };
 
-  const renderRecentMenu = () => {
+  const renderRecentMenu = useCallback(() => {
     const recentOrders = findLocalItems('coffee_order_');
 
     if (recentOrders?.length === 0) return renderNoDataUI();
 
-    return recentOrders.reverse().map((i) => {
-      const { key, val } = i as { key: string; val: any };
-      const date = key.split('_')[2].split('T')[0];
-      return (
-        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-          <Card
-            sx={{
-              p: 2,
-              flex: 3,
-            }}
-            variant="outlined"
-            onClick={handleOrderRecentMenu(key)}
-          >
-            <div>{date}</div>
-            <div>{val.menuName}</div>
-            <div>{val.order.phone}</div>
-          </Card>
-          {/* <RemoveCircleOutlineIcon
-            sx={{
-              flex: 1,
-              alignSelf: 'center',
-              '&:hover': {
-                cursor: 'pointer',
-              },
+    const handleClickResetRecent = () => {
+      if (window.confirm('최근 주문 메뉴를 초기화 하시겠습니까?')) {
+        recentOrders.map((i) => {
+          localStorage.removeItem(i.key);
+        });
+        setTempState(!tempState);
+      }
+    };
 
-              height: '50%',
-            }}
-            color="error"
-            onClick={() => {
-              if (window.confirm('삭제하시겠습니까?')) {
-                localStorage.removeItem(key);
-              }
-            }}
-          /> */}
-        </Box>
-      );
-    });
-  };
+    return (
+      <Box sx={{ display: 'flex', gap: 1, overflow: 'auto' }}>
+        <Button onClick={handleClickResetRecent} variant={'contained'}>
+          <DeleteForeverIcon />
+        </Button>
+        {recentOrders.map((i) => {
+          const { key, val } = i as { key: string; val: any };
+          const date = key.split('_')[2].split('T')[0];
+          return (
+            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+              <Card
+                sx={{
+                  p: 2,
+                  flex: 3,
+                  minWidth: 200,
+                }}
+                variant="outlined"
+                onClick={handleOrderRecentMenu(key)}
+              >
+                <div>{date}</div>
+                <div>{val.menuName}</div>
+                <div>
+                  {Object.entries(val.order?.optionNameList).map(([, v]) => (
+                    <li>{`${v}`}</li>
+                  ))}
+                </div>
+                <div>{val.order.phone}</div>
+              </Card>
+            </Box>
+          );
+        })}
+      </Box>
+    );
+  }, [tempState]);
 
   return (
     <Box
@@ -118,7 +125,7 @@ export default function MenuCategoryDetail({ type, data }: Props) {
             <Paper
               key={`${item.name}_${item.code}_${index}`}
               elevation={3}
-              onClick={() => onClick(item)}
+              onClick={() => handleClickOpenMenu(item)}
               sx={[
                 {
                   p: 1,

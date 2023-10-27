@@ -1,8 +1,8 @@
-import { useMutation } from '@tanstack/react-query';
 import { queryKeys } from '@/config/queryClient';
+import { OrderRq } from '@/dto';
+import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import _ from 'lodash';
-import { OrderRq } from '@/dto';
 
 export default function useCallOrder() {
   const callOrderApi = async ({ order, menuCode }: { order: OrderRq; menuCode: string }) => {

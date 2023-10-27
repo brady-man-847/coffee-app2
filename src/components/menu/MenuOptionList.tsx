@@ -15,19 +15,28 @@ export default function MenuOptionList({ idx, data, menuName }: Props) {
   const { order } = useContextSelector(MenuContext, (v) => v[0]);
   const dispatch = useContextSelector(MenuContext, (v) => v[1]);
 
-  const handleRadioOptionChange = (_e: ChangeEvent<HTMLInputElement>, value: string): void => {
+  const handleRadioOptionChange = (e: ChangeEvent<HTMLInputElement>, value: string): void => {
+    const { name } = e.target;
     dispatch({
       type: 'SET_ORDER',
-      order: { ...order, optionValueList: _.defaults({ [menuName!]: value }, { ...order.optionValueList }) },
+      order: {
+        ...order,
+        optionValueList: _.defaults({ [menuName!]: value }, { ...order.optionValueList }),
+        optionNameList: _.defaults({ [menuName!]: name }, { ...order.optionNameList }),
+      },
     });
   };
 
   const handleCheckOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
+    const { value, checked, name } = e.target;
 
     dispatch({
       type: 'SET_ORDER',
-      order: { ...order, optionValueList: _.defaults({ [menuName!]: checked ? value : null }, { ...order.optionValueList }) },
+      order: {
+        ...order,
+        optionValueList: _.defaults({ [menuName!]: checked ? value : null }, { ...order.optionValueList }),
+        optionNameList: _.defaults({ [menuName!]: checked ? name : null }, { ...order.optionNameList }),
+      },
     });
   };
 
