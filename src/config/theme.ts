@@ -78,16 +78,16 @@ const c = {
 const theme: Theme = createTheme({
   palette: {
     primary: {
-      main: c.orange[400],
-      light: c.orange[400],
-      dark: c.orange[400],
-      contrastText: c.orange[50],
+      main: c.grey[800],
+      light: c.grey[800],
+      dark: c.grey[400],
+      contrastText: c.grey[50],
     },
     secondary: {
-      main: c.blue[500],
-      light: c.blue[500],
-      dark: c.blue[500],
-      contrastText: c.blue[100],
+      main: c.green[900],
+      light: c.green[500],
+      dark: c.green[500],
+      contrastText: c.green[50],
     },
     grey: { ...c.grey },
     warning: {

@@ -1,12 +1,10 @@
-export default function Home() {
-  return null;
-}
+export default function HomePage() {}
 
-// export const getServerSideProps = () => {
-//   return {
-//     redirect: {
-//       statusCode: 308,
-//       destination: '/menu',
-//     },
-//   };
-// };
+export const getServerSideProps = async () => {
+  return {
+    redirect: {
+      destination: '/menu',
+      permanent: true,
+    },
+  };
+};
