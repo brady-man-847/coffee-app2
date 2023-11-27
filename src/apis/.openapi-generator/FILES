@@ -1,6 +1,5 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 api.ts
 base.ts
 common.ts
@@ -26,6 +25,9 @@ models/order-get-menu-info.ts
 models/order-get-menu-list.ts
 models/order-request-create.ts
 models/order-response-create.ts
+models/order-response-get-order-list.ts
+models/order-response-pay.ts
+models/payment-request-pay.ts
 models/room-dto.ts
 models/room-request-create.ts
 models/room-request-enter-room.ts
@@ -33,5 +35,3 @@ models/room-response-create.ts
 models/room-response-get-room-info.ts
 models/room-response-get-room-list.ts
 requests/default-api.ts
-requests/member-controller-api.ts
-requests/room-controller-api.ts

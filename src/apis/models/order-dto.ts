@@ -26,6 +26,12 @@ export interface OrderDto {
   memberSn: number;
   /**
    *
+   * @type {string}
+   * @memberof OrderDto
+   */
+  memberNickname: string;
+  /**
+   *
    * @type {number}
    * @memberof OrderDto
    */
@@ -38,8 +44,14 @@ export interface OrderDto {
   menuCode: string;
   /**
    *
-   * @type {Array<string>}
+   * @type {number}
    * @memberof OrderDto
    */
-  optionList: Array<string>;
+  quantity: number;
+  /**
+   *
+   * @type {Array<number>}
+   * @memberof OrderDto
+   */
+  optionList: Array<number>;
 }

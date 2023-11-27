@@ -32,6 +32,20 @@ import {
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
+import { MemberRequestLogin } from '../models';
+// @ts-ignore
+import { MemberRequestSignup } from '../models';
+// @ts-ignore
+import { MemberRequestUcehfAuth } from '../models';
+// @ts-ignore
+import { MemberResponseCertKey } from '../models';
+// @ts-ignore
+import { MemberResponseLogin } from '../models';
+// @ts-ignore
+import { MemberResponseResult } from '../models';
+// @ts-ignore
+import { MemberResponseUsernameCheck } from '../models';
+// @ts-ignore
 import { OrderGetMenuInfo } from '../models';
 // @ts-ignore
 import { OrderGetMenuList } from '../models';
@@ -39,6 +53,22 @@ import { OrderGetMenuList } from '../models';
 import { OrderRequestCreate } from '../models';
 // @ts-ignore
 import { OrderResponseCreate } from '../models';
+// @ts-ignore
+import { OrderResponseGetOrderList } from '../models';
+// @ts-ignore
+import { OrderResponsePay } from '../models';
+// @ts-ignore
+import { PaymentRequestPay } from '../models';
+// @ts-ignore
+import { RoomRequestCreate } from '../models';
+// @ts-ignore
+import { RoomRequestEnterRoom } from '../models';
+// @ts-ignore
+import { RoomResponseCreate } from '../models';
+// @ts-ignore
+import { RoomResponseGetRoomInfo } from '../models';
+// @ts-ignore
+import { RoomResponseGetRoomList } from '../models';
 /**
  * DefaultApi - axios parameter creator
  * @export
@@ -83,13 +113,162 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
       };
     },
     /**
-     * 메뉴 목록을 조회합니다.
-     * @summary 메뉴 목록 조회
+     *
+     * @summary 방 생성
+     * @param {RoomRequestCreate} roomRequestCreate
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getMenuList: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      const localVarPath = `/menu`;
+    createRoom: async (roomRequestCreate: RoomRequestCreate, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'roomRequestCreate' is not null or undefined
+      assertParamExists('createRoom', 'roomRequestCreate', roomRequestCreate);
+      const localVarPath = `/room`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(roomRequestCreate, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary 방 삭제
+     * @param {number} roomSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteRoom: async (roomSn: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'roomSn' is not null or undefined
+      assertParamExists('deleteRoom', 'roomSn', roomSn);
+      const localVarPath = `/room/{roomSn}`.replace(`{${'roomSn'}}`, encodeURIComponent(String(roomSn)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary 방 입장
+     * @param {number} roomSn
+     * @param {RoomRequestEnterRoom} roomRequestEnterRoom
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    enterRoom: async (
+      roomSn: number,
+      roomRequestEnterRoom: RoomRequestEnterRoom,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'roomSn' is not null or undefined
+      assertParamExists('enterRoom', 'roomSn', roomSn);
+      // verify required parameter 'roomRequestEnterRoom' is not null or undefined
+      assertParamExists('enterRoom', 'roomRequestEnterRoom', roomRequestEnterRoom);
+      const localVarPath = `/room/enter/{roomSn}`.replace(`{${'roomSn'}}`, encodeURIComponent(String(roomSn)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(roomRequestEnterRoom, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary 방 나가기
+     * @param {number} roomSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    exitRoom: async (roomSn: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'roomSn' is not null or undefined
+      assertParamExists('exitRoom', 'roomSn', roomSn);
+      const localVarPath = `/room/exit/{roomSn}`.replace(`{${'roomSn'}}`, encodeURIComponent(String(roomSn)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary 입장한 방 목록 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getEnteredRoomList: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      const localVarPath = `/room/entered`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -116,14 +295,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     /**
      * 메뉴 목록을 조회합니다.
      * @summary 메뉴 목록 조회
-     * @param {number} menuCode
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getMenuList1: async (menuCode: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'menuCode' is not null or undefined
-      assertParamExists('getMenuList1', 'menuCode', menuCode);
-      const localVarPath = `/menu/{menuCode}`.replace(`{${'menuCode'}}`, encodeURIComponent(String(menuCode)));
+    getMenuList: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      const localVarPath = `/order/menu`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -141,6 +317,254 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * 메뉴 정보를 조회합니다.
+     * @summary 메뉴 정보 조회
+     * @param {string} menuCode
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMenuList1: async (menuCode: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'menuCode' is not null or undefined
+      assertParamExists('getMenuList1', 'menuCode', menuCode);
+      const localVarPath = `/order/menu/{menuCode}`.replace(`{${'menuCode'}}`, encodeURIComponent(String(menuCode)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * 주문 목록을 조회합니다.
+     * @summary 주문 목록 조회
+     * @param {number} roomSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getOrderList: async (roomSn: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'roomSn' is not null or undefined
+      assertParamExists('getOrderList', 'roomSn', roomSn);
+      const localVarPath = `/order`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      if (roomSn !== undefined) {
+        localVarQueryParameter['roomSn'] = roomSn;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary 방 정보 조회
+     * @param {number} roomSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getRoomInfo: async (roomSn: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'roomSn' is not null or undefined
+      assertParamExists('getRoomInfo', 'roomSn', roomSn);
+      const localVarPath = `/room/{roomSn}`.replace(`{${'roomSn'}}`, encodeURIComponent(String(roomSn)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary 방 목록 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getRoomList: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      const localVarPath = `/room`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary 로그인
+     * @param {MemberRequestLogin} memberRequestLogin
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    login: async (memberRequestLogin: MemberRequestLogin, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'memberRequestLogin' is not null or undefined
+      assertParamExists('login', 'memberRequestLogin', memberRequestLogin);
+      const localVarPath = `/member/login`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(memberRequestLogin, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * 주문을 취합하여 음료를 주문합니다.
+     * @summary 음료 주문
+     * @param {PaymentRequestPay} paymentRequestPay
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    payOrder: async (paymentRequestPay: PaymentRequestPay, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'paymentRequestPay' is not null or undefined
+      assertParamExists('payOrder', 'paymentRequestPay', paymentRequestPay);
+      const localVarPath = `/payment`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(paymentRequestPay, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary 회원가입
+     * @param {MemberRequestSignup} memberRequestSignup
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    signup: async (memberRequestSignup: MemberRequestSignup, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'memberRequestSignup' is not null or undefined
+      assertParamExists('signup', 'memberRequestSignup', memberRequestSignup);
+      const localVarPath = `/member/signup`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(memberRequestSignup, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -172,6 +596,43 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary uchef 인증
+     * @param {MemberRequestUcehfAuth} memberRequestUcehfAuth
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    uChefAuth: async (memberRequestUcehfAuth: MemberRequestUcehfAuth, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'memberRequestUcehfAuth' is not null or undefined
+      assertParamExists('uChefAuth', 'memberRequestUcehfAuth', memberRequestUcehfAuth);
+      const localVarPath = `/member/uchef-auth`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(memberRequestUcehfAuth, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -230,6 +691,40 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         options: localVarRequestOptions,
       };
     },
+    /**
+     *
+     * @summary username 중복검사
+     * @param {string} username
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    usernameCheck: async (username: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'username' is not null or undefined
+      assertParamExists('usernameCheck', 'username', username);
+      const localVarPath = `/member/id-check/{username}`.replace(`{${'username'}}`, encodeURIComponent(String(username)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
   };
 };
 
@@ -255,6 +750,76 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
+     *
+     * @summary 방 생성
+     * @param {RoomRequestCreate} roomRequestCreate
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async createRoom(
+      roomRequestCreate: RoomRequestCreate,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomResponseCreate>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.createRoom(roomRequestCreate, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary 방 삭제
+     * @param {number} roomSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async deleteRoom(
+      roomSn: number,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.deleteRoom(roomSn, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary 방 입장
+     * @param {number} roomSn
+     * @param {RoomRequestEnterRoom} roomRequestEnterRoom
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async enterRoom(
+      roomSn: number,
+      roomRequestEnterRoom: RoomRequestEnterRoom,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.enterRoom(roomSn, roomRequestEnterRoom, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary 방 나가기
+     * @param {number} roomSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async exitRoom(
+      roomSn: number,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.exitRoom(roomSn, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary 입장한 방 목록 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getEnteredRoomList(
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomResponseGetRoomList>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getEnteredRoomList(options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
      * 메뉴 목록을 조회합니다.
      * @summary 메뉴 목록 조회
      * @param {*} [options] Override http request option.
@@ -265,17 +830,99 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * 메뉴 목록을 조회합니다.
-     * @summary 메뉴 목록 조회
-     * @param {number} menuCode
+     * 메뉴 정보를 조회합니다.
+     * @summary 메뉴 정보 조회
+     * @param {string} menuCode
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async getMenuList1(
-      menuCode: number,
+      menuCode: string,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderGetMenuInfo>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.getMenuList1(menuCode, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * 주문 목록을 조회합니다.
+     * @summary 주문 목록 조회
+     * @param {number} roomSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getOrderList(
+      roomSn: number,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderResponseGetOrderList>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getOrderList(roomSn, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary 방 정보 조회
+     * @param {number} roomSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getRoomInfo(
+      roomSn: number,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomResponseGetRoomInfo>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getRoomInfo(roomSn, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary 방 목록 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getRoomList(
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomResponseGetRoomList>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getRoomList(options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary 로그인
+     * @param {MemberRequestLogin} memberRequestLogin
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async login(
+      memberRequestLogin: MemberRequestLogin,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MemberResponseLogin>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.login(memberRequestLogin, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * 주문을 취합하여 음료를 주문합니다.
+     * @summary 음료 주문
+     * @param {PaymentRequestPay} paymentRequestPay
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async payOrder(
+      paymentRequestPay: PaymentRequestPay,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderResponsePay>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.payOrder(paymentRequestPay, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary 회원가입
+     * @param {MemberRequestSignup} memberRequestSignup
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async signup(
+      memberRequestSignup: MemberRequestSignup,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MemberResponseResult>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.signup(memberRequestSignup, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -286,6 +933,20 @@ export const DefaultApiFp = function (configuration?: Configuration) {
      */
     async test(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.test(options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary uchef 인증
+     * @param {MemberRequestUcehfAuth} memberRequestUcehfAuth
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async uChefAuth(
+      memberRequestUcehfAuth: MemberRequestUcehfAuth,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MemberResponseCertKey>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.uChefAuth(memberRequestUcehfAuth, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -304,6 +965,20 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.uChefLoginTest(phone, securityId, password, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary username 중복검사
+     * @param {string} username
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async usernameCheck(
+      username: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MemberResponseUsernameCheck>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.usernameCheck(username, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
   };
@@ -327,6 +1002,56 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
       return localVarFp.createOrder(orderRequestCreate, options).then((request) => request(axios, basePath));
     },
     /**
+     *
+     * @summary 방 생성
+     * @param {RoomRequestCreate} roomRequestCreate
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createRoom(roomRequestCreate: RoomRequestCreate, options?: any): AxiosPromise<RoomResponseCreate> {
+      return localVarFp.createRoom(roomRequestCreate, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary 방 삭제
+     * @param {number} roomSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteRoom(roomSn: number, options?: any): AxiosPromise<boolean> {
+      return localVarFp.deleteRoom(roomSn, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary 방 입장
+     * @param {number} roomSn
+     * @param {RoomRequestEnterRoom} roomRequestEnterRoom
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    enterRoom(roomSn: number, roomRequestEnterRoom: RoomRequestEnterRoom, options?: any): AxiosPromise<boolean> {
+      return localVarFp.enterRoom(roomSn, roomRequestEnterRoom, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary 방 나가기
+     * @param {number} roomSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    exitRoom(roomSn: number, options?: any): AxiosPromise<boolean> {
+      return localVarFp.exitRoom(roomSn, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary 입장한 방 목록 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getEnteredRoomList(options?: any): AxiosPromise<RoomResponseGetRoomList> {
+      return localVarFp.getEnteredRoomList(options).then((request) => request(axios, basePath));
+    },
+    /**
      * 메뉴 목록을 조회합니다.
      * @summary 메뉴 목록 조회
      * @param {*} [options] Override http request option.
@@ -336,14 +1061,73 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
       return localVarFp.getMenuList(options).then((request) => request(axios, basePath));
     },
     /**
-     * 메뉴 목록을 조회합니다.
-     * @summary 메뉴 목록 조회
-     * @param {number} menuCode
+     * 메뉴 정보를 조회합니다.
+     * @summary 메뉴 정보 조회
+     * @param {string} menuCode
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getMenuList1(menuCode: number, options?: any): AxiosPromise<OrderGetMenuInfo> {
+    getMenuList1(menuCode: string, options?: any): AxiosPromise<OrderGetMenuInfo> {
       return localVarFp.getMenuList1(menuCode, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * 주문 목록을 조회합니다.
+     * @summary 주문 목록 조회
+     * @param {number} roomSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getOrderList(roomSn: number, options?: any): AxiosPromise<OrderResponseGetOrderList> {
+      return localVarFp.getOrderList(roomSn, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary 방 정보 조회
+     * @param {number} roomSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getRoomInfo(roomSn: number, options?: any): AxiosPromise<RoomResponseGetRoomInfo> {
+      return localVarFp.getRoomInfo(roomSn, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary 방 목록 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getRoomList(options?: any): AxiosPromise<RoomResponseGetRoomList> {
+      return localVarFp.getRoomList(options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary 로그인
+     * @param {MemberRequestLogin} memberRequestLogin
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    login(memberRequestLogin: MemberRequestLogin, options?: any): AxiosPromise<MemberResponseLogin> {
+      return localVarFp.login(memberRequestLogin, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * 주문을 취합하여 음료를 주문합니다.
+     * @summary 음료 주문
+     * @param {PaymentRequestPay} paymentRequestPay
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    payOrder(paymentRequestPay: PaymentRequestPay, options?: any): AxiosPromise<OrderResponsePay> {
+      return localVarFp.payOrder(paymentRequestPay, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary 회원가입
+     * @param {MemberRequestSignup} memberRequestSignup
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    signup(memberRequestSignup: MemberRequestSignup, options?: any): AxiosPromise<MemberResponseResult> {
+      return localVarFp.signup(memberRequestSignup, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -356,6 +1140,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     },
     /**
      *
+     * @summary uchef 인증
+     * @param {MemberRequestUcehfAuth} memberRequestUcehfAuth
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    uChefAuth(memberRequestUcehfAuth: MemberRequestUcehfAuth, options?: any): AxiosPromise<MemberResponseCertKey> {
+      return localVarFp.uChefAuth(memberRequestUcehfAuth, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
      * @summary u chef 로그인 테스트
      * @param {string} phone
      * @param {string} securityId
@@ -365,6 +1159,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
      */
     uChefLoginTest(phone: string, securityId: string, password: string, options?: any): AxiosPromise<string> {
       return localVarFp.uChefLoginTest(phone, securityId, password, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary username 중복검사
+     * @param {string} username
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    usernameCheck(username: string, options?: any): AxiosPromise<MemberResponseUsernameCheck> {
+      return localVarFp.usernameCheck(username, options).then((request) => request(axios, basePath));
     },
   };
 };
@@ -391,6 +1195,76 @@ export class DefaultApi extends BaseAPI {
   }
 
   /**
+   *
+   * @summary 방 생성
+   * @param {RoomRequestCreate} roomRequestCreate
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public createRoom(roomRequestCreate: RoomRequestCreate, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .createRoom(roomRequestCreate, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary 방 삭제
+   * @param {number} roomSn
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public deleteRoom(roomSn: number, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .deleteRoom(roomSn, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary 방 입장
+   * @param {number} roomSn
+   * @param {RoomRequestEnterRoom} roomRequestEnterRoom
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public enterRoom(roomSn: number, roomRequestEnterRoom: RoomRequestEnterRoom, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .enterRoom(roomSn, roomRequestEnterRoom, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary 방 나가기
+   * @param {number} roomSn
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public exitRoom(roomSn: number, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .exitRoom(roomSn, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary 입장한 방 목록 조회
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getEnteredRoomList(options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .getEnteredRoomList(options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
    * 메뉴 목록을 조회합니다.
    * @summary 메뉴 목록 조회
    * @param {*} [options] Override http request option.
@@ -404,16 +1278,99 @@ export class DefaultApi extends BaseAPI {
   }
 
   /**
-   * 메뉴 목록을 조회합니다.
-   * @summary 메뉴 목록 조회
-   * @param {number} menuCode
+   * 메뉴 정보를 조회합니다.
+   * @summary 메뉴 정보 조회
+   * @param {string} menuCode
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof DefaultApi
    */
-  public getMenuList1(menuCode: number, options?: AxiosRequestConfig) {
+  public getMenuList1(menuCode: string, options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .getMenuList1(menuCode, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * 주문 목록을 조회합니다.
+   * @summary 주문 목록 조회
+   * @param {number} roomSn
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getOrderList(roomSn: number, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .getOrderList(roomSn, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary 방 정보 조회
+   * @param {number} roomSn
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getRoomInfo(roomSn: number, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .getRoomInfo(roomSn, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary 방 목록 조회
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getRoomList(options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .getRoomList(options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary 로그인
+   * @param {MemberRequestLogin} memberRequestLogin
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public login(memberRequestLogin: MemberRequestLogin, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .login(memberRequestLogin, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * 주문을 취합하여 음료를 주문합니다.
+   * @summary 음료 주문
+   * @param {PaymentRequestPay} paymentRequestPay
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public payOrder(paymentRequestPay: PaymentRequestPay, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .payOrder(paymentRequestPay, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary 회원가입
+   * @param {MemberRequestSignup} memberRequestSignup
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public signup(memberRequestSignup: MemberRequestSignup, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .signup(memberRequestSignup, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -432,6 +1389,20 @@ export class DefaultApi extends BaseAPI {
 
   /**
    *
+   * @summary uchef 인증
+   * @param {MemberRequestUcehfAuth} memberRequestUcehfAuth
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public uChefAuth(memberRequestUcehfAuth: MemberRequestUcehfAuth, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .uChefAuth(memberRequestUcehfAuth, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
    * @summary u chef 로그인 테스트
    * @param {string} phone
    * @param {string} securityId
@@ -443,6 +1414,20 @@ export class DefaultApi extends BaseAPI {
   public uChefLoginTest(phone: string, securityId: string, password: string, options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .uChefLoginTest(phone, securityId, password, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary username 중복검사
+   * @param {string} username
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public usernameCheck(username: string, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .usernameCheck(username, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }

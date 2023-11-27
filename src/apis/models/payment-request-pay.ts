@@ -12,4 +12,16 @@
  * Do not edit the class manually.
  */
 
-export * from './requests/default-api';
+/**
+ * 결제 요청 객체
+ * @export
+ * @interface PaymentRequestPay
+ */
+export interface PaymentRequestPay {
+  /**
+   * room sn
+   * @type {number}
+   * @memberof PaymentRequestPay
+   */
+  roomSn: number;
+}
