@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "predeploy": "npm run build",
-    "deploy": "npx touch out/.nojekyll && gh-pages -d out --dotfiles"
+    "deploy": "npx touch out/.nojekyll && gh-pages -d out --dotfiles",
+    "apigen": "npx @openapitools/openapi-generator-cli generate -i https://port-0-mcafe-v2-euegqv2llo1fufha.sel5.cloudtype.app/v3/api-docs -g typescript-axios -o src/apis -c ./openapi-tsaxios-config.json --global-property skipFormModel=false && prettier --write src/apis"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

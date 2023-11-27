@@ -1,0 +1,7 @@
+{
+  "enumPropertyNaming": "original",
+  "stringEnums": true,
+  "withSeparateModelsAndApi": true,
+  "modelPackage": "models",
+  "apiPackage": "requests"
+}
