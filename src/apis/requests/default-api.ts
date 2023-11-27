@@ -293,13 +293,16 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
       };
     },
     /**
-     * 메뉴 목록을 조회합니다.
-     * @summary 메뉴 목록 조회
+     * 메뉴 정보를 조회합니다.
+     * @summary 메뉴 정보 조회
+     * @param {string} menuCode
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getMenuList: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      const localVarPath = `/order/menu`;
+    getMenuInfo: async (menuCode: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'menuCode' is not null or undefined
+      assertParamExists('getMenuInfo', 'menuCode', menuCode);
+      const localVarPath = `/order/menu/{menuCode}`.replace(`{${'menuCode'}}`, encodeURIComponent(String(menuCode)));
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -324,16 +327,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
       };
     },
     /**
-     * 메뉴 정보를 조회합니다.
-     * @summary 메뉴 정보 조회
-     * @param {string} menuCode
+     * 메뉴 목록을 조회합니다.
+     * @summary 메뉴 목록 조회
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getMenuList1: async (menuCode: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'menuCode' is not null or undefined
-      assertParamExists('getMenuList1', 'menuCode', menuCode);
-      const localVarPath = `/order/menu/{menuCode}`.replace(`{${'menuCode'}}`, encodeURIComponent(String(menuCode)));
+    getMenuList: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      const localVarPath = `/order/menu`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
       let baseOptions;
@@ -820,6 +820,20 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
+     * 메뉴 정보를 조회합니다.
+     * @summary 메뉴 정보 조회
+     * @param {string} menuCode
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getMenuInfo(
+      menuCode: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderGetMenuInfo>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getMenuInfo(menuCode, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
      * 메뉴 목록을 조회합니다.
      * @summary 메뉴 목록 조회
      * @param {*} [options] Override http request option.
@@ -827,20 +841,6 @@ export const DefaultApiFp = function (configuration?: Configuration) {
      */
     async getMenuList(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderGetMenuList>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.getMenuList(options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
-     * 메뉴 정보를 조회합니다.
-     * @summary 메뉴 정보 조회
-     * @param {string} menuCode
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getMenuList1(
-      menuCode: string,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderGetMenuInfo>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getMenuList1(menuCode, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1052,6 +1052,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
       return localVarFp.getEnteredRoomList(options).then((request) => request(axios, basePath));
     },
     /**
+     * 메뉴 정보를 조회합니다.
+     * @summary 메뉴 정보 조회
+     * @param {string} menuCode
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getMenuInfo(menuCode: string, options?: any): AxiosPromise<OrderGetMenuInfo> {
+      return localVarFp.getMenuInfo(menuCode, options).then((request) => request(axios, basePath));
+    },
+    /**
      * 메뉴 목록을 조회합니다.
      * @summary 메뉴 목록 조회
      * @param {*} [options] Override http request option.
@@ -1059,16 +1069,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
      */
     getMenuList(options?: any): AxiosPromise<OrderGetMenuList> {
       return localVarFp.getMenuList(options).then((request) => request(axios, basePath));
-    },
-    /**
-     * 메뉴 정보를 조회합니다.
-     * @summary 메뉴 정보 조회
-     * @param {string} menuCode
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getMenuList1(menuCode: string, options?: any): AxiosPromise<OrderGetMenuInfo> {
-      return localVarFp.getMenuList1(menuCode, options).then((request) => request(axios, basePath));
     },
     /**
      * 주문 목록을 조회합니다.
@@ -1265,6 +1265,20 @@ export class DefaultApi extends BaseAPI {
   }
 
   /**
+   * 메뉴 정보를 조회합니다.
+   * @summary 메뉴 정보 조회
+   * @param {string} menuCode
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getMenuInfo(menuCode: string, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .getMenuInfo(menuCode, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
    * 메뉴 목록을 조회합니다.
    * @summary 메뉴 목록 조회
    * @param {*} [options] Override http request option.
@@ -1274,20 +1288,6 @@ export class DefaultApi extends BaseAPI {
   public getMenuList(options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .getMenuList(options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * 메뉴 정보를 조회합니다.
-   * @summary 메뉴 정보 조회
-   * @param {string} menuCode
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public getMenuList1(menuCode: string, options?: AxiosRequestConfig) {
-    return DefaultApiFp(this.configuration)
-      .getMenuList1(menuCode, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
