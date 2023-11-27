@@ -1,9 +1,9 @@
 export interface MenuRs {
   name: string;
   code: string;
-  unitPrice: number;
-  type: number;
+  price: number;
   stock: 0 | -1;
+  unit: '원';
 }
 
 export interface MenuOptionRs {
@@ -18,7 +18,7 @@ export interface OptionGroup {
   name: string;
   selectMax: number;
   selectMin: number;
-  optionValueList: OptionValue[];
+  optionList: OptionValue[];
 }
 
 export interface OptionValue {
@@ -26,4 +26,9 @@ export interface OptionValue {
   name: string;
   isOptionDefault: boolean;
   price: number;
+}
+
+export interface MenuCategoryRes {
+  name: string;
+  menuList: MenuRs[];
 }

@@ -1,18 +1,42 @@
 import { Bottom, Header, Main } from '@/components/layout';
-import { queryClient, theme } from '@/config';
-import styled from '@emotion/styled';
+import { theme } from '@/config';
 import { Box, CssBaseline, ThemeProvider } from '@mui/material';
-import { QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
-import Head from 'next/head';
 import '../styles/App.css';
+import { ReactElement, ReactNode, useState } from 'react';
+import { NextPage } from 'next';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-export default function ({ Component, pageProps }: AppProps) {
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+function RootApp({ Component, pageProps }: AppPropsWithLayout) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: { retry: 0, refetchOnWindowFocus: false },
+        },
+      }),
+  );
+
+  const getLayout =
+    Component.getLayout ??
+    ((page) => (
+      <>
+        <Header />
+        <Main>{page}</Main>
+        <Bottom />
+      </>
+    ));
+
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
       <Box
         sx={[
           {
@@ -27,17 +51,11 @@ export default function ({ Component, pageProps }: AppProps) {
       >
         <CssBaseline />
         <ThemeProvider theme={theme}>
-          <Header />
-          <Main>
-            <QueryClientProvider client={queryClient}>
-              <Component {...pageProps} />
-            </QueryClientProvider>
-          </Main>
-          <Bottom />
+          <QueryClientProvider client={queryClient}>{getLayout(<Component {...pageProps} />)}</QueryClientProvider>
         </ThemeProvider>
       </Box>
     </>
   );
 }
 
-const Body = styled.div``;
+export default RootApp;

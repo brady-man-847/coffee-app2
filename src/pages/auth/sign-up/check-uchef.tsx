@@ -1,9 +1,8 @@
-import { API_URL } from '@/config/api';
 import { AccountCircle, Password, Smartphone } from '@mui/icons-material';
 import { Button, InputAdornment, TextField, Typography } from '@mui/material';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
+import useMutationCheckUchef from '@/hooks/auth/useMutationCheckUchef';
 
 export default function CheckUchefPage() {
   const router = useRouter();
@@ -12,23 +11,28 @@ export default function CheckUchefPage() {
   const securityIdRef = useRef<HTMLInputElement>();
   const passwordRef = useRef<HTMLInputElement>();
 
+  const { mutate: checkUchef } = useMutationCheckUchef({});
+
   const handleClickCheckUchef = () => {
-    axios
-      .post(`${API_URL}/member/uchef-auth`, {
-        phone: phoneRef.current?.value
-          .replace(/\D/g, '') // Remove non-numeric characters
+    checkUchef(
+      {
+        phone: phoneRef
+          .current!.value.replace(/\D/g, '') // Remove non-numeric characters
           .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') // Format as 3-4-4
           .slice(0, 13), // Limit to 12 digits (3-4-4) as string,
         securityId: securityIdRef.current?.value as string,
         password: passwordRef.current?.value as string,
-      })
-      .then(({ data }) => {
-        const { certKey } = data;
-        router.push(`/auth/sign-up?cert=${certKey}`, '/auth/sign-up', { shallow: true });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      },
+      {
+        onSuccess: (data) => {
+          const { certKey } = data;
+          router.push(`/auth/sign-up?cert=${certKey}`, '/auth/sign-up', { shallow: true });
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+      },
+    );
   };
 
   return (

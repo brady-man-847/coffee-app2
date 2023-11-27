@@ -2,7 +2,7 @@ import { MenuContext } from '@/context/menu/MenuContext';
 import { OptionValue } from '@/dto/menuDto';
 import { Box, Checkbox, FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import _ from 'lodash';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import { useContextSelector } from 'use-context-selector';
 
 interface Props {
@@ -39,6 +39,8 @@ export default function MenuOptionList({ idx, data, menuName }: Props) {
       },
     });
   };
+
+  useEffect(() => {}, []);
 
   return (
     <Box>

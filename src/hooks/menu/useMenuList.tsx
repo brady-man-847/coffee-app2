@@ -1,11 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
+import { API_URL } from '@/config/api';
 import { queryKeys } from '@/config/queryClient';
+import { MenuCategoryRes } from '@/dto/menuDto';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { MenuRs } from '@/dto/menuDto';
 
 export default function useMenuList() {
-  return useQuery<Array<MenuRs>>(queryKeys.menu.all, async () => {
-    const { data } = await axios.get('https://mcafe-api.onrender.com/menu');
-    return data;
+  return useQuery<Array<MenuCategoryRes>>(queryKeys.menu.all, async () => {
+    const { data } = await axios.get(`${API_URL}/menu`);
+    return data.menuCategoryList as MenuCategoryRes[];
   });
 }

@@ -1,5 +1,6 @@
 import MenuScreen from '@/screen/menu/MenuScreen';
 import { MenuContext, useMenuValue } from '@/context/menu/MenuContext';
+import { withGetLoginGuardMidasWorkspaceServerSideProps } from '@/server/authGuard';
 
 export default function MenuPage() {
   return (
@@ -8,3 +9,5 @@ export default function MenuPage() {
     </MenuContext.Provider>
   );
 }
+
+export const getServerSideProps = withGetLoginGuardMidasWorkspaceServerSideProps();

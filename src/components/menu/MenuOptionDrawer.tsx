@@ -15,6 +15,7 @@ export default function MenuOptionDrawer() {
   const { menu, order, isDrawerOpen } = useContextSelector(MenuContext, (v) => v[0]);
   const dispatch = useContextSelector(MenuContext, (v) => v[1]);
   const { data, isLoading } = useMenuOption(menu.code, menu.code !== undefined);
+
   const { mutate: callOrder, isLoading: isCallWaiting } = useCallOrder();
   const [isRequestApi, setIsRequestApi] = useState(false);
 
@@ -86,14 +87,19 @@ export default function MenuOptionDrawer() {
             {menu.name}
           </Typography>
           {!!data &&
-            data.optionGroupList.map((i, idx) => (
-              <Accordion sx={{ mt: 2 }} defaultExpanded>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>{i.name}</AccordionSummary>
-                <AccordionDetails>
-                  <MenuOptionList idx={idx} data={i.optionValueList} menuName={i.name} />
-                </AccordionDetails>
-              </Accordion>
-            ))}
+            data.optionGroupList?.map((i, idx) => {
+              const { name } = i;
+              const newName = name.charAt(0).toUpperCase() + name.slice(1);
+
+              return (
+                <Accordion sx={{ mt: 2 }} defaultExpanded>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>{i.name}</AccordionSummary>
+                  <AccordionDetails>
+                    <MenuOptionList idx={idx} data={i.optionList} menuName={newName} />
+                  </AccordionDetails>
+                </Accordion>
+              );
+            })}
           <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: '8px' }}>
             <PhoneInput label="핸드폰 번호" variant="outlined" handleValueChange={handlePhoneInputChange} />
             <Button

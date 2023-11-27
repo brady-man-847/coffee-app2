@@ -1,9 +1,8 @@
-import { API_URL } from '@/config/api';
 import { AccountCircle, ContactEmergency, Lock, Password } from '@mui/icons-material';
 import { Button, InputAdornment, TextField, Typography } from '@mui/material';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
+import useMutationSignUp from '@/hooks/auth/useMutationSignUp';
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -14,23 +13,28 @@ export default function SignUpPage() {
   const passwordRef = useRef<HTMLInputElement>();
   const password2Ref = useRef<HTMLInputElement>();
 
-  const handleClickSignIn = () => {
+  const { mutate: signUp } = useMutationSignUp({});
+
+  const handleClickSignUp = () => {
     if (passwordRef.current?.value !== password2Ref.current?.value) return;
-    axios
-      .post(`${API_URL}/member/signup`, {
+
+    signUp(
+      {
         username: usernameRef.current?.value as string,
         nickname: nicknameRef.current?.value as string,
         password: passwordRef.current?.value as string,
         passwordCheck: password2Ref.current?.value as string,
         certKey: query.cert as string,
-      })
-      .then((res) => {
-        console.log(res);
-        router.push('/auth');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      },
+      {
+        onSuccess: () => {
+          router.push('/auth');
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+      },
+    );
   };
 
   return (
@@ -87,7 +91,7 @@ export default function SignUpPage() {
           color="secondary"
         />
 
-        <Button variant="contained" fullWidth onClick={handleClickSignIn}>
+        <Button variant="contained" fullWidth onClick={handleClickSignUp}>
           <Typography color={'secondary'}>WELCOME :)</Typography>
         </Button>
       </div>
