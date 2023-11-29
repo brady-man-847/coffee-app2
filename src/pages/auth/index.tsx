@@ -25,6 +25,7 @@ export default function AuthPage() {
       {
         onSuccess: (data) => {
           const { token } = data;
+
           setCookie(ACCESS_TOKEN, token, {
             expires: new Date(Date.now() + AT_EXPIRES_IN),
             path: '/',

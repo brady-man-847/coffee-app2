@@ -6,6 +6,8 @@ import '../styles/App.css';
 import { ReactElement, ReactNode, useState } from 'react';
 import { NextPage } from 'next';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { RecoilRoot } from 'recoil';
+import WithAxios from '@/components/common/WithAxios';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -51,7 +53,11 @@ function RootApp({ Component, pageProps }: AppPropsWithLayout) {
       >
         <CssBaseline />
         <ThemeProvider theme={theme}>
-          <QueryClientProvider client={queryClient}>{getLayout(<Component {...pageProps} />)}</QueryClientProvider>
+          <WithAxios>
+            <RecoilRoot>
+              <QueryClientProvider client={queryClient}>{getLayout(<Component {...pageProps} />)}</QueryClientProvider>
+            </RecoilRoot>
+          </WithAxios>
         </ThemeProvider>
       </Box>
     </>

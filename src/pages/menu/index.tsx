@@ -1,5 +1,5 @@
-import MenuScreen from '@/screen/menu/MenuScreen';
-import { MenuContext, useMenuValue } from '@/context/menu/MenuContext';
+import MenuScreen from '@/components/menu/MenuScreen';
+import { MenuContext, useMenuValue } from '@/components/menu/MenuContext';
 import { withGetLoginGuardMidasWorkspaceServerSideProps } from '@/server/authGuard';
 
 export default function MenuPage() {

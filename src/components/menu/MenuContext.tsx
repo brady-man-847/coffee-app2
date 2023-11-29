@@ -1,19 +1,20 @@
 import { useReducer } from 'react';
 import { createContext } from 'use-context-selector';
-import { MenuRs, OrderRq } from '@/dto';
+import { MenuDto } from '@/apis';
+import { CustomOrderDto } from '@/dto/CustomOrderDto';
 
 const initialState = {
   isDrawerOpen: false,
-  menu: {} as MenuRs,
-  order: {} as OrderRq,
+  menu: {} as MenuDto,
+  order: {} as CustomOrderDto,
 };
 
 type State = typeof initialState;
 
 type Action =
   | { type: 'SET_DRAWER_OPEN'; isDrawerOpen: boolean }
-  | { type: 'SET_MENU'; menu: MenuRs }
-  | { type: 'SET_ORDER'; order: OrderRq }
+  | { type: 'SET_MENU'; menu: MenuDto }
+  | { type: 'SET_ORDER'; order: CustomOrderDto }
   | { type: 'INIT_MENU' };
 
 type Dispatch = (action: Action) => void;

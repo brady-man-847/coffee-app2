@@ -1,0 +1,16 @@
+import MenuCategory from '@/components/menu/category/MenuCategory';
+import MenuOptionDrawer from '@/components/menu/drawer/MenuOptionDrawer';
+import { useRecoilState } from 'recoil';
+import { roomStore } from '@/stores/roomStore';
+import RoomModal from '@/components/room/RoomModal';
+
+export default function MenuScreen() {
+  const [{ isOpen }] = useRecoilState(roomStore);
+  return (
+    <>
+      <MenuCategory />
+      <MenuOptionDrawer />
+      {isOpen && <RoomModal />}
+    </>
+  );
+}

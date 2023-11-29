@@ -3,6 +3,7 @@ import { Button, InputAdornment, TextField, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import useMutationCheckUchef from '@/hooks/auth/useMutationCheckUchef';
+import { Header } from '@/components/layout';
 
 export default function CheckUchefPage() {
   const router = useRouter();
@@ -99,3 +100,10 @@ export default function CheckUchefPage() {
     </>
   );
 }
+
+CheckUchefPage.getLayout = (page: JSX.Element) => (
+  <>
+    <Header />
+    {page}
+  </>
+);

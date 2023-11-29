@@ -1,15 +1,15 @@
 import { Loading } from '@/components/common';
 import { queryKeys } from '@/config/queryClient';
 import { OrderContext, OrderView } from '@/context/order/OrderContext';
-import { OrderRs } from '@/dto/orderDto';
 import useCallOrderCancel from '@/hooks/order/useCallOrderCancel';
 import useCallPay from '@/hooks/order/useCallPay';
 import useOrderList from '@/hooks/order/useOrderList';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { Box, Button, Divider, Paper, Typography } from '@mui/material';
+import { Box, Button, Divider, Paper } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { useContextSelector } from 'use-context-selector';
+import { OrderDto } from '@/apis';
 
 export default function OrderChooseScreen() {
   const { phone } = useContextSelector(OrderContext, (v) => v[0]);
@@ -39,14 +39,11 @@ export default function OrderChooseScreen() {
     queryClient.invalidateQueries(queryKeys.order.byPhone(phone));
   };
 
-  const render = (list: OrderRs[] | undefined) => {
+  const render = (list: OrderDto[] | undefined) => {
     if (list === undefined) return;
 
     const renderItems = list.map((itm, idx) => (
       <Box>
-        <Typography>{itm.menuName}</Typography>
-        <Typography>{itm.name}</Typography>
-        <Typography>{itm.optionNameList.join(' ')}</Typography>
         <Divider sx={{ m: 2 }} />
       </Box>
     ));

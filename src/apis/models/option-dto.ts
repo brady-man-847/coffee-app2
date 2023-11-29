@@ -41,5 +41,5 @@ export interface OptionDto {
    * @type {boolean}
    * @memberof OptionDto
    */
-  default: boolean;
+  isDefault: boolean;
 }

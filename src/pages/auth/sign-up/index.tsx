@@ -3,6 +3,7 @@ import { Button, InputAdornment, TextField, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import useMutationSignUp from '@/hooks/auth/useMutationSignUp';
+import { Header } from '@/components/layout';
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -108,3 +109,10 @@ export default function SignUpPage() {
     </>
   );
 }
+
+SignUpPage.getLayout = (page: JSX.Element) => (
+  <>
+    <Header />
+    {page}
+  </>
+);
