@@ -3,11 +3,13 @@ import { useRecoilState } from 'recoil';
 import { roomStore } from '@/stores/roomStore';
 import RoomContainer from '@/components/room/choose/RoomContainer';
 import CloseIcon from '@mui/icons-material/Close';
+import useCreateOrder from '@/components/room/choose/useCreateOrder';
 
-export default function RoomModal() {
+export default function RoomModalForOrder() {
   const [{ isOpen }, setRoomState] = useRecoilState(roomStore);
 
   const handleClose = () => setRoomState({ isOpen: false });
+  const { handleClick } = useCreateOrder();
 
   return (
     <>
@@ -23,7 +25,7 @@ export default function RoomModal() {
           </Box>
         </DialogTitle>
         <DialogContent>
-          <RoomContainer />
+          <RoomContainer onClick={handleClick} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

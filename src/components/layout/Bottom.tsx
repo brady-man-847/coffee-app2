@@ -2,13 +2,13 @@ import styled from '@emotion/styled';
 import CoffeeIcon from '@mui/icons-material/Coffee';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import SettingsIcon from '@mui/icons-material/Settings';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
 import { BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 import { useRouter } from 'next/router';
+import FireplaceIcon from '@mui/icons-material/Fireplace';
 
 enum BottomMenu {
   MENU = '/menu',
-  GAME = '/game',
+  ROOM = '/room',
   PAYMENT = '/payment',
   SETTING = '/setting',
   ORDER = '/order',
@@ -28,10 +28,10 @@ export default function () {
             router.push(newValue);
           }}
         >
-          <BottomNavigationAction value={BottomMenu.MENU} label="메뉴" icon={<CoffeeIcon />} />
-          <BottomNavigationAction value={BottomMenu.GAME} label="게임" icon={<SmartToyIcon />} />
-          <BottomNavigationAction value={BottomMenu.ORDER} label="주문" icon={<LocalAtmIcon />} />
-          <BottomNavigationAction value={BottomMenu.SETTING} label="설정" icon={<SettingsIcon />} />
+          <BottomNavigationAction value={BottomMenu.MENU} label="MENU" icon={<CoffeeIcon />} />
+          <BottomNavigationAction value={BottomMenu.ROOM} label="ROOM" icon={<FireplaceIcon />} />
+          <BottomNavigationAction value={BottomMenu.ORDER} label="ORDER" icon={<LocalAtmIcon />} />
+          <BottomNavigationAction value={BottomMenu.SETTING} label="SETTING" icon={<SettingsIcon />} />
         </BottomNavigation>
       </Bottom>
     </>

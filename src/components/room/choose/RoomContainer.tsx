@@ -3,7 +3,11 @@ import { Paper, Table, TableContainer } from '@mui/material';
 import { Loading } from '@/components/common';
 import RoomTableCard from '@/components/room/choose/RoomTableCard';
 
-export default function RoomContainer() {
+interface Props {
+  onClick?: (roomSn: number) => void;
+}
+
+export default function RoomContainer({ onClick }: Props) {
   const { data, isLoading } = useQueryGetRoomEntered({ req: undefined });
 
   if (isLoading) return <Loading />;
@@ -13,7 +17,7 @@ export default function RoomContainer() {
       <div className={'wrapper'}>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 'fit-content', gap: 1 }}>
-            {data?.roomList && data.roomList.map((room) => <RoomTableCard data={room} key={`${room.sn}_card_key`} />)}
+            {data?.roomList && data.roomList.map((room) => <RoomTableCard data={room} key={`${room.sn}_card_key`} onClick={onClick} />)}
           </Table>
         </TableContainer>
       </div>
