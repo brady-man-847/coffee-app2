@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import useQueryGetRoomInfo from '@/hooks/room/useQueryGetRoomInfo';
-import { Avatar, Button, Typography } from '@mui/material';
+import { Avatar, Button, Chip, Typography } from '@mui/material';
 import { stringAvatar } from '@/utils/muiAvatar';
 import { Loading } from '@/components/common';
 import RoomDetailInfo from '@/components/room/detail/RoomDetailInfo';
@@ -37,7 +37,44 @@ export default function RoomDetailScreen() {
               </div>
             ))}
           </div>
-          <div className={'order-wrapper'}>{/* {data} */}</div>
+          <Typography>ORDER LIST</Typography>
+
+          <div className={'order-wrapper'}>
+            {data.orderList.map((order) => {
+              const { menu, optionList, quantity, memberNickname, memberSn } = order;
+              const { name: menuName, price, optionGroupList } = menu;
+              const includeOptionList = optionGroupList.flatMap((i) => i.optionList).filter((j) => optionList.includes(j.code));
+              return (
+                <div className={'order-item'}>
+                  <Avatar {...stringAvatar(memberNickname)} />
+                  <div>
+                    <Chip
+                      sx={{
+                        height: 'auto',
+                        '& .MuiChip-label': {
+                          display: 'block',
+                          whiteSpace: 'normal',
+                        },
+                      }}
+                      label={menuName}
+                    />
+                    {includeOptionList.map((i) => (
+                      <Chip
+                        sx={{
+                          height: 'auto',
+                          '& .MuiChip-label': {
+                            display: 'block',
+                            whiteSpace: 'normal',
+                          },
+                        }}
+                        label={i.name}
+                      />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
           <div className={'payment-wrapper'} onClick={handleClickPayment}>
             <Button variant="contained">결제하기</Button>
           </div>
@@ -63,6 +100,13 @@ export default function RoomDetailScreen() {
           }
           .room-wrapper {
             padding: 8px;
+          }
+          .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border: 1px solid lightgray;
           }
           .payment-wrapper {
           }
