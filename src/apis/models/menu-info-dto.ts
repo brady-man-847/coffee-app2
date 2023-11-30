@@ -17,7 +17,7 @@
 import { OptionGroupDto } from './option-group-dto';
 
 /**
- * 메뉴 정보
+ *
  * @export
  * @interface MenuInfoDto
  */

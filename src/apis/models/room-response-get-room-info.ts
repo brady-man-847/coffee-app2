@@ -17,6 +17,9 @@
 import { MemberDto } from './member-dto';
 // May contain unused imports in some cases
 // @ts-ignore
+import { OrderDto } from './order-dto';
+// May contain unused imports in some cases
+// @ts-ignore
 import { RoomDto } from './room-dto';
 
 /**
@@ -37,4 +40,10 @@ export interface RoomResponseGetRoomInfo {
    * @memberof RoomResponseGetRoomInfo
    */
   memberList: Array<MemberDto>;
+  /**
+   * 현재 주문 정보
+   * @type {Array<OrderDto>}
+   * @memberof RoomResponseGetRoomInfo
+   */
+  orderList: Array<OrderDto>;
 }

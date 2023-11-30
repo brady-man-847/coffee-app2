@@ -16,7 +16,6 @@ export * from './order-get-menu-info';
 export * from './order-get-menu-list';
 export * from './order-request-create';
 export * from './order-response-create';
-export * from './order-response-get-order-list';
 export * from './order-response-pay';
 export * from './payment-request-pay';
 export * from './room-dto';

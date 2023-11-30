@@ -12,6 +12,10 @@
  * Do not edit the class manually.
  */
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { MenuInfoDto } from './menu-info-dto';
+
 /**
  * 주문 DTO
  * @export
@@ -38,10 +42,10 @@ export interface OrderDto {
   roomSn: number;
   /**
    *
-   * @type {string}
+   * @type {MenuInfoDto}
    * @memberof OrderDto
    */
-  menuCode: string;
+  menu: MenuInfoDto;
   /**
    *
    * @type {number}

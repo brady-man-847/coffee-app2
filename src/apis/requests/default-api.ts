@@ -54,8 +54,6 @@ import { OrderRequestCreate } from '../models';
 // @ts-ignore
 import { OrderResponseCreate } from '../models';
 // @ts-ignore
-import { OrderResponseGetOrderList } from '../models';
-// @ts-ignore
 import { OrderResponsePay } from '../models';
 // @ts-ignore
 import { PaymentRequestPay } from '../models';
@@ -347,44 +345,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
       // authentication Authorization required
       await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     * 주문 목록을 조회합니다.
-     * @summary 주문 목록 조회
-     * @param {number} roomSn
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getOrderList: async (roomSn: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-      // verify required parameter 'roomSn' is not null or undefined
-      assertParamExists('getOrderList', 'roomSn', roomSn);
-      const localVarPath = `/order`;
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      // authentication Authorization required
-      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
-
-      if (roomSn !== undefined) {
-        localVarQueryParameter['roomSn'] = roomSn;
-      }
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -844,20 +804,6 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
-     * 주문 목록을 조회합니다.
-     * @summary 주문 목록 조회
-     * @param {number} roomSn
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async getOrderList(
-      roomSn: number,
-      options?: AxiosRequestConfig,
-    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderResponseGetOrderList>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getOrderList(roomSn, options);
-      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-    },
-    /**
      *
      * @summary 방 정보 조회
      * @param {number} roomSn
@@ -1071,16 +1017,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
       return localVarFp.getMenuList(options).then((request) => request(axios, basePath));
     },
     /**
-     * 주문 목록을 조회합니다.
-     * @summary 주문 목록 조회
-     * @param {number} roomSn
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    getOrderList(roomSn: number, options?: any): AxiosPromise<OrderResponseGetOrderList> {
-      return localVarFp.getOrderList(roomSn, options).then((request) => request(axios, basePath));
-    },
-    /**
      *
      * @summary 방 정보 조회
      * @param {number} roomSn
@@ -1288,20 +1224,6 @@ export class DefaultApi extends BaseAPI {
   public getMenuList(options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .getMenuList(options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
-  /**
-   * 주문 목록을 조회합니다.
-   * @summary 주문 목록 조회
-   * @param {number} roomSn
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof DefaultApi
-   */
-  public getOrderList(roomSn: number, options?: AxiosRequestConfig) {
-    return DefaultApiFp(this.configuration)
-      .getOrderList(roomSn, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
