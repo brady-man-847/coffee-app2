@@ -4,4 +4,4 @@ export const REFRESH_TOKEN = `${prefix}refresh_token`;
 
 export const AT_EXPIRES_IN = 30 * 60 * 1000;
 
-export const DOMAIN = 'localhost' || 'github.io';
+export const DOMAIN = process.env.NODE_ENV === 'development' ? 'localhost' : process.env.NODE_ENV === 'production' ? 'vercel.app' : '';
