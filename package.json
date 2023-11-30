@@ -31,8 +31,7 @@
     "react-dom": "18.2.0",
     "recoil": "^0.7.7",
     "scheduler": "^0.23.0",
-    "typescript": "4.9.5",
-    "use-context-selector": "^1.4.1"
+    "typescript": "4.9.5"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
@@ -69,5 +68,6 @@
     "sb": "^6.5.9",
     "tsconfig-paths-webpack-plugin": "^4.0.0",
     "webpack": "^5.73.0"
-  }
+  },
+  "packageManager": "yarn@3.4.1"
 }
