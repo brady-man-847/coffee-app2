@@ -5,6 +5,7 @@ const initialState = {
   isOpen: false,
 };
 
+export const roomInitialState = initialState;
 export type RoomState = typeof initialState;
 
 export const roomStore = atom<RoomState>({

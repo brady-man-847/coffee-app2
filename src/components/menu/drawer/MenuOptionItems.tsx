@@ -1,9 +1,9 @@
-import { MenuContext } from '@/components/menu/MenuContext';
 import { Box, Checkbox, FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import _ from 'lodash';
 import { ChangeEvent } from 'react';
-import { useContextSelector } from 'use-context-selector';
 import { OptionDto } from '@/apis';
+import { useRecoilState } from 'recoil';
+import { menuStore } from '@/stores/menuStore';
 
 interface Props {
   idx: number;
@@ -12,12 +12,11 @@ interface Props {
 }
 
 export default function MenuOptionItems({ idx, data, menuName }: Props) {
-  const { order } = useContextSelector(MenuContext, (v) => v[0]);
-  const dispatch = useContextSelector(MenuContext, (v) => v[1]);
-
+  const [state, dispatch] = useRecoilState(menuStore);
+  const { order } = state;
   const handleRadioOptionChange = (e: ChangeEvent<HTMLInputElement>, value: string): void => {
     dispatch({
-      type: 'SET_ORDER',
+      ...state,
       order: {
         ...order,
         optionList: _.defaults({ [menuName!]: +value }, { ...order.optionList }),
@@ -28,7 +27,7 @@ export default function MenuOptionItems({ idx, data, menuName }: Props) {
   const handleCheckOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     dispatch({
-      type: 'SET_ORDER',
+      ...state,
       order: {
         ...order,
         optionList: _.defaults({ [menuName!]: checked ? +value : undefined }, { ...order.optionList }),

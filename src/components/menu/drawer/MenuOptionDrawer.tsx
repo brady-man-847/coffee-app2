@@ -1,20 +1,18 @@
-import { MenuContext } from '@/components/menu/MenuContext';
 import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Drawer, IconButton, Typography } from '@mui/material';
 import { useEffect } from 'react';
-import { useContextSelector } from 'use-context-selector';
 import useQueryGetMenuInfo from '@/hooks/menu/useQueryGetMenuInfo';
 import MenuOptionItems from '@/components/menu/drawer/MenuOptionItems';
 import DoorSlidingIcon from '@mui/icons-material/DoorSliding';
 import { roomStore } from '@/stores/roomStore';
 import { useRecoilState } from 'recoil';
+import { menuInitialState, menuStore } from '@/stores/menuStore';
 
 export default function MenuOptionDrawer() {
   const [{ isOpen }, setRoomState] = useRecoilState(roomStore);
-  const { menu, order, isDrawerOpen } = useContextSelector(MenuContext, (v) => v[0]);
-  const dispatch = useContextSelector(MenuContext, (v) => v[1]);
-
+  const [state, dispatch] = useRecoilState(menuStore);
+  const { menu, order, isDrawerOpen } = state;
   const { data } = useQueryGetMenuInfo({
     req: {
       menuCode: menu.code,
@@ -38,7 +36,7 @@ export default function MenuOptionDrawer() {
     const defaultOptionObject = Object.fromEntries(new Map(defaultOptionList.map((i) => Object.entries(i)[0])));
 
     dispatch({
-      type: 'SET_ORDER',
+      ...state,
       order: {
         ...order,
         optionList: defaultOptionObject,
@@ -69,7 +67,7 @@ export default function MenuOptionDrawer() {
   };
 
   const handleDrawerClose = () => {
-    dispatch({ type: 'INIT_MENU' });
+    dispatch(menuInitialState);
   };
 
   return (

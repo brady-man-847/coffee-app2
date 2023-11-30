@@ -13,7 +13,7 @@ export default function RoomContainer() {
       <div className={'wrapper'}>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 'fit-content', gap: 1 }}>
-            {data?.roomList && data.roomList.map((room) => <RoomTableCard data={room} />)}
+            {data?.roomList && data.roomList.map((room) => <RoomTableCard data={room} key={`${room.sn}_card_key`} />)}
           </Table>
         </TableContainer>
       </div>

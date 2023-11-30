@@ -8,6 +8,8 @@ const initialState = {
   menu: {} as MenuDto,
   order: {} as CustomOrderDto,
 };
+
+export const menuInitialState = initialState;
 export type MenuState = typeof initialState;
 
 export const menuStore = atom<MenuState>({

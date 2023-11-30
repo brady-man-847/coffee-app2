@@ -1,19 +1,18 @@
-import { MenuContext } from '@/components/menu/MenuContext';
 import { Box, Paper, Typography } from '@mui/material';
-import { useContextSelector } from 'use-context-selector';
 import { MenuDto } from '@/apis';
+import { useRecoilState } from 'recoil';
+import { menuStore } from '@/stores/menuStore';
 
 interface Props {
   data?: MenuDto[];
 }
 
 export default function MenuCategoryDetail({ data }: Props) {
-  const dispatch = useContextSelector(MenuContext, (v) => v[1]);
+  const [state, dispatch] = useRecoilState(menuStore);
 
   const handleClickOpenMenu = (item: MenuDto) => {
     if (item.stock !== 0) {
-      dispatch({ type: 'SET_DRAWER_OPEN', isDrawerOpen: true });
-      dispatch({ type: 'SET_MENU', menu: item });
+      dispatch({ ...state, isDrawerOpen: true, menu: item });
     }
   };
 

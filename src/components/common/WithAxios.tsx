@@ -3,7 +3,6 @@ import { axiosInstance } from '@/factory/axiosInstances';
 import { AxiosError, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { getCookie } from 'cookies-next';
 import { ACCESS_TOKEN } from '@/defines/token';
-import { ErrorResponse } from '@/defines/errorResponse';
 import { removeCookie } from '@/utils/cookie';
 import { useRouter } from 'next/router';
 
@@ -63,8 +62,10 @@ export default function WithAxios({ children }: Props) {
     axiosInstances.map((instance) =>
       instance.interceptors.response.use(
         (value) => value,
-        async (error: ErrorResponse) => {
-          const { response, config } = error;
+        async (error: AxiosError) => {
+          const { config, code, request, response, isAxiosError, status, cause } = error;
+
+          console.log({ config, code, request, response, isAxiosError, status, cause });
 
           const accessToken = getCookie(ACCESS_TOKEN);
           // const refreshToken = getCookie(REFRESH_TOKEN);
@@ -83,26 +84,8 @@ export default function WithAxios({ children }: Props) {
           //
           //   return Promise.reject(error);
           // }
-
-          switch (response?.data.error) {
-            case 'JWT_MALFORMED':
-              removeCookie(ACCESS_TOKEN);
-              await router.push(`/auth`);
-              return Promise.reject(error);
-
-            // case 'JWT_EXPIRED':
-            // AT 만료
-            // return requestRefreshToken(config, error);
-
-            case 'JWT_EXPIRED_REFRESH_TOKEN':
-              // Refresh token 만료
-              removeCookie(ACCESS_TOKEN);
-              await router.push(`/auth`);
-              break;
-            default:
-              break;
-          }
-
+          removeCookie(ACCESS_TOKEN);
+          router.push('/auth');
           return Promise.reject(error);
         },
       ),
