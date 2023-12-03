@@ -9,7 +9,6 @@
     "export": "next export",
     "start": "next start",
     "lint": "next lint",
-    "predeploy": "next build && next export",
     "deploy": "npx touch out/.nojekyll && gh-pages -d out --dotfiles",
     "apigen": "npx @openapitools/openapi-generator-cli generate -i https://port-0-mcafe-v2-euegqv2llo1fufha.sel5.cloudtype.app/v3/api-docs -g typescript-axios -o src/apis -c ./openapi-tsaxios-config.json --global-property skipFormModel=false && prettier --write src/apis"
   },

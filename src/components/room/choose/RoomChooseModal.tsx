@@ -22,6 +22,7 @@ export default function RoomChooseModal() {
         PaperProps={{
           sx: {
             minHeight: '50vh',
+            minWidth: '500px',
           },
         }}
       >
@@ -35,10 +36,8 @@ export default function RoomChooseModal() {
             </Box>
           </Box>
         </DialogTitle>
-        <DialogContent>
-          {isLoading && <Loading />}
-          {data && <RoomContainer onClick={handleClick} data={data} />}
-        </DialogContent>
+        {isLoading && <Loading />}
+        <DialogContent>{data && <RoomContainer onClick={handleClick} data={data} />}</DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
