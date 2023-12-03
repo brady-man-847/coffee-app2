@@ -1,5 +1,12 @@
 # github에 퍼블리싱하는 법
 
 ```bash
-yarn build yarn deploy
+next.config.js >> (on)  basePath: '/coffee-app2',
+
+yarn build 
+yarn export
+yarn deploy
+
+next.config.js >> (off)  basePath: '/coffee-app2',
+
 ```
