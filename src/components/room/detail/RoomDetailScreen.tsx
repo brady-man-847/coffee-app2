@@ -41,11 +41,11 @@ export default function RoomDetailScreen() {
 
           <div className={'order-wrapper'}>
             {data.orderList.map((order) => {
-              const { menu, optionList, quantity, memberNickname, memberSn } = order;
-              const { name: menuName, price, optionGroupList } = menu;
+              const { menu, optionList, memberNickname, memberSn } = order;
+              const { name: menuName, optionGroupList } = menu;
               const includeOptionList = optionGroupList.flatMap((i) => i.optionList).filter((j) => optionList.includes(j.code));
               return (
-                <div className={'order-item'}>
+                <div className={'order-item'} key={`${order.memberSn}_order_item`}>
                   <Avatar {...stringAvatar(memberNickname)} />
                   <div>
                     <Chip
@@ -60,6 +60,7 @@ export default function RoomDetailScreen() {
                     />
                     {includeOptionList.map((i) => (
                       <Chip
+                        key={`${memberSn}_${i.code}_option`}
                         sx={{
                           height: 'auto',
                           '& .MuiChip-label': {
