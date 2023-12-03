@@ -5,6 +5,7 @@ import { getCookie } from 'cookies-next';
 import { ACCESS_TOKEN } from '@/defines/token';
 import { removeCookie } from '@/utils/cookie';
 import { useRouter } from 'next/router';
+import { RouterPath } from '@/defines/routerPath';
 
 interface Props {
   children: ReactNode;
