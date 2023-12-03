@@ -5,7 +5,6 @@ const nextConfig = {
   // basePath: '/coffee-app2',
   exportPathMap: function () {
     return {
-      '/': { page: '/' },
       '/auth/login': { page: '/auth/login' },
       '/auth/sign-up': { page: '/auth/sign-up' },
       '/auth/sign-up/check-uchef': { page: '/auth/sign-up/check-uchef' },

@@ -1,5 +1,4 @@
 export enum RouterPath {
-  'HOME' = '/',
   'MENU' = '/menu',
   'LOGIN' = '/auth/login',
 
