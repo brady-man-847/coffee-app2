@@ -2,7 +2,7 @@ import MenuCategory from '@/components/menu/category/MenuCategory';
 import MenuOptionDrawer from '@/components/menu/drawer/MenuOptionDrawer';
 import { useRecoilState } from 'recoil';
 import { roomStore } from '@/stores/roomStore';
-import RoomModalForOrder from '../room/RoomModalForOrder';
+import RoomChooseModal from '@/components/room/choose/RoomChooseModal';
 
 export default function MenuScreen() {
   const [{ isOpen }] = useRecoilState(roomStore);
@@ -10,7 +10,7 @@ export default function MenuScreen() {
     <>
       <MenuCategory />
       <MenuOptionDrawer />
-      {isOpen && <RoomModalForOrder />}
+      {isOpen && <RoomChooseModal />}
     </>
   );
 }

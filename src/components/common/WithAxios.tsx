@@ -85,7 +85,7 @@ export default function WithAxios({ children }: Props) {
           //   return Promise.reject(error);
           // }
           removeCookie(ACCESS_TOKEN);
-          router.push('/auth');
+          router.push(RouterPath.LOGIN);
           return Promise.reject(error);
         },
       ),

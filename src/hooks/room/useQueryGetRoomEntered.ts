@@ -4,11 +4,9 @@ import { ErrorResponse } from '@/defines/errorResponse';
 import { mcafe } from '@/factory/mcafeApi';
 import { RoomResponseGetRoomList } from '@/apis';
 
-type Request = void;
-
 type Response = RoomResponseGetRoomList;
 
-type Params = UseQueryParams<Response, ErrorResponse, Request>;
+type Params = UseQueryParams<Response, ErrorResponse>;
 
 function useQueryGetRoomEntered(params: Params) {
   const { queryOption } = params;

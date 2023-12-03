@@ -29,7 +29,7 @@ export default function SignUpPage() {
       },
       {
         onSuccess: () => {
-          router.push('/auth');
+          router.push('/auth/login');
         },
         onError: (err) => {
           console.log(err);

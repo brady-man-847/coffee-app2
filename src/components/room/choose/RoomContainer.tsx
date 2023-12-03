@@ -1,17 +1,13 @@
-import useQueryGetRoomEntered from '@/hooks/room/useQueryGetRoomEntered';
 import { Paper, Table, TableContainer } from '@mui/material';
-import { Loading } from '@/components/common';
 import RoomTableCard from '@/components/room/choose/RoomTableCard';
+import { RoomResponseGetRoomList } from '@/apis';
 
 interface Props {
+  data: RoomResponseGetRoomList;
   onClick?: (roomSn: number) => void;
 }
 
-export default function RoomContainer({ onClick }: Props) {
-  const { data, isLoading } = useQueryGetRoomEntered({ req: undefined });
-
-  if (isLoading) return <Loading />;
-
+export default function RoomContainer({ data, onClick }: Props) {
   return (
     <>
       <div className={'wrapper'}>

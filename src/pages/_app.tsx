@@ -60,6 +60,16 @@ function RootApp({ Component, pageProps }: AppPropsWithLayout) {
           </WithAxios>
         </ThemeProvider>
       </Box>
+      <style jsx>{`
+        :global(.MuiDialogContent-root) {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        :global(.MuiDrawer-root > .MuiPaper-root) {
+          max-width: 500px;
+        }
+      `}</style>
     </>
   );
 }
