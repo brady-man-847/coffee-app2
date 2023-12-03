@@ -1,10 +1,7 @@
-export default function HomePage() {}
+import useCheckHasAuth from '@/hooks/auth/useCheckHasAuth';
 
-export const getServerSideProps = async () => {
-  return {
-    redirect: {
-      destination: '/menu',
-      permanent: true,
-    },
-  };
-};
+export default function HomePage() {
+  useCheckHasAuth({ redirectPath: '/menu' });
+
+  return <></>;
+}

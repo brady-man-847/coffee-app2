@@ -1,8 +1,7 @@
 import MenuScreen from '@/components/menu/MenuScreen';
-import { withGetLoginGuardMidasWorkspaceServerSideProps } from '@/server/authGuard';
+import useCheckHasAuth from '@/hooks/auth/useCheckHasAuth';
 
 export default function MenuPage() {
+  useCheckHasAuth({});
   return <MenuScreen />;
 }
-
-export const getServerSideProps = withGetLoginGuardMidasWorkspaceServerSideProps();

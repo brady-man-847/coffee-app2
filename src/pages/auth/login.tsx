@@ -3,12 +3,11 @@ import { Button, InputAdornment, TextField, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import { Header } from '@/components/layout';
-import { GetServerSidePropsContext } from 'next';
 import { ACCESS_TOKEN, AT_EXPIRES_IN, DOMAIN } from '@/defines/token';
 import useMutationLogin from '@/hooks/auth/useMutationLogin';
 import { setCookie } from 'cookies-next';
 
-export default function AuthPage() {
+export default function AuthLoginPage() {
   const router = useRouter();
 
   const usernameRef = useRef<HTMLInputElement>();
@@ -90,23 +89,9 @@ export default function AuthPage() {
   );
 }
 
-AuthPage.getLayout = (page: JSX.Element) => (
+AuthLoginPage.getLayout = (page: JSX.Element) => (
   <>
     <Header />
     {page}
   </>
 );
-
-export const getServerSideProps = async ({ req: { cookies } }: GetServerSidePropsContext) => {
-  if (cookies[ACCESS_TOKEN]) {
-    return {
-      redirect: {
-        destination: '/menu',
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: {},
-  };
-};

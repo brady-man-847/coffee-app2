@@ -1,8 +1,8 @@
 import RoomScreen from '@/components/room/RoomScreen';
-import { withGetLoginGuardMidasWorkspaceServerSideProps } from '@/server/authGuard';
+import useCheckHasAuth from '@/hooks/auth/useCheckHasAuth';
 
 export default function RoomPage() {
+  useCheckHasAuth({});
+
   return <RoomScreen />;
 }
-
-export const getServerSideProps = withGetLoginGuardMidasWorkspaceServerSideProps();
