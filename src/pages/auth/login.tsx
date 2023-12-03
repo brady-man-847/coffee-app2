@@ -3,7 +3,7 @@ import { Button, InputAdornment, TextField, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import { Header } from '@/components/layout';
-import { ACCESS_TOKEN, AT_EXPIRES_IN, DOMAIN } from '@/defines/token';
+import { ACCESS_TOKEN, AT_EXPIRES_IN } from '@/defines/token';
 import useMutationLogin from '@/hooks/auth/useMutationLogin';
 import { setCookie } from 'cookies-next';
 
@@ -28,7 +28,6 @@ export default function AuthLoginPage() {
           setCookie(ACCESS_TOKEN, token, {
             expires: new Date(Date.now() + AT_EXPIRES_IN),
             path: '/',
-            domain: DOMAIN,
           });
           router.push('/menu');
         },

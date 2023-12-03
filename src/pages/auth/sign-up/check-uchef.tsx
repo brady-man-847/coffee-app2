@@ -39,16 +39,12 @@ export default function CheckUchefPage() {
   return (
     <>
       <div className="wrapper">
-        <Typography variant="h2" color={'error'} sx={{ textAlign: 'left' }}>
-          FIRST
-          <br />
-          CHECK
-          <br />
-          UCHEF
+        <Typography variant="h3" sx={{ textAlign: 'left' }}>
+          Uchef ID Check
         </Typography>
         <TextField
           inputRef={phoneRef}
-          label="phone"
+          label="phone number"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -60,7 +56,7 @@ export default function CheckUchefPage() {
         />
         <TextField
           inputRef={securityIdRef}
-          label="security id"
+          label="uchef security id"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -71,7 +67,7 @@ export default function CheckUchefPage() {
           color="secondary"
         />
         <TextField
-          label="password"
+          label="uchef password"
           inputRef={passwordRef}
           InputProps={{
             startAdornment: (
@@ -84,7 +80,7 @@ export default function CheckUchefPage() {
           color="secondary"
         />
         <Button variant="contained" fullWidth onClick={handleClickCheckUchef}>
-          <Typography>R U CHIEF ?</Typography>
+          <Typography>confirm</Typography>
         </Button>
       </div>
       <style jsx>{`
