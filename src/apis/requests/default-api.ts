@@ -32,6 +32,8 @@ import {
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
+import { ErrorMessage } from '../models';
+// @ts-ignore
 import { MemberRequestLogin } from '../models';
 // @ts-ignore
 import { MemberRequestSignup } from '../models';
@@ -51,6 +53,8 @@ import { OrderGetMenuInfo } from '../models';
 import { OrderGetMenuList } from '../models';
 // @ts-ignore
 import { OrderRequestCreate } from '../models';
+// @ts-ignore
+import { OrderRequestUpdateQuantity } from '../models';
 // @ts-ignore
 import { OrderResponseCreate } from '../models';
 // @ts-ignore
@@ -141,6 +145,47 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
       localVarRequestOptions.data = serializeDataIfNeeded(roomRequestCreate, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     * 주문을 삭제합니다.
+     * @summary 주문 삭제
+     * @param {number} roomSn
+     * @param {number} orderSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteOrder: async (roomSn: number, orderSn: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'roomSn' is not null or undefined
+      assertParamExists('deleteOrder', 'roomSn', roomSn);
+      // verify required parameter 'orderSn' is not null or undefined
+      assertParamExists('deleteOrder', 'orderSn', orderSn);
+      const localVarPath = `/order/{orderSn}`.replace(`{${'orderSn'}}`, encodeURIComponent(String(orderSn)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      if (roomSn !== undefined) {
+        localVarQueryParameter['roomSn'] = roomSn;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
         url: toPathString(localVarUrlObj),
@@ -652,6 +697,50 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
       };
     },
     /**
+     * 주문 수량을 변경합니다.
+     * @summary 주문 수량 변경
+     * @param {number} orderSn
+     * @param {OrderRequestUpdateQuantity} orderRequestUpdateQuantity
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateOrderQuantity: async (
+      orderSn: number,
+      orderRequestUpdateQuantity: OrderRequestUpdateQuantity,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'orderSn' is not null or undefined
+      assertParamExists('updateOrderQuantity', 'orderSn', orderSn);
+      // verify required parameter 'orderRequestUpdateQuantity' is not null or undefined
+      assertParamExists('updateOrderQuantity', 'orderRequestUpdateQuantity', orderRequestUpdateQuantity);
+      const localVarPath = `/order/{orderSn}`.replace(`{${'orderSn'}}`, encodeURIComponent(String(orderSn)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(orderRequestUpdateQuantity, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
      *
      * @summary username 중복검사
      * @param {string} username
@@ -721,6 +810,22 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomResponseCreate>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.createRoom(roomRequestCreate, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     * 주문을 삭제합니다.
+     * @summary 주문 삭제
+     * @param {number} roomSn
+     * @param {number} orderSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async deleteOrder(
+      roomSn: number,
+      orderSn: number,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.deleteOrder(roomSn, orderSn, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -914,6 +1019,22 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
+     * 주문 수량을 변경합니다.
+     * @summary 주문 수량 변경
+     * @param {number} orderSn
+     * @param {OrderRequestUpdateQuantity} orderRequestUpdateQuantity
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async updateOrderQuantity(
+      orderSn: number,
+      orderRequestUpdateQuantity: OrderRequestUpdateQuantity,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.updateOrderQuantity(orderSn, orderRequestUpdateQuantity, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
      *
      * @summary username 중복검사
      * @param {string} username
@@ -956,6 +1077,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
      */
     createRoom(roomRequestCreate: RoomRequestCreate, options?: any): AxiosPromise<RoomResponseCreate> {
       return localVarFp.createRoom(roomRequestCreate, options).then((request) => request(axios, basePath));
+    },
+    /**
+     * 주문을 삭제합니다.
+     * @summary 주문 삭제
+     * @param {number} roomSn
+     * @param {number} orderSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteOrder(roomSn: number, orderSn: number, options?: any): AxiosPromise<boolean> {
+      return localVarFp.deleteOrder(roomSn, orderSn, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -1097,6 +1229,17 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
       return localVarFp.uChefLoginTest(phone, securityId, password, options).then((request) => request(axios, basePath));
     },
     /**
+     * 주문 수량을 변경합니다.
+     * @summary 주문 수량 변경
+     * @param {number} orderSn
+     * @param {OrderRequestUpdateQuantity} orderRequestUpdateQuantity
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    updateOrderQuantity(orderSn: number, orderRequestUpdateQuantity: OrderRequestUpdateQuantity, options?: any): AxiosPromise<boolean> {
+      return localVarFp.updateOrderQuantity(orderSn, orderRequestUpdateQuantity, options).then((request) => request(axios, basePath));
+    },
+    /**
      *
      * @summary username 중복검사
      * @param {string} username
@@ -1141,6 +1284,21 @@ export class DefaultApi extends BaseAPI {
   public createRoom(roomRequestCreate: RoomRequestCreate, options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .createRoom(roomRequestCreate, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * 주문을 삭제합니다.
+   * @summary 주문 삭제
+   * @param {number} roomSn
+   * @param {number} orderSn
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public deleteOrder(roomSn: number, orderSn: number, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .deleteOrder(roomSn, orderSn, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -1336,6 +1494,21 @@ export class DefaultApi extends BaseAPI {
   public uChefLoginTest(phone: string, securityId: string, password: string, options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .uChefLoginTest(phone, securityId, password, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * 주문 수량을 변경합니다.
+   * @summary 주문 수량 변경
+   * @param {number} orderSn
+   * @param {OrderRequestUpdateQuantity} orderRequestUpdateQuantity
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public updateOrderQuantity(orderSn: number, orderRequestUpdateQuantity: OrderRequestUpdateQuantity, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .updateOrderQuantity(orderSn, orderRequestUpdateQuantity, options)
       .then((request) => request(this.axios, this.basePath));
   }
 

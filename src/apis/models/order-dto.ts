@@ -27,6 +27,12 @@ export interface OrderDto {
    * @type {number}
    * @memberof OrderDto
    */
+  orderSn: number;
+  /**
+   *
+   * @type {number}
+   * @memberof OrderDto
+   */
   memberSn: number;
   /**
    *

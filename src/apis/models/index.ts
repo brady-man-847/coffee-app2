@@ -1,3 +1,4 @@
+export * from './error-message';
 export * from './member-dto';
 export * from './member-request-login';
 export * from './member-request-signup';
@@ -15,6 +16,7 @@ export * from './order-dto';
 export * from './order-get-menu-info';
 export * from './order-get-menu-list';
 export * from './order-request-create';
+export * from './order-request-update-quantity';
 export * from './order-response-create';
 export * from './order-response-pay';
 export * from './payment-request-pay';

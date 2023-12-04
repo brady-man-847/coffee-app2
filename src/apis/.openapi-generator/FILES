@@ -6,6 +6,7 @@ common.ts
 configuration.ts
 git_push.sh
 index.ts
+models/error-message.ts
 models/index.ts
 models/member-dto.ts
 models/member-request-login.ts
@@ -24,6 +25,7 @@ models/order-dto.ts
 models/order-get-menu-info.ts
 models/order-get-menu-list.ts
 models/order-request-create.ts
+models/order-request-update-quantity.ts
 models/order-response-create.ts
 models/order-response-pay.ts
 models/payment-request-pay.ts
