@@ -3,9 +3,7 @@ import { axiosInstance } from '@/factory/axiosInstances';
 import { AxiosError, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { getCookie } from 'cookies-next';
 import { ACCESS_TOKEN } from '@/defines/token';
-import { removeCookie } from '@/utils/cookie';
 import { useRouter } from 'next/router';
-import { RouterPath } from '@/defines/routerPath';
 
 interface Props {
   children: ReactNode;
@@ -68,7 +66,9 @@ export default function WithAxios({ children }: Props) {
 
           console.log({ config, code, request, response, isAxiosError, status, cause });
 
-          const accessToken = getCookie(ACCESS_TOKEN);
+          // TODO @brady error handling 백엔드 지원필요
+
+          // const accessToken = getCookie(ACCESS_TOKEN);
           // const refreshToken = getCookie(REFRESH_TOKEN);
 
           // AT가 없고, RT가 있을 때.
@@ -85,8 +85,8 @@ export default function WithAxios({ children }: Props) {
           //
           //   return Promise.reject(error);
           // }
-          removeCookie(ACCESS_TOKEN);
-          router.push(RouterPath.LOGIN);
+          // removeCookie(ACCESS_TOKEN);
+          // router.push(RouterPath.LOGIN);
           return Promise.reject(error);
         },
       ),
