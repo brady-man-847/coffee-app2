@@ -45,8 +45,8 @@ export default function RoomScreen() {
       <div className={'wrapper'}>
         {isLoading && <Loading />}
         {enteredRoomList && roomList && <RoomContainer onClick={handleClickRoomList} data={roomList} />}
+        <RoomCreateDial />
       </div>
-      <RoomCreateDial />
 
       <style jsx>{`
         .wrapper {
