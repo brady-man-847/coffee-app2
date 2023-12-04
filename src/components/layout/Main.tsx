@@ -15,7 +15,7 @@ export default function ({ children }: Props) {
 }
 
 const Div = styled.div<{ bottomHeight: number; headerHeight: number }>`
-  height: 100vh;
+  height: 100%;
   overflow: auto;
   padding-bottom: ${(props) => props.bottomHeight}px;
   padding-top: ${(props) => props.headerHeight}px;

@@ -10,11 +10,14 @@ export default function RoomDetailScreen() {
   const router = useRouter();
   const { roomSn } = router.query;
 
+  console.log({ roomSn });
   const { data, isLoading } = useQueryGetRoomInfo({ req: { roomSn: Number(roomSn) } });
   const { mutate: payment } = useMutationPayment({});
 
   const handleClickPayment = () => {
-    payment({ roomSn: Number(roomSn) });
+    if (window.confirm(`방번호:${roomSn} 결제하시겠습니까?`)) {
+      payment({ roomSn: Number(roomSn) });
+    }
   };
 
   if (isLoading) return <Loading />;
@@ -87,11 +90,13 @@ export default function RoomDetailScreen() {
             gap: 8px;
             padding: 16px;
           }
+
           .avatar-wrapper {
             display: flex;
             flex-direction: row;
             gap: 8px;
           }
+
           .avatar {
             display: flex;
             flex-direction: column;
@@ -99,9 +104,11 @@ export default function RoomDetailScreen() {
             align-items: center;
             padding: 8px;
           }
+
           .room-wrapper {
             padding: 8px;
           }
+
           .order-item {
             display: flex;
             justify-content: space-between;
@@ -109,6 +116,7 @@ export default function RoomDetailScreen() {
             padding: 8px;
             border: 1px solid lightgray;
           }
+
           .payment-wrapper {
           }
         `}</style>
