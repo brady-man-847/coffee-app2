@@ -46,9 +46,7 @@ export default function RoomScreen() {
         {isLoading && <Loading />}
 
         <div className={'list-wrapper'}>
-          {enteredRoomList && roomList && (
-            <RoomContainer onClick={handleClickRoomList} data={[...roomList, ...roomList, ...roomList, ...roomList]} />
-          )}
+          {enteredRoomList && roomList && <RoomContainer onClick={handleClickRoomList} data={roomList} />}
         </div>
         <RoomCreateDial />
       </div>
