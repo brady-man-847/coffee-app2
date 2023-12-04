@@ -22,6 +22,7 @@ export default function RoomContainer({ data, onClick }: Props) {
           height: 100%;
           width: 100%;
           padding: 16px 0;
+          overflow: auto;
         }
       `}</style>
     </>
