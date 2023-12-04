@@ -13,7 +13,7 @@ export default function RoomCreateDial() {
 
   return (
     <>
-      <Box>
+      <Box sx={{ transform: 'translateZ(0px)', flexGrow: 1 }}>
         <Button
           sx={{ position: 'absolute', bottom: 16, right: 16, borderRadius: 32, height: 64, width: 64 }}
           color="primary"
