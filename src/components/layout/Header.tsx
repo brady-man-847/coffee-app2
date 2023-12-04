@@ -2,15 +2,25 @@ import { theme } from '@/config';
 import LogoIcon from '@/icon/LogoIcon';
 import { AppBar, Toolbar, Typography } from '@mui/material';
 
+export const HEADER_HEIGHT = 65;
+
 export default function () {
   return (
-    <AppBar position={'static'} color={'primary'}>
+    <AppBar
+      color={'primary'}
+      sx={{
+        transform: 'translateZ(0px)',
+        flexGrow: 1,
+        position: 'fixed',
+        top: 0,
+        width: 'inherit',
+        height: HEADER_HEIGHT,
+      }}
+    >
       <Toolbar
         sx={{
           display: 'flex',
           gap: '8px',
-          transform: 'translateZ(0px)',
-          flexGrow: 1,
         }}
       >
         <LogoIcon />
