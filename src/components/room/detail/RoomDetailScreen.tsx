@@ -10,7 +10,6 @@ export default function RoomDetailScreen() {
   const router = useRouter();
   const { roomSn } = router.query;
 
-  console.log({ roomSn });
   const { data, isLoading } = useQueryGetRoomInfo({ req: { roomSn: Number(roomSn) } });
   const { mutate: payment } = useMutationPayment({});
 
