@@ -9,6 +9,8 @@ export default function () {
         sx={{
           display: 'flex',
           gap: '8px',
+          transform: 'translateZ(0px)',
+          flexGrow: 1,
         }}
       >
         <LogoIcon />

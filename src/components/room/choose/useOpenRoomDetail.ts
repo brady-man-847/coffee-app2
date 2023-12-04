@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 
 export default function useOpenRoomDetail() {
   const router = useRouter();
-  const handleClick = (roomSn: number) => {
+  const handleOpenRoom = (roomSn: number) => {
     router.push(`/room/${roomSn}`);
   };
-  return { handleClick };
+  return { handleOpenRoom };
 }

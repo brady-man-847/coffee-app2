@@ -1,10 +1,10 @@
 import { Paper, Table, TableContainer } from '@mui/material';
 import RoomTableCard from '@/components/room/choose/RoomTableCard';
-import { RoomResponseGetRoomList } from '@/apis';
+import { RoomDto, RoomDtoStatusEnum } from '@/apis';
 
 interface Props {
-  data: RoomResponseGetRoomList;
-  onClick?: (roomSn: number) => void;
+  data: RoomDto[];
+  onClick?: (roomSn: number, status?: RoomDtoStatusEnum) => void;
 }
 
 export default function RoomContainer({ data, onClick }: Props) {
@@ -13,7 +13,7 @@ export default function RoomContainer({ data, onClick }: Props) {
       <div className={'wrapper'}>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 'fit-content', gap: 1 }}>
-            {data?.roomList && data.roomList.map((room) => <RoomTableCard data={room} key={`${room.sn}_card_key`} onClick={onClick} />)}
+            {data && data.map((room) => <RoomTableCard data={room} key={`${room.sn}_card_key`} onClick={onClick} />)}
           </Table>
         </TableContainer>
       </div>

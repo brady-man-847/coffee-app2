@@ -9,7 +9,7 @@ import { Loading } from '@/components/common';
 
 export default function RoomChooseModal() {
   const [{ isOpen }, setRoomState] = useRecoilState(roomStore);
-  const { data, isLoading } = useQueryGetRoomEntered({ req: undefined });
+  const { data: { roomList } = {}, isLoading } = useQueryGetRoomEntered({ req: undefined });
 
   const handleClose = () => setRoomState({ isOpen: false });
   const { handleClick } = useCreateOrder();
@@ -37,7 +37,7 @@ export default function RoomChooseModal() {
           </Box>
         </DialogTitle>
         {isLoading && <Loading />}
-        <DialogContent>{data && <RoomContainer onClick={handleClick} data={data} />}</DialogContent>
+        <DialogContent>{roomList && <RoomContainer onClick={handleClick} data={roomList} />}</DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
