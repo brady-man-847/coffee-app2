@@ -15,7 +15,14 @@ export default function RoomDetailScreen() {
 
   const handleClickPayment = () => {
     if (window.confirm(`방번호:${roomSn} 결제하시겠습니까?`)) {
-      payment({ roomSn: Number(roomSn) });
+      payment(
+        { roomSn: Number(roomSn) },
+        {
+          onSuccess: (result) => {
+            window.alert(`결제가 완료되었습니다.\n 주문번호: ${result.orderNo}`);
+          },
+        },
+      );
     }
   };
 
