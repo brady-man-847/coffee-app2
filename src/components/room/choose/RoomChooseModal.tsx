@@ -22,7 +22,6 @@ export default function RoomChooseModal() {
         PaperProps={{
           sx: {
             minHeight: '50vh',
-            minWidth: '500px',
           },
         }}
       >

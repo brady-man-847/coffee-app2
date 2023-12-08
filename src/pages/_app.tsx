@@ -69,6 +69,11 @@ function RootApp({ Component, pageProps }: AppPropsWithLayout) {
         :global(.MuiDrawer-root > .MuiPaper-root) {
           max-width: 500px;
         }
+        :root {
+          @supports (-webkit-touch-callout: none) {
+            height: inherit;
+          }
+        }
       `}</style>
     </>
   );
