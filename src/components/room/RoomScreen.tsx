@@ -27,17 +27,19 @@ export default function RoomScreen() {
       password = window.prompt('비밀번호를 입력하세요') || undefined;
     }
 
-    enterRoom(
-      { roomSn, roomRequestEnterRoom: { password } },
-      {
-        onSuccess: () => {
-          handleOpenRoom(roomSn);
+    if (window.confirm('입장하시겠습니까?')) {
+      enterRoom(
+        { roomSn, roomRequestEnterRoom: { password } },
+        {
+          onSuccess: () => {
+            handleOpenRoom(roomSn);
+          },
+          onError: (error) => {
+            window.alert(error.message);
+          },
         },
-        onError: (error) => {
-          window.alert(error.message);
-        },
-      },
-    );
+      );
+    }
   };
 
   return (
