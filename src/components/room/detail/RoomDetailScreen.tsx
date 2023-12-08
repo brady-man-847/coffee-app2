@@ -94,6 +94,8 @@ export default function RoomDetailScreen() {
             display: flex;
             flex-direction: row;
             gap: 8px;
+            width: 100%;
+            overflow: auto;
           }
 
           .avatar {
@@ -102,6 +104,7 @@ export default function RoomDetailScreen() {
             justify-content: center;
             align-items: center;
             padding: 8px;
+            font-size: 0.8rem;
           }
 
           .room-wrapper {
