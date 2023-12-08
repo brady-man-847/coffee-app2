@@ -31,7 +31,10 @@ export default function AuthLoginPage() {
           });
           router.push('/menu');
         },
-        onError: (error) => console.log({ error }),
+        onError: (error) => {
+          console.log({ error });
+          window.alert(`로그인에 실패했습니다.\n${error.message}`);
+        },
       },
     );
   };
