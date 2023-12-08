@@ -9,7 +9,7 @@ export default function SignUpPage() {
   const router = useRouter();
   const { query } = router;
 
-  const usernameRef = useRef<HTMLInputElement>();
+  const idRef = useRef<HTMLInputElement>();
   const nicknameRef = useRef<HTMLInputElement>();
   const passwordRef = useRef<HTMLInputElement>();
   const password2Ref = useRef<HTMLInputElement>();
@@ -21,7 +21,7 @@ export default function SignUpPage() {
 
     signUp(
       {
-        username: usernameRef.current?.value as string,
+        username: idRef.current?.value as string,
         nickname: nicknameRef.current?.value as string,
         password: passwordRef.current?.value as string,
         passwordCheck: password2Ref.current?.value as string,
@@ -42,20 +42,8 @@ export default function SignUpPage() {
     <>
       <div className="wrapper">
         <TextField
-          inputRef={nicknameRef}
-          label="nickname"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <ContactEmergency />
-              </InputAdornment>
-            ),
-          }}
-          color="secondary"
-        />
-        <TextField
-          inputRef={usernameRef}
-          label="username"
+          inputRef={idRef}
+          label="id"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -88,6 +76,18 @@ export default function SignUpPage() {
               </InputAdornment>
             ),
             type: 'password',
+          }}
+          color="secondary"
+        />
+        <TextField
+          inputRef={nicknameRef}
+          label="nickname"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <ContactEmergency />
+              </InputAdornment>
+            ),
           }}
           color="secondary"
         />
