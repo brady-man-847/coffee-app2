@@ -56,6 +56,9 @@ export default function RoomScreen() {
         .wrapper {
           height: 100%;
           overflow: hidden;
+          @supports (-webkit-touch-callout: none) {
+            height: fill-available;
+          }
         }
         .list-wrapper {
           display: flex;
