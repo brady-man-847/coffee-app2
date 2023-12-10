@@ -4,13 +4,14 @@ import { AxiosError, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { getCookie } from 'cookies-next';
 import { ACCESS_TOKEN } from '@/defines/token';
 import { useRouter } from 'next/router';
+import useSendSlack from '@/hooks/slack/useSendSlack';
 
 interface Props {
   children: ReactNode;
 }
-export default function WithAxios({ children }: Props) {
-  const router = useRouter();
 
+export default function WithAxios({ children }: Props) {
+  const { sendSlack } = useSendSlack();
   const axiosInstances = [axiosInstance];
 
   const refreshTokenPromise = useRef<Promise<void> | null>(null);
@@ -63,6 +64,18 @@ export default function WithAxios({ children }: Props) {
         (value) => value,
         async (error: AxiosError) => {
           const { config, code, request, response, isAxiosError, status, cause } = error;
+
+          await sendSlack(
+            `axios error: ${JSON.stringify({
+              config,
+              code,
+              request,
+              response,
+              isAxiosError,
+              status,
+              cause,
+            })}`,
+          );
 
           console.log({ config, code, request, response, isAxiosError, status, cause });
 

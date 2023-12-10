@@ -6,12 +6,13 @@ import { Loading } from '@/components/common';
 import RoomDetailInfo from '@/components/room/detail/RoomDetailInfo';
 import useMutationPayment from '@/hooks/payment/useMutationPayment';
 import { useState } from 'react';
+import useSendSlack from '@/hooks/slack/useSendSlack';
 
 export default function RoomDetailScreen() {
   const [checkedOrderList, setCheckedOrderList] = useState([0]);
   const router = useRouter();
   const { roomSn } = router.query;
-
+  const { sendSlack } = useSendSlack();
   const { data, isLoading } = useQueryGetRoomInfo({
     req: { roomSn: Number(roomSn) },
     queryOption: {
@@ -31,6 +32,11 @@ export default function RoomDetailScreen() {
         {
           onSuccess: (result) => {
             window.alert(`결제가 완료되었습니다.\n 주문번호: ${result.orderNo}`);
+            sendSlack(`주문번호: ${result.orderNo}`);
+          },
+          onError: (error) => {
+            window.alert(error.message);
+            sendSlack(JSON.stringify(error));
           },
         },
       );
