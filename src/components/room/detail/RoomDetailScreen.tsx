@@ -165,7 +165,9 @@ export default function RoomDetailScreen() {
             align-items: center;
             gap: 4px;
           }
-          .payment-wrapper {
+          .avatar {
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
         `}</style>
       </>
