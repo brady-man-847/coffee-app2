@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   distDir: 'build',
-  basePath: '/coffee-app2',
+  // basePath: '/coffee-app2',
   exportPathMap: function () {
     return {
       '/': { page: '/' },
