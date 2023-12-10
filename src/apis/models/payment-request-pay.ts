@@ -24,4 +24,10 @@ export interface PaymentRequestPay {
    * @memberof PaymentRequestPay
    */
   roomSn: number;
+  /**
+   * order sn list
+   * @type {Array<number>}
+   * @memberof PaymentRequestPay
+   */
+  orderSnList: Array<number>;
 }

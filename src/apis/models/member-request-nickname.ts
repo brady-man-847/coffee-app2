@@ -13,27 +13,15 @@
  */
 
 /**
- * 유저 정보
+ * 닉네임 변경
  * @export
- * @interface MemberResponseResult
+ * @interface MemberRequestNickname
  */
-export interface MemberResponseResult {
+export interface MemberRequestNickname {
   /**
    *
    * @type {string}
-   * @memberof MemberResponseResult
-   */
-  username: string;
-  /**
-   *
-   * @type {string}
-   * @memberof MemberResponseResult
+   * @memberof MemberRequestNickname
    */
   nickname: string;
-  /**
-   *
-   * @type {string}
-   * @memberof MemberResponseResult
-   */
-  phone: string;
 }

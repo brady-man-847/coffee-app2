@@ -10,6 +10,8 @@ models/error-message.ts
 models/index.ts
 models/member-dto.ts
 models/member-request-login.ts
+models/member-request-nickname.ts
+models/member-request-password.ts
 models/member-request-signup.ts
 models/member-request-ucehf-auth.ts
 models/member-response-cert-key.ts
@@ -32,6 +34,7 @@ models/payment-request-pay.ts
 models/room-dto.ts
 models/room-request-create.ts
 models/room-request-enter-room.ts
+models/room-request-update-room.ts
 models/room-response-create.ts
 models/room-response-get-room-info.ts
 models/room-response-get-room-list.ts

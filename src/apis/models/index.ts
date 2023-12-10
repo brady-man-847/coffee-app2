@@ -1,6 +1,8 @@
 export * from './error-message';
 export * from './member-dto';
 export * from './member-request-login';
+export * from './member-request-nickname';
+export * from './member-request-password';
 export * from './member-request-signup';
 export * from './member-request-ucehf-auth';
 export * from './member-response-cert-key';
@@ -23,6 +25,7 @@ export * from './payment-request-pay';
 export * from './room-dto';
 export * from './room-request-create';
 export * from './room-request-enter-room';
+export * from './room-request-update-room';
 export * from './room-response-create';
 export * from './room-response-get-room-info';
 export * from './room-response-get-room-list';

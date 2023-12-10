@@ -13,27 +13,21 @@
  */
 
 /**
- * 유저 정보
+ * 비밀번호 변경
  * @export
- * @interface MemberResponseResult
+ * @interface MemberRequestPassword
  */
-export interface MemberResponseResult {
+export interface MemberRequestPassword {
   /**
    *
    * @type {string}
-   * @memberof MemberResponseResult
+   * @memberof MemberRequestPassword
    */
-  username: string;
+  password: string;
   /**
    *
    * @type {string}
-   * @memberof MemberResponseResult
+   * @memberof MemberRequestPassword
    */
-  nickname: string;
-  /**
-   *
-   * @type {string}
-   * @memberof MemberResponseResult
-   */
-  phone: string;
+  passwordCheck: string;
 }
