@@ -8,12 +8,9 @@ export default function useSendSlack() {
 
     await fetch(SLACK_WEBHOOK_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
       body: JSON.stringify({
         username: 'mcafe',
-        icon_emoji: ':coffee:',
+        emoji: ':coffee:',
         text: message,
       }),
     });
