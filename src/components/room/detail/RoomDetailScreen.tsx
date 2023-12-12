@@ -9,6 +9,9 @@ import { useState } from 'react';
 import useSendSlack from '@/hooks/slack/useSendSlack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useMutationDeleteOrder from '@/hooks/order/useMutationDeleteOrder';
+import useQueryGetMember from '@/hooks/member/useQueryGetMember';
+import useMutationCloseRoom from '@/hooks/room/useMutationCloseRoom';
+import useMutationLeaveRoom from '@/hooks/room/useMutationLeaveRoom';
 
 export default function RoomDetailScreen() {
   const [checkedOrderList, setCheckedOrderList] = useState([0]);
@@ -19,8 +22,8 @@ export default function RoomDetailScreen() {
   const { sendSlack } = useSendSlack();
 
   const {
-    data,
-    isLoading,
+    data: roomInfo,
+    isLoading: isLoadingRoomInfo,
     refetch: getRoomInfo,
   } = useQueryGetRoomInfo({
     req: { roomSn: Number(roomSn) },
@@ -30,8 +33,13 @@ export default function RoomDetailScreen() {
       },
     },
   });
+
+  const { data: userInfo, isLoading: isLoadingMember } = useQueryGetMember({ req: undefined });
+
   const { mutate: payment } = useMutationPayment({});
   const { mutate: deleteOrder } = useMutationDeleteOrder({});
+  const { mutate: closeRoom } = useMutationCloseRoom({});
+  const { mutate: leaveRoom } = useMutationLeaveRoom({});
 
   const handleClickPayment = () => {
     if (checkedOrderList.length === 0) return window.alert('결제할 주문을 선택해주세요.');
@@ -78,20 +86,65 @@ export default function RoomDetailScreen() {
     }
   };
 
-  if (isLoading) return <Loading />;
+  const handleClickLeaveRoom = () => {
+    if (window.confirm('방을 나가시겠습니까?')) {
+      leaveRoom(
+        { roomSn: Number(roomSn) },
+        {
+          onSuccess: () => {
+            window.alert('방을 나갔습니다.');
+            router.push('/room');
+          },
+          onError: (error) => {
+            window.alert(error.message);
+          },
+        },
+      );
+    }
+  };
+  const handleClickCloseRoom = () => {
+    if (window.confirm('방을 닫으시겠습니까?')) {
+      closeRoom(
+        { roomSn: Number(roomSn) },
+        {
+          onSuccess: () => {
+            window.alert('방을 닫았습니다.');
+            router.push('/room');
+          },
+          onError: (error) => {
+            window.alert(error.message);
+          },
+        },
+      );
+    }
+  };
 
-  if (data)
+  if (isLoadingRoomInfo || isLoadingMember) return <Loading />;
+
+  if (roomInfo && userInfo)
     return (
       <>
         <div className={'wrapper'}>
-          <Typography>ROOM INFO</Typography>
+          <div className={'room-info-wrapper'}>
+            <Typography>ROOM INFO</Typography>
+            <Button
+              variant={'contained'}
+              // TODO @brady change to isHost
+              onClick={userInfo.nickname !== roomInfo.room.hostName ? handleClickLeaveRoom : handleClickCloseRoom}
+            >
+              {
+                // TODO @brady change to isHost
+                userInfo.nickname !== roomInfo.room.hostName ? 'Leave Room' : 'Close Room'
+              }
+            </Button>
+          </div>
           <div className={'room-wrapper'}>
-            <RoomDetailInfo data={data.room} />
+            <RoomDetailInfo data={roomInfo.room} />
           </div>
 
           <Typography color={'secondary'}>ROOM MEMBERS</Typography>
           <div className={'avatar-wrapper'}>
-            {data?.memberList.map((member) => (
+            {roomInfo?.memberList.map((member) => (
               <div className={'avatar'} key={`${member.memberSn}_member_key`}>
                 <Avatar {...stringAvatar(member.nickname)} />
                 <div>{member.nickname}</div>
@@ -101,7 +154,7 @@ export default function RoomDetailScreen() {
           <Typography>ORDER LIST</Typography>
 
           <div className={'order-wrapper'}>
-            {data.orderList.map((order) => {
+            {roomInfo.orderList.map((order) => {
               const { menu, optionList, memberNickname, memberSn, quantity } = order;
               const { name: menuName, optionGroupList } = menu;
               const includeOptionList = optionGroupList.flatMap((i) => i.optionList).filter((j) => optionList.includes(j.code));
@@ -210,6 +263,11 @@ export default function RoomDetailScreen() {
           }
           .delete-icon:hover {
             transform: scale(1.2);
+          }
+          .room-info-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
           }
         `}</style>
       </>
