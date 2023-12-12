@@ -14,6 +14,8 @@ export default function () {
         backgroundColor: theme.palette.primary.main,
         position: 'fixed',
         top: 0,
+        flexGrow: 1,
+        transform: 'translateZ(0px)',
       }}
     >
       <Toolbar
