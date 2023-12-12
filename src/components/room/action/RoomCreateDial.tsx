@@ -1,6 +1,4 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import { Button } from '@mui/material';
 import { useRecoilState } from 'recoil';
 import { roomStore } from '@/stores/roomStore';
@@ -13,16 +11,9 @@ export default function RoomCreateDial() {
 
   return (
     <>
-      <Box sx={{ transform: 'translateZ(0px)', flexGrow: 1 }}>
-        <Button
-          sx={{ position: 'absolute', bottom: 16, right: 16, borderRadius: 32, height: 64, width: 64 }}
-          color="primary"
-          variant={'contained'}
-          onClick={handleClick}
-        >
-          <SpeedDialIcon />
-        </Button>
-      </Box>
+      <Button sx={{ height: 32, width: '100%' }} color="secondary" variant={'contained'} onClick={handleClick}>
+        + 방 만들기
+      </Button>
       {isOpen && <RoomCreateModal />}
     </>
   );

@@ -48,10 +48,10 @@ export default function RoomScreen() {
       <div className={'wrapper'}>
         {isLoading && <Loading />}
         <div className={'list-wrapper'}>
+          <RoomCreateDial />
           {enteredRoomList && roomList && <RoomContainer onClick={handleClickRoomList} data={roomList} />}
         </div>
       </div>
-      <RoomCreateDial />
       <style jsx>{`
         .wrapper {
           height: 100%;
