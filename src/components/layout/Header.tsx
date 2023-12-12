@@ -12,6 +12,8 @@ export default function () {
         width: '500px',
         height: HEADER_HEIGHT,
         backgroundColor: theme.palette.primary.main,
+        position: 'fixed',
+        top: 0,
       }}
     >
       <Toolbar
