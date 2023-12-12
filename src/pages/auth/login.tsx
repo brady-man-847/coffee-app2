@@ -2,10 +2,10 @@ import { AccountCircle, Password } from '@mui/icons-material';
 import { Button, InputAdornment, TextField, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
-import { Header } from '@/components/layout';
 import { ACCESS_TOKEN, AT_EXPIRES_IN } from '@/defines/token';
 import useMutationLogin from '@/hooks/auth/useMutationLogin';
 import { setCookie } from 'cookies-next';
+import Header from '@/components/layout/Header';
 
 export default function AuthLoginPage() {
   const router = useRouter();
@@ -42,6 +42,12 @@ export default function AuthLoginPage() {
     router.push('/auth/sign-up/check-uchef');
   };
 
+  const handlePasswordKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleClickSignIn();
+    }
+  };
+
   return (
     <>
       <div className="wrapper">
@@ -69,6 +75,7 @@ export default function AuthLoginPage() {
             type: 'password',
           }}
           color="secondary"
+          onKeyDown={handlePasswordKeyDown}
         />
         <Button variant="contained" fullWidth onClick={handleClickSignIn}>
           <Typography color={'secondary'}>DO SIGN IN</Typography>

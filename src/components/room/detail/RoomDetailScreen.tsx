@@ -7,13 +7,22 @@ import RoomDetailInfo from '@/components/room/detail/RoomDetailInfo';
 import useMutationPayment from '@/hooks/payment/useMutationPayment';
 import { useState } from 'react';
 import useSendSlack from '@/hooks/slack/useSendSlack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import useMutationDeleteOrder from '@/hooks/order/useMutationDeleteOrder';
 
 export default function RoomDetailScreen() {
   const [checkedOrderList, setCheckedOrderList] = useState([0]);
+
   const router = useRouter();
   const { roomSn } = router.query;
+
   const { sendSlack } = useSendSlack();
-  const { data, isLoading } = useQueryGetRoomInfo({
+
+  const {
+    data,
+    isLoading,
+    refetch: getRoomInfo,
+  } = useQueryGetRoomInfo({
     req: { roomSn: Number(roomSn) },
     queryOption: {
       onSuccess: (response) => {
@@ -22,6 +31,7 @@ export default function RoomDetailScreen() {
     },
   });
   const { mutate: payment } = useMutationPayment({});
+  const { mutate: deleteOrder } = useMutationDeleteOrder({});
 
   const handleClickPayment = () => {
     if (checkedOrderList.length === 0) return window.alert('결제할 주문을 선택해주세요.');
@@ -48,6 +58,23 @@ export default function RoomDetailScreen() {
       setCheckedOrderList((prev) => [...prev, orderSn]);
     } else {
       setCheckedOrderList((prev) => prev.filter((i) => i !== orderSn));
+    }
+  };
+
+  const handleClickDeleteOrder = (orderSn: number) => {
+    if (window.confirm('주문을 삭제하시겠습니까?')) {
+      deleteOrder(
+        { roomSn: Number(roomSn), orderSn },
+        {
+          onSuccess: () => {
+            window.alert('주문이 삭제되었습니다.');
+            getRoomInfo();
+          },
+          onError: (error) => {
+            window.alert(error.message);
+          },
+        },
+      );
     }
   };
 
@@ -88,7 +115,7 @@ export default function RoomDetailScreen() {
                     />
                     <Avatar {...stringAvatar(memberNickname)} />
                   </div>
-                  <div>
+                  <div className={'order-item-wrapper'}>
                     <Chip
                       sx={{
                         height: 'auto',
@@ -113,6 +140,9 @@ export default function RoomDetailScreen() {
                       />
                     ))}
                     <span> X {quantity}</span>
+                    <span className={'delete-icon'} onClick={() => handleClickDeleteOrder(order.orderSn)}>
+                      <DeleteIcon color={'error'} />
+                    </span>
                   </div>
                 </div>
               );
@@ -168,6 +198,18 @@ export default function RoomDetailScreen() {
           .avatar {
             white-space: nowrap;
             text-overflow: ellipsis;
+          }
+          .order-item-wrapper {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 4px;
+          }
+          .delete-icon {
+            cursor: pointer;
+          }
+          .delete-icon:hover {
+            transform: scale(1.2);
           }
         `}</style>
       </>

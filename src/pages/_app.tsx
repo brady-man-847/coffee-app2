@@ -1,4 +1,3 @@
-import { Bottom, Header, Main } from '@/components/layout';
 import { theme } from '@/config';
 import { Box, CssBaseline, ThemeProvider } from '@mui/material';
 import type { AppProps } from 'next/app';
@@ -8,6 +7,9 @@ import { NextPage } from 'next';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
 import WithAxios from '@/components/common/WithAxios';
+import Header from '@/components/layout/Header';
+import Bottom from '@/components/layout/Bottom';
+import Main from '@/components/layout/Main';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -47,6 +49,8 @@ function RootApp({ Component, pageProps }: AppPropsWithLayout) {
             height: '100vh',
             overflowY: 'hidden',
             maxWidth: '500px',
+            display: 'flex',
+            flexDirection: 'column',
           },
           () => ({ boxShadow: `2px -2px 83px 60px ${theme.palette.grey[100]}` }),
         ]}
