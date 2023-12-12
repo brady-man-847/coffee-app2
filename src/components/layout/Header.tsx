@@ -16,6 +16,7 @@ export default function () {
         top: 0,
         flexGrow: 1,
         transform: 'translateZ(0px)',
+        zIndex: 777,
       }}
     >
       <Toolbar
