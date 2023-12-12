@@ -68,7 +68,7 @@ function RootApp({ Component, pageProps }: AppPropsWithLayout) {
         :global(.MuiDialogContent-root) {
           display: flex;
           justify-content: center;
-          align-items: center;
+          align-items: flex-start;
         }
         :global(.MuiDrawer-root > .MuiPaper-root) {
           max-width: 500px;

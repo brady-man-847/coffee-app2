@@ -192,9 +192,9 @@ export default function RoomDetailScreen() {
                         label={i.name}
                       />
                     ))}
-                    <span> X {quantity}</span>
+                    <span className={''}>X{quantity}</span>
                     <span className={'delete-icon'} onClick={() => handleClickDeleteOrder(order.orderSn)}>
-                      <DeleteIcon color={'error'} />
+                      <DeleteIcon fontSize={'small'} color={'error'} />
                     </span>
                   </div>
                 </div>
@@ -260,6 +260,7 @@ export default function RoomDetailScreen() {
           }
           .delete-icon {
             cursor: pointer;
+            height: 20px;
           }
           .delete-icon:hover {
             transform: scale(1.2);

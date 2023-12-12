@@ -25,6 +25,7 @@ export default function RoomScreen() {
     let password: string | undefined;
     if (status === RoomDtoStatusEnum.PRIVATE) {
       password = window.prompt('비밀번호를 입력하세요') || undefined;
+      if (!password) return;
     }
 
     if (window.confirm('입장하시겠습니까?')) {
