@@ -31,6 +31,10 @@ export default function RoomDetailScreen() {
       onSuccess: (response) => {
         setCheckedOrderList(response.orderList.map((i) => i.orderSn));
       },
+      onError: (error) => {
+        window.alert(error.message);
+        router.replace('/room');
+      },
     },
   });
 
