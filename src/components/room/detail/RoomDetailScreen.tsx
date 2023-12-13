@@ -169,19 +169,8 @@ export default function RoomDetailScreen() {
                     <Avatar {...stringAvatar(memberNickname)} />
                   </div>
                   <div className={'order-item-wrapper'}>
-                    <Chip
-                      sx={{
-                        height: 'auto',
-                        '& .MuiChip-label': {
-                          display: 'block',
-                          whiteSpace: 'normal',
-                        },
-                      }}
-                      label={menuName}
-                    />
-                    {includeOptionList.map((i) => (
+                    <div>
                       <Chip
-                        key={`${memberSn}_${i.code}_option`}
                         sx={{
                           height: 'auto',
                           '& .MuiChip-label': {
@@ -189,20 +178,39 @@ export default function RoomDetailScreen() {
                             whiteSpace: 'normal',
                           },
                         }}
-                        label={i.name}
+                        label={menuName}
                       />
-                    ))}
-                    <span className={''}>X{quantity}</span>
-                    <span className={'delete-icon'} onClick={() => handleClickDeleteOrder(order.orderSn)}>
-                      <DeleteIcon fontSize={'small'} color={'error'} />
-                    </span>
+                    </div>
+                    <div>
+                      {includeOptionList.map((i) => (
+                        <Chip
+                          key={`${memberSn}_${i.code}_option`}
+                          sx={{
+                            height: 'auto',
+                            '& .MuiChip-label': {
+                              display: 'block',
+                              whiteSpace: 'normal',
+                            },
+                          }}
+                          label={i.name}
+                        />
+                      ))}
+                    </div>
+                    <div>
+                      <span className={''}>X{quantity}</span>
+                      <span className={'delete-icon'} onClick={() => handleClickDeleteOrder(order.orderSn)}>
+                        <DeleteIcon fontSize={'small'} color={'error'} />
+                      </span>
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
-          <div className={'payment-wrapper'} onClick={handleClickPayment}>
-            <Button variant="contained">결제하기</Button>
+          <div className={'payment-wrapper'}>
+            <Button onClick={handleClickPayment} variant="contained">
+              결제하기
+            </Button>
           </div>
         </div>
         <style jsx>{`
@@ -254,8 +262,8 @@ export default function RoomDetailScreen() {
           }
           .order-item-wrapper {
             display: flex;
-            flex-direction: row;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-end;
             gap: 4px;
           }
           .delete-icon {
