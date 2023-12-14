@@ -6,10 +6,10 @@ import useMutationCreateRoom from '@/hooks/room/useMutationCreateRoom';
 import { RoomRequestCreateStatusEnum } from '@/apis';
 import { roomStore } from '@/stores/roomStore';
 import { useRecoilState } from 'recoil';
-import { useQueryClient } from '@tanstack/react-query';
-import { useQueryGetRoomListKey } from '@/hooks/room/useQueryGetRoomList';
+import { useRouter } from 'next/router';
 
 export default function RoomCreateForm() {
+  const router = useRouter();
   const [, dispatch] = useRecoilState(roomStore);
 
   const nameRef = useRef<HTMLInputElement>(null);
@@ -17,8 +17,6 @@ export default function RoomCreateForm() {
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const { mutate: createRoom } = useMutationCreateRoom({});
-
-  const queryClient = useQueryClient();
 
   const handleClickButton = () => {
     if (!nameRef.current?.value) {
@@ -35,7 +33,7 @@ export default function RoomCreateForm() {
       {
         onSuccess: () => {
           window.alert('방 생성에 성공했습니다.');
-          queryClient.invalidateQueries(useQueryGetRoomListKey);
+          router.reload();
         },
         onError: () => {
           window.alert('방 생성에 실패했습니다.');
