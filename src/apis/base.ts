@@ -18,7 +18,7 @@ import type { Configuration } from './configuration';
 import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 
-export const BASE_PATH = 'https://port-0-mcafe-v2-euegqv2llo1fufha.sel5.cloudtype.app'.replace(/\/+$/, '');
+export const BASE_PATH = 'https://port-0-mcafe-51r7c2alpxsdhy1.sel4.cloudtype.app'.replace(/\/+$/, '');
 
 /**
  *

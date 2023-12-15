@@ -32,7 +32,17 @@ import {
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
+import { DashBoardRequestPost } from '../models';
+// @ts-ignore
 import { ErrorMessage } from '../models';
+// @ts-ignore
+import { FavoriteMenuRequestCreate } from '../models';
+// @ts-ignore
+import { FavoriteMenuResponseResult } from '../models';
+// @ts-ignore
+import { FavoriteMenuResponseResults } from '../models';
+// @ts-ignore
+import { LooserHistoryResponseResults } from '../models';
 // @ts-ignore
 import { MemberRequestLogin } from '../models';
 // @ts-ignore
@@ -83,6 +93,46 @@ import { RoomResponseGetRoomList } from '../models';
  */
 export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
   return {
+    /**
+     *
+     * @summary 즐겨찾기 메뉴 추가
+     * @param {FavoriteMenuRequestCreate} favoriteMenuRequestCreate
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createFavoriteMenu: async (
+      favoriteMenuRequestCreate: FavoriteMenuRequestCreate,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'favoriteMenuRequestCreate' is not null or undefined
+      assertParamExists('createFavoriteMenu', 'favoriteMenuRequestCreate', favoriteMenuRequestCreate);
+      const localVarPath = `/favorite`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(favoriteMenuRequestCreate, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
     /**
      * 주문을 생성합니다.
      * @summary 주문 생성
@@ -151,6 +201,40 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
       localVarRequestOptions.data = serializeDataIfNeeded(roomRequestCreate, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary 즐겨찾기 메뉴 삭제
+     * @param {number} favoriteSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteFavoriteMenu: async (favoriteSn: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'favoriteSn' is not null or undefined
+      assertParamExists('deleteFavoriteMenu', 'favoriteSn', favoriteSn);
+      const localVarPath = `/favorite/{favoriteSn}`.replace(`{${'favoriteSn'}}`, encodeURIComponent(String(favoriteSn)));
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
 
       return {
         url: toPathString(localVarUrlObj),
@@ -343,6 +427,37 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     },
     /**
      *
+     * @summary 즐겨찾기 메뉴 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    findFavoriteMenu: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      const localVarPath = `/favorite`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
      * @summary 회원정보 조회
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -393,6 +508,71 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
       // authentication Authorization required
       await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary 패배자 조회
+     * @param {Array<number>} memberSns
+     * @param {'PINBALL'} gameType
+     * @param {string} startDate
+     * @param {string} endDate
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getLooserData: async (
+      memberSns: Array<number>,
+      gameType: 'PINBALL',
+      startDate: string,
+      endDate: string,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'memberSns' is not null or undefined
+      assertParamExists('getLooserData', 'memberSns', memberSns);
+      // verify required parameter 'gameType' is not null or undefined
+      assertParamExists('getLooserData', 'gameType', gameType);
+      // verify required parameter 'startDate' is not null or undefined
+      assertParamExists('getLooserData', 'startDate', startDate);
+      // verify required parameter 'endDate' is not null or undefined
+      assertParamExists('getLooserData', 'endDate', endDate);
+      const localVarPath = `/dashboard/looser`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      if (memberSns) {
+        localVarQueryParameter['memberSns'] = memberSns;
+      }
+
+      if (gameType !== undefined) {
+        localVarQueryParameter['gameType'] = gameType;
+      }
+
+      if (startDate !== undefined) {
+        localVarQueryParameter['startDate'] = (startDate as any) instanceof Date ? (startDate as any).toISOString() : startDate;
+      }
+
+      if (endDate !== undefined) {
+        localVarQueryParameter['endDate'] = (endDate as any) instanceof Date ? (endDate as any).toISOString() : endDate;
+      }
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -601,6 +781,43 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
       localVarRequestOptions.data = serializeDataIfNeeded(paymentRequestPay, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary 패배자 등록
+     * @param {DashBoardRequestPost} dashBoardRequestPost
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postLooser: async (dashBoardRequestPost: DashBoardRequestPost, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'dashBoardRequestPost' is not null or undefined
+      assertParamExists('postLooser', 'dashBoardRequestPost', dashBoardRequestPost);
+      const localVarPath = `/dashboard/looser`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(dashBoardRequestPost, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -964,6 +1181,20 @@ export const DefaultApiFp = function (configuration?: Configuration) {
   const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration);
   return {
     /**
+     *
+     * @summary 즐겨찾기 메뉴 추가
+     * @param {FavoriteMenuRequestCreate} favoriteMenuRequestCreate
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async createFavoriteMenu(
+      favoriteMenuRequestCreate: FavoriteMenuRequestCreate,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FavoriteMenuResponseResult>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.createFavoriteMenu(favoriteMenuRequestCreate, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
      * 주문을 생성합니다.
      * @summary 주문 생성
      * @param {OrderRequestCreate} orderRequestCreate
@@ -989,6 +1220,20 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomResponseCreate>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.createRoom(roomRequestCreate, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary 즐겨찾기 메뉴 삭제
+     * @param {number} favoriteSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async deleteFavoriteMenu(
+      favoriteSn: number,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.deleteFavoriteMenu(favoriteSn, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1063,6 +1308,18 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     },
     /**
      *
+     * @summary 즐겨찾기 메뉴 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async findFavoriteMenu(
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FavoriteMenuResponseResults>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.findFavoriteMenu(options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
      * @summary 회원정보 조회
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1083,6 +1340,26 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RoomResponseGetRoomList>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.getEnteredRoomList(options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary 패배자 조회
+     * @param {Array<number>} memberSns
+     * @param {'PINBALL'} gameType
+     * @param {string} startDate
+     * @param {string} endDate
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getLooserData(
+      memberSns: Array<number>,
+      gameType: 'PINBALL',
+      startDate: string,
+      endDate: string,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LooserHistoryResponseResults>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getLooserData(memberSns, gameType, startDate, endDate, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1161,6 +1438,20 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderResponsePay>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.payOrder(paymentRequestPay, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary 패배자 등록
+     * @param {DashBoardRequestPost} dashBoardRequestPost
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async postLooser(
+      dashBoardRequestPost: DashBoardRequestPost,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.postLooser(dashBoardRequestPost, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1302,6 +1593,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
   const localVarFp = DefaultApiFp(configuration);
   return {
     /**
+     *
+     * @summary 즐겨찾기 메뉴 추가
+     * @param {FavoriteMenuRequestCreate} favoriteMenuRequestCreate
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    createFavoriteMenu(favoriteMenuRequestCreate: FavoriteMenuRequestCreate, options?: any): AxiosPromise<FavoriteMenuResponseResult> {
+      return localVarFp.createFavoriteMenu(favoriteMenuRequestCreate, options).then((request) => request(axios, basePath));
+    },
+    /**
      * 주문을 생성합니다.
      * @summary 주문 생성
      * @param {OrderRequestCreate} orderRequestCreate
@@ -1320,6 +1621,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
      */
     createRoom(roomRequestCreate: RoomRequestCreate, options?: any): AxiosPromise<RoomResponseCreate> {
       return localVarFp.createRoom(roomRequestCreate, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary 즐겨찾기 메뉴 삭제
+     * @param {number} favoriteSn
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteFavoriteMenu(favoriteSn: number, options?: any): AxiosPromise<void> {
+      return localVarFp.deleteFavoriteMenu(favoriteSn, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -1374,6 +1685,15 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     },
     /**
      *
+     * @summary 즐겨찾기 메뉴 조회
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    findFavoriteMenu(options?: any): AxiosPromise<FavoriteMenuResponseResults> {
+      return localVarFp.findFavoriteMenu(options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
      * @summary 회원정보 조회
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1389,6 +1709,25 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
      */
     getEnteredRoomList(options?: any): AxiosPromise<RoomResponseGetRoomList> {
       return localVarFp.getEnteredRoomList(options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary 패배자 조회
+     * @param {Array<number>} memberSns
+     * @param {'PINBALL'} gameType
+     * @param {string} startDate
+     * @param {string} endDate
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getLooserData(
+      memberSns: Array<number>,
+      gameType: 'PINBALL',
+      startDate: string,
+      endDate: string,
+      options?: any,
+    ): AxiosPromise<LooserHistoryResponseResults> {
+      return localVarFp.getLooserData(memberSns, gameType, startDate, endDate, options).then((request) => request(axios, basePath));
     },
     /**
      * 메뉴 정보를 조회합니다.
@@ -1447,6 +1786,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
      */
     payOrder(paymentRequestPay: PaymentRequestPay, options?: any): AxiosPromise<OrderResponsePay> {
       return localVarFp.payOrder(paymentRequestPay, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary 패배자 등록
+     * @param {DashBoardRequestPost} dashBoardRequestPost
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    postLooser(dashBoardRequestPost: DashBoardRequestPost, options?: any): AxiosPromise<void> {
+      return localVarFp.postLooser(dashBoardRequestPost, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -1551,6 +1900,20 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
  */
 export class DefaultApi extends BaseAPI {
   /**
+   *
+   * @summary 즐겨찾기 메뉴 추가
+   * @param {FavoriteMenuRequestCreate} favoriteMenuRequestCreate
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public createFavoriteMenu(favoriteMenuRequestCreate: FavoriteMenuRequestCreate, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .createFavoriteMenu(favoriteMenuRequestCreate, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
    * 주문을 생성합니다.
    * @summary 주문 생성
    * @param {OrderRequestCreate} orderRequestCreate
@@ -1575,6 +1938,20 @@ export class DefaultApi extends BaseAPI {
   public createRoom(roomRequestCreate: RoomRequestCreate, options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .createRoom(roomRequestCreate, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary 즐겨찾기 메뉴 삭제
+   * @param {number} favoriteSn
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public deleteFavoriteMenu(favoriteSn: number, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .deleteFavoriteMenu(favoriteSn, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -1651,6 +2028,19 @@ export class DefaultApi extends BaseAPI {
 
   /**
    *
+   * @summary 즐겨찾기 메뉴 조회
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public findFavoriteMenu(options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .findFavoriteMenu(options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
    * @summary 회원정보 조회
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
@@ -1672,6 +2062,23 @@ export class DefaultApi extends BaseAPI {
   public getEnteredRoomList(options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .getEnteredRoomList(options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary 패배자 조회
+   * @param {Array<number>} memberSns
+   * @param {'PINBALL'} gameType
+   * @param {string} startDate
+   * @param {string} endDate
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getLooserData(memberSns: Array<number>, gameType: 'PINBALL', startDate: string, endDate: string, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .getLooserData(memberSns, gameType, startDate, endDate, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -1754,6 +2161,20 @@ export class DefaultApi extends BaseAPI {
   public payOrder(paymentRequestPay: PaymentRequestPay, options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .payOrder(paymentRequestPay, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary 패배자 등록
+   * @param {DashBoardRequestPost} dashBoardRequestPost
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public postLooser(dashBoardRequestPost: DashBoardRequestPost, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .postLooser(dashBoardRequestPost, options)
       .then((request) => request(this.axios, this.basePath));
   }
 

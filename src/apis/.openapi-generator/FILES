@@ -6,8 +6,14 @@ common.ts
 configuration.ts
 git_push.sh
 index.ts
+models/dash-board-request-post.ts
 models/error-message.ts
+models/favorite-menu-request-create.ts
+models/favorite-menu-response-result.ts
+models/favorite-menu-response-results.ts
 models/index.ts
+models/looser-history-response-result.ts
+models/looser-history-response-results.ts
 models/member-dto.ts
 models/member-request-login.ts
 models/member-request-nickname.ts
