@@ -28,6 +28,7 @@ export default function RoomDetailScreen() {
   } = useQueryGetRoomInfo({
     req: { roomSn: Number(roomSn) },
     queryOption: {
+      enabled: !!roomSn,
       onSuccess: (response) => {
         setCheckedOrderList(response.orderList.map((i) => i.orderSn));
       },
