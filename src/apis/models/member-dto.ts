@@ -20,14 +20,35 @@
 export interface MemberDto {
   /**
    *
-   * @type {number}
+   * @type {string}
    * @memberof MemberDto
    */
-  memberSn: number;
+  nickname: string;
   /**
    *
    * @type {string}
    * @memberof MemberDto
    */
-  nickname: string;
+  username: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MemberDto
+   */
+  phone: string;
+  /**
+   *
+   * @type {string}
+   * @memberof MemberDto
+   */
+  role: MemberDtoRoleEnum;
+}
+
+/**
+ * @export
+ * @enum {string}
+ */
+export enum MemberDtoRoleEnum {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
 }

@@ -11,6 +11,9 @@ models/error-message.ts
 models/favorite-menu-request-create.ts
 models/favorite-menu-response-result.ts
 models/favorite-menu-response-results.ts
+models/game-ready-request-put.ts
+models/game-ready-response-result.ts
+models/game-ready-response-results.ts
 models/index.ts
 models/looser-history-response-result.ts
 models/looser-history-response-results.ts

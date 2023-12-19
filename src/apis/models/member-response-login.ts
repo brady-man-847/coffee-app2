@@ -20,6 +20,12 @@
 export interface MemberResponseLogin {
   /**
    *
+   * @type {number}
+   * @memberof MemberResponseLogin
+   */
+  sn: number;
+  /**
+   *
    * @type {string}
    * @memberof MemberResponseLogin
    */

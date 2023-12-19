@@ -42,6 +42,12 @@ import { FavoriteMenuResponseResult } from '../models';
 // @ts-ignore
 import { FavoriteMenuResponseResults } from '../models';
 // @ts-ignore
+import { GameReadyRequestPut } from '../models';
+// @ts-ignore
+import { GameReadyResponseResult } from '../models';
+// @ts-ignore
+import { GameReadyResponseResults } from '../models';
+// @ts-ignore
 import { LooserHistoryResponseResults } from '../models';
 // @ts-ignore
 import { MemberRequestLogin } from '../models';
@@ -520,8 +526,54 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     },
     /**
      *
+     * @summary 게임 준비 상태 조회
+     * @param {number} roomSn
+     * @param {'PINBALL'} gameType
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getGameReadyStatusOfRoomMember: async (roomSn: number, gameType: 'PINBALL', options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'roomSn' is not null or undefined
+      assertParamExists('getGameReadyStatusOfRoomMember', 'roomSn', roomSn);
+      // verify required parameter 'gameType' is not null or undefined
+      assertParamExists('getGameReadyStatusOfRoomMember', 'gameType', gameType);
+      const localVarPath = `/game/ready`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      if (roomSn !== undefined) {
+        localVarQueryParameter['roomSn'] = roomSn;
+      }
+
+      if (gameType !== undefined) {
+        localVarQueryParameter['gameType'] = gameType;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
      * @summary 패배자 조회
      * @param {Array<number>} memberSns
+     * @param {number} roomSn
      * @param {'PINBALL'} gameType
      * @param {string} startDate
      * @param {string} endDate
@@ -530,6 +582,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
      */
     getLooserData: async (
       memberSns: Array<number>,
+      roomSn: number,
       gameType: 'PINBALL',
       startDate: string,
       endDate: string,
@@ -537,6 +590,8 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     ): Promise<RequestArgs> => {
       // verify required parameter 'memberSns' is not null or undefined
       assertParamExists('getLooserData', 'memberSns', memberSns);
+      // verify required parameter 'roomSn' is not null or undefined
+      assertParamExists('getLooserData', 'roomSn', roomSn);
       // verify required parameter 'gameType' is not null or undefined
       assertParamExists('getLooserData', 'gameType', gameType);
       // verify required parameter 'startDate' is not null or undefined
@@ -560,6 +615,10 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 
       if (memberSns) {
         localVarQueryParameter['memberSns'] = memberSns;
+      }
+
+      if (roomSn !== undefined) {
+        localVarQueryParameter['roomSn'] = roomSn;
       }
 
       if (gameType !== undefined) {
@@ -818,6 +877,43 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
       let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
       localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
       localVarRequestOptions.data = serializeDataIfNeeded(dashBoardRequestPost, localVarRequestOptions, configuration);
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @summary 게임 준비 상태 업데이트
+     * @param {GameReadyRequestPut} gameReadyRequestPut
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putGameReadyStatus: async (gameReadyRequestPut: GameReadyRequestPut, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+      // verify required parameter 'gameReadyRequestPut' is not null or undefined
+      assertParamExists('putGameReadyStatus', 'gameReadyRequestPut', gameReadyRequestPut);
+      const localVarPath = `/game/ready`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication Authorization required
+      await setApiKeyToObject(localVarHeaderParameter, 'Authorization', configuration);
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
+      localVarRequestOptions.data = serializeDataIfNeeded(gameReadyRequestPut, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
@@ -1344,8 +1440,25 @@ export const DefaultApiFp = function (configuration?: Configuration) {
     },
     /**
      *
+     * @summary 게임 준비 상태 조회
+     * @param {number} roomSn
+     * @param {'PINBALL'} gameType
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getGameReadyStatusOfRoomMember(
+      roomSn: number,
+      gameType: 'PINBALL',
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GameReadyResponseResults>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getGameReadyStatusOfRoomMember(roomSn, gameType, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
      * @summary 패배자 조회
      * @param {Array<number>} memberSns
+     * @param {number} roomSn
      * @param {'PINBALL'} gameType
      * @param {string} startDate
      * @param {string} endDate
@@ -1354,12 +1467,13 @@ export const DefaultApiFp = function (configuration?: Configuration) {
      */
     async getLooserData(
       memberSns: Array<number>,
+      roomSn: number,
       gameType: 'PINBALL',
       startDate: string,
       endDate: string,
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LooserHistoryResponseResults>> {
-      const localVarAxiosArgs = await localVarAxiosParamCreator.getLooserData(memberSns, gameType, startDate, endDate, options);
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getLooserData(memberSns, roomSn, gameType, startDate, endDate, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1452,6 +1566,20 @@ export const DefaultApiFp = function (configuration?: Configuration) {
       options?: AxiosRequestConfig,
     ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
       const localVarAxiosArgs = await localVarAxiosParamCreator.postLooser(dashBoardRequestPost, options);
+      return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+    },
+    /**
+     *
+     * @summary 게임 준비 상태 업데이트
+     * @param {GameReadyRequestPut} gameReadyRequestPut
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async putGameReadyStatus(
+      gameReadyRequestPut: GameReadyRequestPut,
+      options?: AxiosRequestConfig,
+    ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GameReadyResponseResult>> {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.putGameReadyStatus(gameReadyRequestPut, options);
       return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
     },
     /**
@@ -1712,8 +1840,20 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     },
     /**
      *
+     * @summary 게임 준비 상태 조회
+     * @param {number} roomSn
+     * @param {'PINBALL'} gameType
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getGameReadyStatusOfRoomMember(roomSn: number, gameType: 'PINBALL', options?: any): AxiosPromise<GameReadyResponseResults> {
+      return localVarFp.getGameReadyStatusOfRoomMember(roomSn, gameType, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
      * @summary 패배자 조회
      * @param {Array<number>} memberSns
+     * @param {number} roomSn
      * @param {'PINBALL'} gameType
      * @param {string} startDate
      * @param {string} endDate
@@ -1722,12 +1862,13 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
      */
     getLooserData(
       memberSns: Array<number>,
+      roomSn: number,
       gameType: 'PINBALL',
       startDate: string,
       endDate: string,
       options?: any,
     ): AxiosPromise<LooserHistoryResponseResults> {
-      return localVarFp.getLooserData(memberSns, gameType, startDate, endDate, options).then((request) => request(axios, basePath));
+      return localVarFp.getLooserData(memberSns, roomSn, gameType, startDate, endDate, options).then((request) => request(axios, basePath));
     },
     /**
      * 메뉴 정보를 조회합니다.
@@ -1796,6 +1937,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
      */
     postLooser(dashBoardRequestPost: DashBoardRequestPost, options?: any): AxiosPromise<void> {
       return localVarFp.postLooser(dashBoardRequestPost, options).then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @summary 게임 준비 상태 업데이트
+     * @param {GameReadyRequestPut} gameReadyRequestPut
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    putGameReadyStatus(gameReadyRequestPut: GameReadyRequestPut, options?: any): AxiosPromise<GameReadyResponseResult> {
+      return localVarFp.putGameReadyStatus(gameReadyRequestPut, options).then((request) => request(axios, basePath));
     },
     /**
      *
@@ -2067,8 +2218,24 @@ export class DefaultApi extends BaseAPI {
 
   /**
    *
+   * @summary 게임 준비 상태 조회
+   * @param {number} roomSn
+   * @param {'PINBALL'} gameType
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public getGameReadyStatusOfRoomMember(roomSn: number, gameType: 'PINBALL', options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .getGameReadyStatusOfRoomMember(roomSn, gameType, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
    * @summary 패배자 조회
    * @param {Array<number>} memberSns
+   * @param {number} roomSn
    * @param {'PINBALL'} gameType
    * @param {string} startDate
    * @param {string} endDate
@@ -2076,9 +2243,16 @@ export class DefaultApi extends BaseAPI {
    * @throws {RequiredError}
    * @memberof DefaultApi
    */
-  public getLooserData(memberSns: Array<number>, gameType: 'PINBALL', startDate: string, endDate: string, options?: AxiosRequestConfig) {
+  public getLooserData(
+    memberSns: Array<number>,
+    roomSn: number,
+    gameType: 'PINBALL',
+    startDate: string,
+    endDate: string,
+    options?: AxiosRequestConfig,
+  ) {
     return DefaultApiFp(this.configuration)
-      .getLooserData(memberSns, gameType, startDate, endDate, options)
+      .getLooserData(memberSns, roomSn, gameType, startDate, endDate, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -2175,6 +2349,20 @@ export class DefaultApi extends BaseAPI {
   public postLooser(dashBoardRequestPost: DashBoardRequestPost, options?: AxiosRequestConfig) {
     return DefaultApiFp(this.configuration)
       .postLooser(dashBoardRequestPost, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @summary 게임 준비 상태 업데이트
+   * @param {GameReadyRequestPut} gameReadyRequestPut
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public putGameReadyStatus(gameReadyRequestPut: GameReadyRequestPut, options?: AxiosRequestConfig) {
+    return DefaultApiFp(this.configuration)
+      .putGameReadyStatus(gameReadyRequestPut, options)
       .then((request) => request(this.axios, this.basePath));
   }
 

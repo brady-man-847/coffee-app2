@@ -26,6 +26,12 @@ export interface DashBoardRequestPost {
   looserSn: number;
   /**
    *
+   * @type {number}
+   * @memberof DashBoardRequestPost
+   */
+  roomSn: number;
+  /**
+   *
    * @type {string}
    * @memberof DashBoardRequestPost
    */
