@@ -6,7 +6,6 @@ import { Loading } from '@/components/common';
 import RoomDetailInfo from '@/components/room/detail/RoomDetailInfo';
 import useMutationPayment from '@/hooks/payment/useMutationPayment';
 import { useState } from 'react';
-import useSendSlack from '@/hooks/slack/useSendSlack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useMutationDeleteOrder from '@/hooks/order/useMutationDeleteOrder';
 import useQueryGetMember from '@/hooks/member/useQueryGetMember';
@@ -18,8 +17,6 @@ export default function RoomDetailScreen() {
 
   const router = useRouter();
   const { roomSn } = router.query;
-
-  const { sendSlack } = useSendSlack();
 
   const {
     data: roomInfo,
@@ -55,11 +52,9 @@ export default function RoomDetailScreen() {
         {
           onSuccess: (result) => {
             window.alert(`결제가 완료되었습니다.\n 주문번호: ${result.orderNo}`);
-            sendSlack(`주문번호: ${result.orderNo}`);
           },
           onError: (error) => {
             window.alert(error.message);
-            sendSlack(JSON.stringify(error));
           },
         },
       );
@@ -150,7 +145,7 @@ export default function RoomDetailScreen() {
           <Typography color={'secondary'}>ROOM MEMBERS</Typography>
           <div className={'avatar-wrapper'}>
             {roomInfo?.memberList.map((member) => (
-              <div className={'avatar'} key={`${member.memberSn}_member_key`}>
+              <div className={'avatar'} key={`${member.nickname}_member_key`}>
                 <Avatar {...stringAvatar(member.nickname)} />
                 <div>{member.nickname}</div>
               </div>

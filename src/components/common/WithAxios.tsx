@@ -3,14 +3,12 @@ import { axiosInstance } from '@/factory/axiosInstances';
 import { AxiosError, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { getCookie } from 'cookies-next';
 import { ACCESS_TOKEN } from '@/defines/token';
-import useSendSlack from '@/hooks/slack/useSendSlack';
 
 interface Props {
   children: ReactNode;
 }
 
 export default function WithAxios({ children }: Props) {
-  const { sendSlack } = useSendSlack();
   const axiosInstances = [axiosInstance];
 
   const refreshTokenPromise = useRef<Promise<void> | null>(null);
@@ -63,10 +61,6 @@ export default function WithAxios({ children }: Props) {
         (value) => value,
         async (error: AxiosError) => {
           const { config, code, request, response, isAxiosError, status, cause } = error;
-
-          await sendSlack(`axios error: ${JSON.stringify(response)}\n token: ${getCookie(ACCESS_TOKEN)}`);
-
-          console.log({ config, code, request, response, isAxiosError, status, cause });
 
           // TODO @brady error handling 백엔드 지원필요
 
