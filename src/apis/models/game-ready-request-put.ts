@@ -23,12 +23,6 @@ export interface GameReadyRequestPut {
    * @type {number}
    * @memberof GameReadyRequestPut
    */
-  memberSn: number;
-  /**
-   *
-   * @type {number}
-   * @memberof GameReadyRequestPut
-   */
   roomSn: number;
   /**
    *
