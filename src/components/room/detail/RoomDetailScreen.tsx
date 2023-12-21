@@ -119,6 +119,10 @@ export default function RoomDetailScreen() {
     }
   };
 
+  const handleClickPlayOut = () => {
+    router.push(`/room/${roomSn}/game`);
+  };
+
   if (isLoadingRoomInfo || isLoadingMember) return <Loading />;
 
   if (roomInfo && userInfo)
@@ -211,6 +215,9 @@ export default function RoomDetailScreen() {
             <Button onClick={handleClickPayment} variant="contained">
               결제하기
             </Button>
+            <Button onClick={handleClickPlayOut} variant="contained" color={'secondary'}>
+              승부하기
+            </Button>
           </div>
         </div>
         <style jsx>{`
@@ -276,6 +283,10 @@ export default function RoomDetailScreen() {
           .room-info-wrapper {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+          }
+          .payment-wrapper {
+            display: flex;
             justify-content: space-between;
           }
         `}</style>
