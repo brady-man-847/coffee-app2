@@ -215,9 +215,11 @@ export default function RoomDetailScreen() {
             <Button onClick={handleClickPayment} variant="contained">
               결제하기
             </Button>
-            <Button onClick={handleClickPlayOut} variant="contained" color={'secondary'}>
-              승부하기
-            </Button>
+            {Number(roomSn) === 1 && (
+              <Button onClick={handleClickPlayOut} variant="contained" color={'secondary'}>
+                승부하기
+              </Button>
+            )}
           </div>
         </div>
         <style jsx>{`
