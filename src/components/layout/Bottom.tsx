@@ -42,6 +42,6 @@ const Bottom = styled(Paper)<{ height: number }>`
   //position: fixed;
   //bottom: 0;
   width: inherit;
-  max-width: 500px;
+  //max-width: 500px;
   height: ${(props) => props.height}px;
 `;

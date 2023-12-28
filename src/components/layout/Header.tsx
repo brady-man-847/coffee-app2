@@ -9,7 +9,7 @@ export default function () {
     <Box
       color={'primary'}
       sx={{
-        width: '500px',
+        width: '100%',
         height: HEADER_HEIGHT,
         backgroundColor: theme.palette.primary.main,
         // position: 'fixed',
