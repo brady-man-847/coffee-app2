@@ -31,6 +31,7 @@ export default function CheckUchefPage() {
         },
         onError: (err) => {
           console.log(err);
+          window.alert('인증에 실패했습니다. 다시 시도해주세요.');
         },
       },
     );
