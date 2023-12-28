@@ -6,7 +6,7 @@ import RoomCreateForm from '@/components/room/action/RoomCreateForm';
 
 export default function RoomCreateModal() {
   const [{ isOpen }, dispatch] = useRecoilState(roomStore);
-  const handleClose = () => dispatch({ isOpen: false });
+  const handleClose = () => dispatch({ isOpen: false, modalType: 'none' });
 
   return (
     <>

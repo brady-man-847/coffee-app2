@@ -44,7 +44,7 @@ export default function MenuOptionDrawer() {
     });
   }, [data, isDrawerOpen]);
 
-  const handleSaveOrder = async () => setRoomState({ isOpen: !isOpen });
+  const handleSaveOrder = async () => setRoomState({ isOpen: !isOpen, modalType: 'entered' });
 
   const handleDrawerClose = () => dispatch(menuInitialState);
 

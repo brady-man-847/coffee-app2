@@ -5,12 +5,12 @@ import { roomStore } from '@/stores/roomStore';
 import RoomChooseModal from '@/components/room/choose/RoomChooseModal';
 
 export default function MenuScreen() {
-  const [{ isOpen }] = useRecoilState(roomStore);
+  const [{ isOpen, modalType }] = useRecoilState(roomStore);
   return (
     <>
       <MenuCategory />
       <MenuOptionDrawer />
-      {isOpen && <RoomChooseModal />}
+      {isOpen && modalType === 'entered' && <RoomChooseModal />}
     </>
   );
 }

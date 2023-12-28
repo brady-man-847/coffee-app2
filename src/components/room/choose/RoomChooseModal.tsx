@@ -11,7 +11,7 @@ export default function RoomChooseModal() {
   const [{ isOpen }, setRoomState] = useRecoilState(roomStore);
   const { data: { roomList } = {}, isLoading } = useQueryGetRoomEntered({ req: undefined });
 
-  const handleClose = () => setRoomState({ isOpen: false });
+  const handleClose = () => setRoomState({ isOpen: false, modalType: 'none' });
   const { handleClick } = useCreateOrder();
 
   return (
