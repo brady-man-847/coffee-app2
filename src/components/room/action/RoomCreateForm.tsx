@@ -39,7 +39,7 @@ export default function RoomCreateForm() {
           window.alert('방 생성에 실패했습니다.');
         },
         onSettled: () => {
-          dispatch({ isOpen: false });
+          dispatch({ isOpen: false, modalType: 'none' });
         },
       },
     );
