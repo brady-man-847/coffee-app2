@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import useMutationSignUp from '@/hooks/auth/useMutationSignUp';
 import Header from '@/components/layout/Header';
+import { AxiosError } from 'axios';
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -31,8 +32,15 @@ export default function SignUpPage() {
         onSuccess: () => {
           router.push('/auth/login');
         },
-        onError: (err) => {
+        onError: (e) => {
+          const err = e as AxiosError;
           console.log(err);
+
+          if (err.response?.status === 409) {
+            return window.alert('이미 존재하는 아이디입니다.');
+          }
+
+          return window.alert('회원가입에 실패했습니다. 다시 시도해주세요.');
         },
       },
     );
