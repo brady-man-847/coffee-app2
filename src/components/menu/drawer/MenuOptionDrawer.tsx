@@ -28,7 +28,7 @@ export default function MenuOptionDrawer() {
         .filter((j) => j.isDefault)
         .map((j) => {
           return {
-            [i.name]: j.code,
+            [i.name]: { [j.name]: j.code },
           };
         });
     });
@@ -44,31 +44,9 @@ export default function MenuOptionDrawer() {
     });
   }, [data, isDrawerOpen]);
 
-  const handleSaveOrder = async () => {
-    localStorage.setItem(
-      `coffee_order_${new Date().toLocaleString()}`,
-      JSON.stringify({ order, menuCode: menu.code, menuName: menu.name }),
-    );
+  const handleSaveOrder = async () => setRoomState({ isOpen: !isOpen });
 
-    setRoomState({ isOpen: !isOpen });
-    // callOrder(
-    //   { order, menuCode: menu.code },
-    //   {
-    //     onSettled: () => {
-    //       setIsRequestApi(false);
-    //       dispatch({ type: 'INIT_MENU' });
-    //     },
-    //   },
-    // );
-  };
-
-  const handlePhoneInputChange = (formattedValue: string) => {
-    // dispatch({ type: 'SET_ORDER', order: { ...order, phone: formattedValue } });
-  };
-
-  const handleDrawerClose = () => {
-    dispatch(menuInitialState);
-  };
+  const handleDrawerClose = () => dispatch(menuInitialState);
 
   return (
     <Drawer

@@ -14,23 +14,26 @@ interface Props {
 export default function MenuOptionItems({ idx, data, menuName }: Props) {
   const [state, dispatch] = useRecoilState(menuStore);
   const { order } = state;
+
   const handleRadioOptionChange = (e: ChangeEvent<HTMLInputElement>, value: string): void => {
+    const { name } = e.target;
+
     dispatch({
       ...state,
       order: {
         ...order,
-        optionList: _.defaults({ [menuName!]: +value }, { ...order.optionList }),
+        optionList: _.defaults({ [menuName!]: { [name]: +value } }, { ...order.optionList }),
       },
     });
   };
 
   const handleCheckOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
+    const { name, value, checked } = e.target;
     dispatch({
       ...state,
       order: {
         ...order,
-        optionList: _.defaults({ [menuName!]: checked ? +value : undefined }, { ...order.optionList }),
+        optionList: _.defaults({ [menuName!]: checked ? { [name]: +value } : undefined }, { ...order.optionList }),
       },
     });
   };
