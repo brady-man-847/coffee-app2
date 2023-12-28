@@ -2,17 +2,22 @@ import { Chip } from '@mui/material';
 import { RoomDto } from '@/apis';
 import useMutationUpdateRoom from '@/hooks/room/useMutationUpdateRoom';
 import useQueryGetMember from '@/hooks/member/useQueryGetMember';
+import { useRouter } from 'next/router';
 
 interface Props {
   data: RoomDto;
 }
 export default function RoomDetailInfo({ data }: Props) {
+  const router = useRouter();
+  const { pathname } = router;
+
   const { sn, hostName, name, status } = data;
 
   const { mutate: updateRoomName } = useMutationUpdateRoom({});
   const { data: userInfo } = useQueryGetMember({ req: undefined });
 
   const handleClickChangeRoomName = () => {
+    if (pathname !== '/room/[roomSn]') return;
     if (hostName !== userInfo?.nickname) return;
 
     const newName = window.prompt('변경할 방이름을 입력하세요.', name);
