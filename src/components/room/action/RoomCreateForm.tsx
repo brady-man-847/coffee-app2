@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Box, Button, Checkbox, FormControlLabel, InputAdornment, TextField, Typography } from '@mui/material';
 import { Password, Smartphone } from '@mui/icons-material';
 import WeekendIcon from '@mui/icons-material/Weekend';
@@ -12,8 +12,9 @@ export default function RoomCreateForm() {
   const router = useRouter();
   const [, dispatch] = useRecoilState(roomStore);
 
+  const [isPrivate, setIsPrivate] = useState(false);
+
   const nameRef = useRef<HTMLInputElement>(null);
-  const statusRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const { mutate: createRoom } = useMutationCreateRoom({});
@@ -24,10 +25,15 @@ export default function RoomCreateForm() {
       return;
     }
 
+    if (isPrivate && !passwordRef.current?.value) {
+      window.alert('비밀번호를 입력해주세요.');
+      return;
+    }
+
     createRoom(
       {
         name: nameRef.current?.value,
-        status: statusRef.current?.checked ? RoomRequestCreateStatusEnum.PRIVATE : RoomRequestCreateStatusEnum.PUBLIC,
+        status: isPrivate ? RoomRequestCreateStatusEnum.PRIVATE : RoomRequestCreateStatusEnum.PUBLIC,
         password: passwordRef.current?.value,
       },
       {
@@ -64,22 +70,33 @@ export default function RoomCreateForm() {
           color="secondary"
           required
         />
-        <TextField
-          label="password"
-          inputRef={passwordRef}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Password />
-              </InputAdornment>
-            ),
-            type: 'password',
-          }}
-          color="secondary"
-        />
         <Box sx={{ textAlign: 'right' }}>
-          <FormControlLabel control={<Checkbox inputRef={statusRef} />} label="Is Secret Room ?" />
+          <FormControlLabel
+            control={
+              <Checkbox
+                onClick={() => {
+                  setIsPrivate(!isPrivate);
+                }}
+              />
+            }
+            label="Is Secret Room ?"
+          />
         </Box>
+        {isPrivate && (
+          <TextField
+            label="password"
+            inputRef={passwordRef}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Password />
+                </InputAdornment>
+              ),
+              type: 'password',
+            }}
+            color="secondary"
+          />
+        )}
 
         <Button variant="contained" fullWidth onClick={handleClickButton}>
           <Typography>Make Room :)</Typography>
