@@ -42,6 +42,9 @@ function RootApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Box
+        style={{
+          height: '-webkit-fill-available',
+        }}
         sx={[
           {
             width: '100%',
