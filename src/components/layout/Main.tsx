@@ -6,7 +6,7 @@ interface Props {
   children: JSX.Element | JSX.Element[];
 }
 
-export default function Main({ children }: Props) {
+export default function ({ children }: Props) {
   return (
     <Div headerHeight={HEADER_HEIGHT} bottomHeight={BOTTOM_HEIGHT}>
       {children}
@@ -17,8 +17,8 @@ export default function Main({ children }: Props) {
 const Div = styled.div<{ bottomHeight: number; headerHeight: number }>`
   height: 100%;
   overflow: auto;
-  // padding-bottom: ${(props) => props.bottomHeight}px;
-  // padding-top: ${(props) => props.headerHeight}px;
+  padding-bottom: ${(props) => props.bottomHeight}px;
+  padding-top: ${(props) => props.headerHeight}px;
   display: flex;
   flex-direction: column;
 `;

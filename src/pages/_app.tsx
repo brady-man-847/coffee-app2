@@ -46,7 +46,7 @@ function RootApp({ Component, pageProps }: AppPropsWithLayout) {
           {
             width: '100%',
             margin: '0 auto',
-            // height: '100vh',
+            height: '100vh',
             // overflowY: 'hidden',
             display: 'flex',
             flexDirection: 'column',
