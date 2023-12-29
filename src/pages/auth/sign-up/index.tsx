@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import useMutationSignUp from '@/hooks/auth/useMutationSignUp';
 import Header from '@/components/layout/Header';
 import { AxiosError } from 'axios';
+import Main from '@/components/layout/Main';
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -121,6 +122,6 @@ export default function SignUpPage() {
 SignUpPage.getLayout = (page: JSX.Element) => (
   <>
     <Header />
-    {page}
+    <Main>{page}</Main>
   </>
 );

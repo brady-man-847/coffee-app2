@@ -6,6 +6,7 @@ import { ACCESS_TOKEN, AT_EXPIRES_IN } from '@/defines/token';
 import useMutationLogin from '@/hooks/auth/useMutationLogin';
 import { setCookie } from 'cookies-next';
 import Header from '@/components/layout/Header';
+import Main from '@/components/layout/Main';
 
 export default function AuthLoginPage() {
   const router = useRouter();
@@ -90,6 +91,7 @@ export default function AuthLoginPage() {
           flex-direction: column;
           justify-content: center;
           height: 100%;
+
           gap: 16px;
           padding: 32px;
         }
@@ -101,6 +103,6 @@ export default function AuthLoginPage() {
 AuthLoginPage.getLayout = (page: JSX.Element) => (
   <>
     <Header />
-    {page}
+    <Main>{page}</Main>
   </>
 );

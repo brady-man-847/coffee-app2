@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import useMutationCheckUchef from '@/hooks/auth/useMutationCheckUchef';
 import Header from '@/components/layout/Header';
+import Main from '@/components/layout/Main';
 
 export default function CheckUchefPage() {
   const router = useRouter();
@@ -101,6 +102,6 @@ export default function CheckUchefPage() {
 CheckUchefPage.getLayout = (page: JSX.Element) => (
   <>
     <Header />
-    {page}
+    <Main>{page}</Main>
   </>
 );
