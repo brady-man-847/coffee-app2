@@ -39,12 +39,17 @@ function RootApp({ Component, pageProps }: AppPropsWithLayout) {
       </>
     ));
 
+  const isiOSSafari = !!navigator.userAgent.match(/like Mac OS X/i);
   return (
     <>
       <Box
-        style={{
-          height: '-webkit-fill-available',
-        }}
+        style={
+          isiOSSafari
+            ? {
+                height: '-webkit-fill-available',
+              }
+            : {}
+        }
         sx={[
           {
             width: '100%',
