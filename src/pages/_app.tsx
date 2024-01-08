@@ -2,7 +2,7 @@ import { theme } from '@/config';
 import { Box, CssBaseline, ThemeProvider } from '@mui/material';
 import type { AppProps } from 'next/app';
 import '../styles/App.css';
-import { ReactElement, ReactNode, useState } from 'react';
+import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RecoilRoot } from 'recoil';
@@ -29,6 +29,16 @@ function RootApp({ Component, pageProps }: AppPropsWithLayout) {
       }),
   );
 
+  const [isMobileSafari, setIsMobileSafari] = useState(false);
+
+  useEffect(() => {
+    const isiOSSafari = !!navigator.userAgent.match(/like Mac OS X/i);
+
+    if (isiOSSafari) {
+      setIsMobileSafari(true);
+    }
+  }, [isMobileSafari]);
+
   const getLayout =
     Component.getLayout ??
     ((page) => (
@@ -39,12 +49,11 @@ function RootApp({ Component, pageProps }: AppPropsWithLayout) {
       </>
     ));
 
-  const isiOSSafari = !!navigator.userAgent.match(/like Mac OS X/i);
   return (
     <>
       <Box
         style={
-          isiOSSafari
+          isMobileSafari
             ? {
                 height: '-webkit-fill-available',
               }
